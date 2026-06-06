@@ -8,7 +8,7 @@ class StanceStore:
     """SQLite-backed structured Stance contract, keyed by (person, item_id). Persistent."""
 
     def __init__(self, db_path: str = "pmle_stances.db"):
-        self.conn = sqlite3.connect(db_path)
+        self.conn = sqlite3.connect(db_path, check_same_thread=False)
         self.conn.execute(
             "CREATE TABLE IF NOT EXISTS stances "
             "(person TEXT, item_id TEXT, payload TEXT, PRIMARY KEY (person, item_id))"
