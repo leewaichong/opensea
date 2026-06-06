@@ -40,6 +40,28 @@ async def _llm_classify(prompt: str) -> dict:
     return json.loads(text)
 
 
+def _normalize_cited_stances(value, stances: list[Stance]) -> list[str]:
+    if not value:
+        return [s.stakeholder for s in stances]
+    normalized = []
+    for item in value:
+        if isinstance(item, str):
+            normalized.append(item)
+        elif isinstance(item, dict):
+            normalized.append(str(item.get("stakeholder") or item.get("name") or item))
+        else:
+            normalized.append(str(item))
+    return normalized
+
+
+def _normalize_optional_text(value) -> str | None:
+    if value is None or isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        return " ".join(str(v) for v in value if v)
+    return str(value)
+
+
 async def classify_item(stances: list[Stance]) -> ClassificationResult:
     item_id = stances[0].item_id if stances else "unknown"
     prompt = "Stances:\n" + "\n".join(s.model_dump_json() for s in stances)
@@ -47,8 +69,8 @@ async def classify_item(stances: list[Stance]) -> ClassificationResult:
     return ClassificationResult(
         item_id=item_id,
         status=data["status"],
-        summary=data["summary"],
-        divergence=data.get("divergence"),
-        cited_stances=data.get("cited_stances", [s.stakeholder for s in stances]),
-        follow_up=data.get("follow_up"),
+        summary=_normalize_optional_text(data["summary"]) or "",
+        divergence=_normalize_optional_text(data.get("divergence")),
+        cited_stances=_normalize_cited_stances(data.get("cited_stances"), stances),
+        follow_up=_normalize_optional_text(data.get("follow_up")),
     )

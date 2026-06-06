@@ -37,3 +37,22 @@ async def test_fake_agreement_detected_with_stub(monkeypatch):
     result = await classify_item(stances)
     assert result.status == "fake_agreement"
     assert "token" in result.divergence
+
+
+@pytest.mark.asyncio
+async def test_classifier_normalizes_live_model_shape(monkeypatch):
+    async def fake_llm(prompt: str) -> dict:
+        return {
+            "status": "needs_clarification",
+            "summary": "Need proof.",
+            "divergence": None,
+            "cited_stances": [{"stakeholder": "PM"}, {"stakeholder": "Security"}],
+            "follow_up": ["Confirm token path.", "Share load proof."],
+        }
+    monkeypatch.setattr("pmle.crux_engine._llm_classify", fake_llm)
+
+    stances = [_stance("PM", "support", []),
+               _stance("Security", "agree_with_condition", ["no client token"])]
+    result = await classify_item(stances)
+    assert result.cited_stances == ["PM", "Security"]
+    assert result.follow_up == "Confirm token path. Share load proof."
