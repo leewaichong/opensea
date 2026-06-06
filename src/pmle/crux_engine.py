@@ -3,7 +3,7 @@ from agents import Agent, Runner
 from pmle.schemas import Stance, ClassificationResult
 
 _CLASSIFIER = Agent(
-    name="Crux Judge",
+    name="Mochi",
     instructions=(
         "You compare stakeholder stances on ONE agenda item. Use BOTH position AND "
         "key_assumptions. Classify as one of: agreed, crux, fake_agreement, "
