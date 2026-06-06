@@ -7,7 +7,9 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_sdk.errors import SlackApiError
 from pmle import orchestrator
+from pmle.data.cached_stances import CACHED
 from pmle.participants import build_participant
+from pmle.schemas import ClassificationResult, Stance
 from agents import Runner
 from pmle.digest import render_blocks
 
@@ -16,6 +18,44 @@ app = App(token=os.environ.get("SLACK_BOT_TOKEN", "xoxb-import-smoke"),
           token_verification_enabled=False)
 HUMAN = os.environ.get("PMLE_HUMAN_USER")
 CHANNEL = os.environ.get("PMLE_MEETING_CHANNEL")
+_CACHE = {(s.stakeholder, s.item_id): s for s in CACHED}
+
+
+async def _demo_ask_stance(person, item_id, item_text):
+    return _CACHE.get((person, item_id)) or Stance(
+        stakeholder=person,
+        item_id=item_id,
+        position="support",
+        rationale="No known blocker.",
+        key_assumptions=[],
+    )
+
+
+async def _demo_classify_item(stances):
+    item = stances[0].item_id
+    if item == "security":
+        return ClassificationResult(
+            item_id=item,
+            status="fake_agreement",
+            summary="All agree on secure checkout, but assumptions differ.",
+            divergence="PM/Backend: server-side session; Security: no client-side token storage",
+            cited_stances=["PM", "Backend", "Security"],
+            follow_up="Confirm whether any checkout token is stored client-side.",
+        )
+    if any(s.position == "block" for s in stances):
+        return ClassificationResult(
+            item_id=item,
+            status="crux",
+            summary="SRE blocks until 11.11 load readiness is proven.",
+            divergence="SRE needs traffic simulation before launch.",
+            cited_stances=["SRE", "PM"],
+        )
+    return ClassificationResult(
+        item_id=item,
+        status="agreed",
+        summary="No blocking divergence found.",
+        cited_stances=[s.stakeholder for s in stances],
+    )
 
 # --- human DM -> their persistent agent (conversational contract editing) ---
 @app.event("message")
@@ -30,6 +70,9 @@ def on_dm(event, say):
 @app.command("/premeeting")
 def on_premeeting(ack, respond, client):
     ack("Spinning up the pre-meeting orchestrator…")
+    if os.environ.get("PMLE_LIVE_AGENTS") != "1":
+        orchestrator.ask_stance = _demo_ask_stance
+        orchestrator.classify_item = _demo_classify_item
 
     async def escalate(person, item_id, question):
         dm = client.conversations_open(users=HUMAN)
