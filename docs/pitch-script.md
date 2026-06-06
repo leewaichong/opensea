@@ -4,7 +4,7 @@ tags: [project, hackathon, pitch]
 status: active-plan
 ---
 
-# Pitch Script - 3-Minute Demo
+# Pitch Script - 6-Minute Demo
 
 ## Cold Open
 
@@ -16,19 +16,30 @@ status: active-plan
 
 | Beat | Time | On Screen | Narration |
 |---|---:|---|---|
-| 1. Setup | 20s | Decision room: "Ship new checkout before 11.11 freeze?" | "This is a typical go/no-go meeting: 4 stakeholders, 9 agenda items, high launch pressure." |
-| 2. Run agents | 25s | PM, Backend, SRE, Security agents generating stances | "Each stakeholder agent receives the public brief plus its private context and emits structured stances: position, rationale, assumptions, confidence, and evidence." |
-| 3. Board resolves | 35s | 7 items turn green, counter drops | "Seven items were genuine agreement. Those should not consume meeting time." |
-| 4. Obvious crux | 20s | Load-readiness item stays red | "One item is a real disagreement: SRE is not comfortable with 11.11 traffic readiness." |
-| 5. Fake agreement | 45s | Security item turns amber, assumption diff opens | "This is the important one. Everyone said 'secure checkout,' so the naive baseline says agreed. But assumption-aware classification catches the mismatch: PM and Backend assume server-side session; Security means no client-side token. This becomes the second real meeting item." |
-| 6. Decision record | 25s | Final agenda: 2 items, evidence and dissents | "The meeting is now 2 items, not 9. The human owner still decides, with provenance, evidence, and dissents preserved." |
-| 7. Codex/OpenAI close | 30s | Eval tests passing, build trail | "We used OpenAI agents for the stakeholder simulation and Codex to build and red-team the classifier. The key engineering choice was cutting live infrastructure and spending the day proving the reasoning layer." |
+| 1. Setup | 40s | Decision room: "Ship new checkout before 11.11 freeze?" | "This is a typical go/no-go meeting: 4 stakeholders, 9 agenda items, high launch pressure. The expensive failure is not disagreement; it is false consensus." |
+| 2. Run agents | 70s | PM, Backend, SRE, Security agents generating stances | "Each stakeholder agent receives the public brief plus its private context and emits structured stances: position, rationale, assumptions, confidence, and evidence." |
+| 3. Board resolves | 60s | 7 items turn green, counter drops | "Seven items were genuine agreement. Those should not consume meeting time." |
+| 4. Obvious crux | 35s | Load-readiness item stays red | "One item is a real disagreement: SRE is not comfortable with 11.11 traffic readiness." |
+| 5. Fake agreement | 85s | Security item turns amber, assumption diff opens | "This is the important one. Everyone said 'secure checkout,' so the naive baseline says agreed. But assumption-aware classification catches the mismatch: PM and Backend assume server-side session; Security means no client-side token. This becomes the second real meeting item." |
+| 6. Decision record | 45s | Final agenda: 2 items, evidence and dissents | "The meeting is now 2 items, not 9. The human owner still decides, with provenance, evidence, and dissents preserved." |
+| 7. Codex/OpenAI close | 25s | Eval tests passing, build trail | "We used OpenAI agents for the stakeholder simulation and Codex to build and red-team the classifier. The key engineering choice was cutting live infrastructure and spending the day proving the reasoning layer." |
 
 ## The Main Line
 
 Use this exact phrase:
 
 > "The product is not summarizing the meeting after it happens. It is preventing the wrong meeting from happening in the first place."
+
+## Judging Criteria Beats
+
+Make these explicit during the 6 minutes:
+
+- **Problem & Solution Fit:** the 11.11 launch meeting is a real cross-functional go/no-go workflow.
+- **Build Quality:** the board, structured stances, classifier, fallback, and evals are working artifacts.
+- **Insight & Originality:** fake agreement is the wedge; the baseline proves why this is not summarization.
+- **Real-World Value:** fewer meeting items and fewer false-consensus launch decisions.
+- **Build Direction:** AI-native operations workflow powered by managed agents.
+- **Codex Use:** Codex helped scope, build, test, and red-team the product.
 
 ## What To Say About Managed Agents
 
@@ -71,6 +82,10 @@ Because live joining is infrastructure proof, not product proof. For a one-day h
 ### "Why OpenAI?"
 
 The project needs structured multi-agent reasoning. OpenAI gives us reliable structured outputs and agent workflows; Codex helped us simplify the architecture and build the classifier, UI, and tests quickly.
+
+### "What was built during the hackathon?"
+
+This repo, the product docs, managed-agent workflow, stance schema, crux classifier, baseline, evals, board/prototype, and decision record were built during the hackathon. Any standard framework/library dependencies are declared separately.
 
 ## Backup Lines
 

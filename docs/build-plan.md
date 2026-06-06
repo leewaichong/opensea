@@ -14,6 +14,8 @@ Build the smallest thing that proves the product insight:
 
 Do not spend the day proving distributed infrastructure. Spend the day proving the crux engine and showing it clearly.
 
+The marking scheme rewards the product more than stage polish. Every workstream should create evidence for one of the judging criteria: problem fit, build quality, originality, real-world value, build-direction alignment, or effective Codex use.
+
 ## Minimum Winning Build
 
 The project is successful if it can demo:
@@ -46,7 +48,7 @@ Do not build these unless the minimum winning build is already done:
 |---|---|---|
 | Wai Chong | Engine + OpenAI agent flow | schemas, persona prompts, stance generation, classifier, baseline, evals, cached fallback |
 | Shang | Server + integration | API routes, run orchestration, state assembly, cached/live mode switch |
-| JT | Frontend + pitch | board UI, 9->2 animation, assumption diff panel, decision record view, deck/script |
+| JT | Frontend + pitch | board UI, 9->2 animation, assumption diff panel, decision record view, 6-minute deck/script |
 
 If one stream finishes early, help the engine first, frontend second, server third.
 
@@ -60,13 +62,13 @@ If one stream finishes early, help the engine first, frontend second, server thi
 | 11:30-13:00 | Vertical slice v1 | Cached stances -> classifier -> board JSON -> frontend render |
 | 13:00-13:30 | Integration checkpoint | Prove one full pass: security fake agreement appears from data, not only hand-coded UI |
 | 13:30-15:00 | Real agent pass | Wire OpenAI stance generation and live classification, keep cached fallback |
-| 15:00-16:00 | Baseline + evals | Add naive classifier panel and 5 eval cases |
-| 16:00-17:00 | Demo board polish | Animation, assumption diff, final decision record, status colors |
-| 17:00-18:00 | Freeze | Stop feature work, fix bugs, record fallback video |
-| 18:00-20:00 | Rehearse | Run 3-minute pitch repeatedly, prepare Q&A, verify fallback |
-| 20:00-21:00 | Buffer | Final polish and submission |
+| 15:00-16:00 | Baseline + evals | Add naive classifier panel and 5 eval cases; make eval output visible |
+| 16:00-17:00 | Submission hardening | Stop feature work, fix demo-breaking bugs, update README declarations, submit before 5:00 PM |
+| 17:00-18:30 | Demo hardening | Record fallback video, tune animation, verify run instructions |
+| 18:30-20:00 | Rehearse | Run 6-minute pitch repeatedly, prepare 2-minute Q&A |
+| 20:00-21:00 | Buffer | Final polish for stage |
 
-Feature freeze is **17:00**. After that, only demo hardening.
+Feature freeze is **16:00**. Submission hardening runs until the **5:00 PM** deadline. After submission, only demo hardening and rehearsal.
 
 ## Data To Build First
 
@@ -191,7 +193,7 @@ Visual behavior:
 |---|---|---|
 | OpenAI calls slow or fail | Medium | Cache stance outputs and final classifications |
 | Demo looks staged | High | Show baseline contrast and eval suite |
-| Team overbuilds infra | High | Cut MCP/listener; freeze at 17:00 |
+| Team overbuilds infra | High | Cut MCP/listener; freeze features at 16:00 for 5:00 PM submission |
 | Classifier inconsistent | Medium | Use golden data, structured prompts, deterministic fallback |
 | UI not ready | Medium | Render from `data/golden_board.json` before live wiring |
 | Pitch unclear | Medium | Lead with fake agreement, not "meeting productivity" |
@@ -207,7 +209,13 @@ Visual behavior:
 - [ ] Decision record renders agreements, cruxes, and evidence.
 - [ ] Eval suite passes 5 cases.
 - [ ] Cached fallback works with network disabled or API unavailable.
-- [ ] 3-minute demo rehearsed at least 3 times.
+- [ ] README states build direction, what was built during the hackathon, and existing-code declaration.
+- [ ] Submission checklist is complete before 5:00 PM.
+- [ ] 6-minute demo rehearsed at least 3 times.
+
+## Submission Checklist
+
+See [Submission Checklist](./submission-checklist.md). The repo must be submission-ready before 5:00 PM, even if the team continues polishing the live demo afterward.
 
 ## Staff-Engineer Check
 

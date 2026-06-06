@@ -39,10 +39,50 @@ This repo intentionally avoids heavy distributed infrastructure for the first de
 
 No cross-laptop MCP join, real meeting listener, email integration, or auth system is on the critical path.
 
+## Build Direction Alignment
+
+Primary direction: **AI-Native Products & Operations**.
+
+PerMyLastEmail is not a faster version of an existing meeting note-taker. It changes the operating pattern: stakeholders send agents into a pre-meeting reasoning loop, and humans receive only the unresolved cruxes with provenance.
+
+Secondary fit: **Deep Domain AI** for product launch readiness. The demo models how PM, Backend, SRE, and Security actually reason about a high-stakes release decision.
+
+## Judging Alignment
+
+| Criterion | What the repo/demo should prove |
+|---|---|
+| Problem & Solution Fit | Go/no-go meetings waste time on settled topics and miss hidden disagreement. Pre-meeting crux extraction is the right intervention. |
+| Build Quality | Working board, structured stance outputs, classifier, baseline, evals, deterministic fallback. |
+| Insight & Originality | The novel wedge is fake-agreement detection: same words, incompatible assumptions. |
+| Real-World Value | Product teams get shorter launch meetings and avoid shipping decisions based on false consensus. |
+| Build Direction | AI-native operations workflow that would not be practical without agentic structured reasoning. |
+| Use of Codex | Codex is used for planning, scoping, implementation, tests, red-team review, and demo hardening. |
+
+## Hackathon Declaration Template
+
+This is a new public repository created for the hackathon.
+
+Target artifacts to build during the hackathon:
+
+- project docs and build plan,
+- agent/persona workflow,
+- assumption-aware crux classifier,
+- baseline classifier,
+- evaluation cases,
+- demo board/prototype,
+- decision record view.
+
+Existing code or external projects used:
+
+- none declared yet.
+
+Update this section before final submission so it accurately states what was actually built during the hackathon and what starter code or open-source libraries were used.
+
 ## Docs
 
 - [Overview](./docs/overview.md)
 - [Design Spec](./docs/design-spec.md)
 - [Build Plan](./docs/build-plan.md)
 - [Pitch Script](./docs/pitch-script.md)
-
+- [Judging Alignment](./docs/judging-alignment.md)
+- [Submission Checklist](./docs/submission-checklist.md)
