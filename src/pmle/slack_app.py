@@ -5,6 +5,7 @@ import os, asyncio
 from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
+from slack_sdk.errors import SlackApiError
 from pmle import orchestrator
 from pmle.participants import build_participant
 from agents import Runner
@@ -44,8 +45,14 @@ def on_premeeting(ack, respond, client):
         return "no answer (timeout)"
 
     board = asyncio.run(orchestrator.run_meeting(escalate=escalate))
-    client.chat_postMessage(channel=CHANNEL, blocks=render_blocks(board),
-                            text=f"Pre-meeting result: {board.meeting_item_count()} items need a meeting")
+    text = f"Pre-meeting result: {board.meeting_item_count()} items need a meeting"
+    blocks = render_blocks(board)
+    try:
+        client.chat_postMessage(channel=CHANNEL, blocks=blocks, text=text)
+    except SlackApiError as exc:
+        if exc.response.get("error") != "not_in_channel":
+            raise
+        respond(blocks=blocks, text=text)
 
 def main():
     if "SLACK_BOT_TOKEN" not in os.environ or "SLACK_APP_TOKEN" not in os.environ:
