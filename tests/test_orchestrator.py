@@ -29,3 +29,23 @@ async def test_nine_to_two(monkeypatch):
     assert statuses["objective"] == "fake_agreement"
     assert statuses["role-mix"] == "crux"
     assert all(a.status == "resolved" for a in board.action_items)
+
+
+@pytest.mark.asyncio
+async def test_injected_functions_used_without_mutating_module():
+    # Inject ask_stance/classify_item explicitly (the Slack demo path) and confirm
+    # run_meeting uses them WITHOUT mutating the module-level names.
+    real_ask, real_classify = orchestrator.ask_stance, orchestrator.classify_item
+
+    async def fake_ask(person, item_id, item_text):
+        from pmle.schemas import Stance
+        return Stance(stakeholder=person, item_id=item_id, position="support", rationale="r")
+
+    async def fake_classify(stances):
+        return ClassificationResult(item_id=stances[0].item_id, status="crux", summary="x")
+
+    board = await orchestrator.run_meeting(ask_stance=fake_ask, classify_item=fake_classify)
+    assert all(i.status == "crux" for i in board.items)
+    # Module globals are untouched -> /premeeting-scripted can't leak into later runs.
+    assert orchestrator.ask_stance is real_ask
+    assert orchestrator.classify_item is real_classify
