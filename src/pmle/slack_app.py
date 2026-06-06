@@ -20,6 +20,7 @@ app = App(token=os.environ.get("SLACK_BOT_TOKEN", "xoxb-import-smoke"),
 HUMAN = os.environ.get("PMLE_HUMAN_USER")
 CHANNEL = os.environ.get("PMLE_MEETING_CHANNEL")
 _CACHE = {(s.stakeholder, s.item_id): s for s in CACHED}
+_MANUAL_SESSIONS: dict[str, dict] = {}
 
 
 async def _demo_ask_stance(person, item_id, item_text):
@@ -58,33 +59,93 @@ async def _demo_classify_item(stances):
         cited_stances=[s.stakeholder for s in stances],
     )
 
-_MANUAL_BLOCKS = [
-    {"type": "header", "text": {"type": "plain_text", "text": "Manual Pre-Meeting Script"}},
-    {"type": "section", "text": {"type": "mrkdwn", "text": (
-        "*Turn 1: John starts*\n"
-        "```I need to prep a decision meeting for Shopee SG's 11.11 creator campaign.\n\n"
-        "We need to decide the creator mix for the sale: who should be the hero face, "
-        "who should drive Shopee Live conversion, and what criteria we should use to make that split. "
-        "I want the meeting to be short and focused, so please collect input from the key stakeholders "
-        "first and generate the final agenda.```"
-    )}},
-    {"type": "section", "text": {"type": "mrkdwn", "text": (
-        "*Bot asks John for missing setup fields:*\n"
-        "meeting title, participants and roles, initial agenda, known candidates, constraints/context."
-    )}},
-    {"type": "section", "text": {"type": "mrkdwn", "text": (
-        "*Manual stakeholder inputs to paste next:*\n"
-        "1. John provides meeting details from `docs/demo-scenario-shopee.md` Turn 2.\n"
-        "2. Wai Chong gives Growth input from Turn 3.\n"
-        "3. Shang gives Commerce input from Turn 4.\n"
-        "4. Bot asks John about the alignment gap from Turn 5.\n"
-        "5. Wai Chong and Shang confirm compressed agenda from Turn 6."
-    )}},
-    {"type": "section", "text": {"type": "mrkdwn", "text": (
-        "When you want the generated digest, run `/premeeting-scripted`. "
-        "That command uses the same Shopee user stories and returns the `9 → 2` brief."
-    )}},
-]
+_FIRST_PROMPT = (
+    "What meeting do you want to prepare?\n\n"
+    "Tell me the decision you need the meeting to resolve, who should be involved, "
+    "and what kind of agenda compression you want. A rough paragraph is enough."
+)
+
+
+def _next_manual_reply(user: str, text: str) -> str:
+    session = _MANUAL_SESSIONS.setdefault(user, {"step": "brief", "answers": []})
+    step = session["step"]
+    session["answers"].append({"step": step, "text": text})
+
+    if step == "brief":
+        session["step"] = "setup"
+        return (
+            "Got it. I can host that pre-meeting.\n\n"
+            "Please send the setup fields so I can collect the right stakeholder input:\n"
+            "- meeting title\n"
+            "- decision owner\n"
+            "- participants and roles\n"
+            "- known candidates/options\n"
+            "- initial agenda\n"
+            "- constraints or context\n\n"
+            "For the Shopee demo, paste Turn 2 from `docs/demo-scenario-shopee.md`."
+        )
+
+    if step == "setup":
+        session["step"] = "growth"
+        return (
+            "Thanks. I’ll collect stakeholder views before compressing the agenda.\n\n"
+            "*Growth review prompt*\n"
+            "Please review the draft agenda with a growth lens:\n"
+            "1. Which option best supports new-user growth?\n"
+            "2. Which agenda item must stay in the live meeting?\n"
+            "3. Which items are already safe to treat as agreed?\n"
+            "4. What assumption should I preserve in the brief?\n\n"
+            "For the Shopee demo, paste Wai Chong’s Turn 3 answer."
+        )
+
+    if step == "growth":
+        session["step"] = "commerce"
+        return (
+            "Growth input captured. I’m preserving the acquisition assumptions.\n\n"
+            "*Commerce review prompt*\n"
+            "Please review the draft agenda with a commerce lens:\n"
+            "1. Which option best supports sale-window GMV?\n"
+            "2. Which agenda item must stay in the live meeting?\n"
+            "3. Which items are already safe to treat as agreed?\n"
+            "4. What assumption should I preserve in the brief?\n\n"
+            "For the Shopee demo, paste Shang’s Turn 4 answer."
+        )
+
+    if step == "commerce":
+        session["step"] = "owner_gap"
+        return (
+            "Commerce input captured. I found a likely alignment gap.\n\n"
+            "The stakeholders may agree on the same audience label, but optimize different outcomes: "
+            "acquisition, GMV/conversion, or mainstream brand reach.\n\n"
+            "From the decision-owner side, what should the plan optimize for? Or should the live agenda "
+            "explicitly decide the split between those objectives?\n\n"
+            "For the Shopee demo, paste John’s Turn 5 answer."
+        )
+
+    if step == "owner_gap":
+        session["step"] = "confirm_growth"
+        return (
+            "Owner perspective captured. I’m moving resolved items into the pre-read.\n\n"
+            "*Growth check:* are you comfortable moving deliverables, tracking, hero categories, "
+            "and backup options into consensus? Any caveat I should preserve?\n\n"
+            "For the Shopee demo, paste Wai Chong’s Turn 6 answer."
+        )
+
+    if step == "confirm_growth":
+        session["step"] = "confirm_commerce"
+        return (
+            "Growth confirmation captured.\n\n"
+            "*Commerce check:* are you comfortable moving deliverables, hero categories, and backup "
+            "options into consensus? Any caveat I should preserve?\n\n"
+            "For the Shopee demo, paste Shang’s Turn 6 answer."
+        )
+
+    session["step"] = "complete"
+    return (
+        "Pre-meeting inputs captured. I’m ready to generate the compressed brief.\n\n"
+        "Run `/premeeting-scripted` for the Shopee demo digest, or keep sending refinements here "
+        "if you want to adjust the brief first."
+    )
 
 
 def _run_scripted_premeeting(respond, client):
@@ -121,15 +182,23 @@ def _run_scripted_premeeting(respond, client):
 def on_dm(event, say):
     if event.get("channel_type") != "im" or event.get("bot_id"):
         return
+    user = event.get("user", "unknown")
+    if user in _MANUAL_SESSIONS:
+        say(_next_manual_reply(user, event["text"]))
+        return
     agent, session = build_participant("John Taylor")  # demo: one human drives the meeting.
     result = asyncio.run(Runner.run(agent, event["text"], session=session))
     say(result.final_output)
 
-# --- /premeeting starts the manual script ---
+# --- /premeeting starts the manual hosted flow ---
 @app.command("/premeeting")
-def on_premeeting(ack, respond):
+def on_premeeting(ack, respond, client, command):
     ack()
-    respond(blocks=_MANUAL_BLOCKS, text="Manual pre-meeting script ready.")
+    user = command["user_id"]
+    _MANUAL_SESSIONS[user] = {"step": "brief", "answers": []}
+    dm = client.conversations_open(users=user)
+    client.chat_postMessage(channel=dm["channel"]["id"], text=_FIRST_PROMPT)
+    respond(text="I opened a DM to host the pre-meeting setup.")
 
 
 # --- /premeeting-scripted runs the fast digest ---
