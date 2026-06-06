@@ -81,7 +81,8 @@ Update this section before final submission so it accurately states what was act
 ## Docs
 
 - [Overview](./docs/overview.md)
-- [Design Spec](./docs/design-spec.md)
+- [Design Spec v2 — Slack-native](./docs/design-spec-slack.md) (current direction)
+- [Design Spec v1 — web app](./docs/design-spec.md) (superseded)
 - [Build Plan](./docs/build-plan.md)
 - [Pitch Script](./docs/pitch-script.md)
 - [Judging Alignment](./docs/judging-alignment.md)
