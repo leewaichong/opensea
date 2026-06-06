@@ -51,7 +51,9 @@ SLACK  (human membrane — one app, one bot)
 BACKEND  (Python · OpenAI Agents SDK + Slack Bolt / Socket Mode)
   participant agents : Agent(persona) + SQLiteSession(person_id)   ← PERSISTENT
                        hold private context/knowledge
-                       exposed via .as_tool() → return a structured Stance
+                       own a structured Stance store (the data contract)
+                       read/write tools → human conversation mutates the contract
+                       exposed via .as_tool() → return current Stance(s)
   orchestrator agent : transient Agent per meeting
                        tools = [each participant.as_tool()] + crux_engine
                        per item: query all → compare stances+assumptions → classify
@@ -119,23 +121,57 @@ Carried over from v1 (unchanged). The `Stance` and `Classification Result` schem
 
 Statuses: `open`, `agreed`, `fake_agreement`, `crux`, `needs_clarification`.
 
+## Conversational Contract Editing
+
+The Stance contract is **owned by the human, edited through their agent.** A person DMs
+their persistent agent in Slack to **set, update, or change** any field of their stance —
+position, rationale, key assumptions, confidence, evidence. The agent maps free-form
+natural language onto the structured `Stance` schema and writes it to its store, then
+confirms back.
+
+```text
+Human (Slack DM): "On the security item — I'm fine shipping, but only if no checkout
+                   token is ever stored client-side. That's a hard condition."
+Agent:            maps → Stance{position: agree_with_condition,
+                                 key_assumptions: ["No client-side token storage"], ...}
+                  writes to store → "Got it. Updated your security stance: conditional
+                  approval, hard requirement = no client-side token. Anything else?"
+```
+
+This means:
+- Stances are **grounded in what the human actually said**, not persona hallucination —
+  a direct answer to "how do we know this isn't staged / made up?"
+- The persistent session accumulates the human's positions across meetings; they can
+  revise at any time and the agent re-versions the contract.
+- The orchestrator always reads the **current** contract state when it runs.
+
+Agent tools: `get_stance(item_id)`, `set_stance(item_id, fields)`,
+`update_stance(item_id, partial_fields)`. The human's input is conversational; the
+mapping to structured fields is the agent's job.
+
 ## Orchestration Flow
 
+0. (Ongoing) Humans converse with their agents in Slack to **set/update** their stances —
+   the data contract is populated by real human input, not persona guesswork.
 1. Human creator posts the brief in Slack (decision + 9 items + action items + participants).
 2. Slack handler spins up a transient orchestrator session.
-3. For each agenda item, orchestrator calls each participant agent (as a tool) → Stance.
+3. For each agenda item, orchestrator calls each participant agent (as a tool) → reads its
+   **current** Stance from the contract store.
 4. Crux engine classifies each item from position **and** assumptions.
-5. For `needs_clarification` / a known gap → orchestrator triggers a Slack **DM to the
-   human**, waits for the reply, re-runs that item.
+5. When a stance is missing/ambiguous (`needs_clarification`) → the orchestrator asks that
+   participant's agent to fill the gap, which **DMs the human** to set the field
+   conversationally, then re-runs the item with the updated contract.
 6. Orchestrator assembles the digest (compressed agenda + decision record) and posts it
    back to the meeting channel. Session is discarded.
 7. Judges can open the OpenAI Trace viewer to see the agent-to-agent call graph.
 
-## The Human-in-the-Loop Moment (planted, one per demo)
+## The Human-in-the-Loop Moment (demo)
 
-Security agent is unsure whether the implementation stores a client-side token →
-DMs the human → human replies "yes, it does" → confirms the fake-agreement crux.
-This is the single real human interaction in the demo; everything else is autonomous.
+The conversational editing above is the human membrane in action. For the demo, the
+planted beat is: the orchestrator hits a `needs_clarification` on the security item →
+the Security agent DMs its human ("does the implementation store any checkout token
+client-side?") → the human answers conversationally → the agent updates the Stance →
+the crux is confirmed. Same mechanism as setup-time editing, surfaced live on stage.
 
 ## Baseline Contrast (unchanged — the proof)
 
@@ -160,8 +196,8 @@ Expected outcome:
 | Owner | Workstream | Deliverables |
 |---|---|---|
 | Wai Chong | Orchestrator + crux engine | orchestrator agent, agents-as-tools wiring, stance schema, assumption-aware classifier, naive baseline, 5 evals |
-| Shang | Participant agents + persistence | 4 persona agents, persistent `SQLiteSession` per person, private-knowledge data, stance tool contract, cached-stance fallback |
-| JT | Slack integration + pitch | Bolt Socket Mode app, brief intake, DM escalation, Block Kit digest, demo run, 6-min deck |
+| Shang | Participant agents + persistence | 4 persona agents, persistent `SQLiteSession` per person, structured Stance store + `get/set/update_stance` tools (conversational contract editing), private-knowledge data, cached-stance fallback |
+| JT | Slack integration + pitch | Bolt Socket Mode app, brief intake, **human↔agent DM conversation routing**, DM escalation, Block Kit digest, demo run, 6-min deck |
 
 Integration milestone: one full pass where the security `fake_agreement` appears from
 real agent stances (not hand-coded), digest posts to Slack, trace shows the call graph.
