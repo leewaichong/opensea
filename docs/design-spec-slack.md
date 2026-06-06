@@ -2,28 +2,25 @@
 date: 2026-06-06
 tags: [project, hackathon, openai, codex, slack, design-spec]
 status: active-plan
-supersedes: design-spec.md
 ---
 
-# Design Spec v2 — Slack-Native Managed-Agent Crux Finder
+# Design Spec — Slack-Native Managed-Agent Crux Finder
 
-This supersedes the v1 single-web-app design ([design-spec.md](./design-spec.md)).
-The product insight is unchanged — **catch fake agreement before the meeting** — but
-the surface and architecture pivot to a real Slack-native, managed-agent system.
+The product insight: **catch fake agreement before the meeting.** The system is a
+real Slack-native, managed-agent product: persistent per-person agents, a transient
+orchestrator, an assumption-aware crux engine, and the OpenAI trace viewer as the
+reasoning surface.
 
-## What Changed From v1
+## Architecture At A Glance
 
-| | v1 (web app) | v2 (Slack-native) |
-|---|---|---|
-| Surface | Custom React board | Slack (human membrane) + OpenAI trace viewer (reasoning view) |
-| Agents | Simulated in one backend | Real OpenAI Agents SDK managed sessions |
-| Participant agents | Stateless persona prompts | **Persistent** sessions (`SQLiteSession` per person) — enterprise "everyone has a standing agent" |
-| Orchestrator | Classifier function | **Transient** managed agent session, dies when meeting ends |
-| Agent-to-agent | N/A | Orchestrator queries participants via `agent.as_tool()` |
-| Observability | N/A | Built-in SDK tracing → OpenAI Dashboard Trace viewer (free) |
-
-The crux engine (assumption-aware classifier + naive baseline) carries over unchanged
-as the reasoning payload.
+| Concern | Choice |
+|---|---|
+| Surface | Slack (human membrane) + OpenAI trace viewer (reasoning view) |
+| Agents | OpenAI Agents SDK managed sessions |
+| Participant agents | **Persistent** sessions (`SQLiteSession` per person) — enterprise "everyone has a standing agent" |
+| Orchestrator | **Transient** managed agent session, dies when the meeting ends |
+| Agent-to-agent | Orchestrator queries participants via `agent.as_tool()` |
+| Observability | Built-in SDK tracing → OpenAI Dashboard Trace viewer (free) |
 
 ## Product Shape
 
@@ -89,8 +86,8 @@ calls each participant as a tool, aggregates, and classifies.
 
 ## Data Contracts
 
-Carried over from v1 (unchanged). The `Stance` and `Classification Result` schemas in
-[design-spec.md](./design-spec.md) remain authoritative.
+These are authoritative. The implementation mirrors them as pydantic models
+(see `src/pmle/schemas.py` in [build-plan-slack.md](./build-plan-slack.md)).
 
 ### Stance (per item, per participant)
 

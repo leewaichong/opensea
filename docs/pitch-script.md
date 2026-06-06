@@ -1,106 +1,128 @@
 ---
 date: 2026-06-06
-tags: [project, hackathon, pitch]
+tags: [project, hackathon, openai, codex, slack, pitch]
 status: active-plan
 ---
 
-# Pitch Script - 6-Minute Demo
+# Pitch Script — 6-Minute Demo
+
+PerMyLastEmail is a **Slack-native pre-meeting crux finder**. Every person has a
+persistent personal agent in Slack. When a meeting is called, a transient orchestrator
+agent reaches out to each person's agent, compares the assumptions under their stances,
+clears what it can before anyone sits down, and hands humans only the disagreements that
+actually need a meeting.
 
 ## Cold Open
 
-> "Four people said: make checkout secure. A summarizer would mark that as agreement. But PM and Backend meant server-side sessions, while Security meant no client-side token at all. Same words, different assumptions. That is how a team accidentally ships the wrong design into 11.11."
+> "Four people said: make checkout secure. A summarizer would mark that as agreement. But
+> PM and Backend meant a server-side session, while Security meant no client-side token at
+> all. Same words, different assumptions — that is how a team accidentally ships the wrong
+> design into 11.11."
 
-> "We built PerMyLastEmail: a pre-meeting crux finder. It uses managed agents to collect stakeholder stances before the meeting, compares the assumptions underneath those stances, and gives humans only the fights that matter."
+> "PerMyLastEmail lives in Slack. Everyone already has a personal agent there. When a
+> meeting is called, an orchestrator agent quietly talks to everyone's agent, resolves what
+> it can, and gives the humans only the fights that matter."
+
+## What's Actually Running
+
+> "Each person has a **persistent managed agent session** — enterprise style: everyone has
+> a standing agent that knows their context. The **orchestrator is a transient session**
+> spun up for one meeting; it reaches every participant agent, runs the assumption-diff
+> classifier, and then dissolves. The agent-to-agent call graph is right there in the
+> OpenAI trace viewer."
 
 ## Demo Storyboard
 
 | Beat | Time | On Screen | Narration |
 |---|---:|---|---|
-| 1. Setup | 40s | Decision room: "Ship new checkout before 11.11 freeze?" | "This is a typical go/no-go meeting: 4 stakeholders, 9 agenda items, high launch pressure. The expensive failure is not disagreement; it is false consensus." |
-| 2. Run agents | 70s | PM, Backend, SRE, Security agents generating stances | "Each stakeholder agent receives the public brief plus its private context and emits structured stances: position, rationale, assumptions, confidence, and evidence." |
-| 3. Board resolves | 60s | 7 items turn green, counter drops | "Seven items were genuine agreement. Those should not consume meeting time." |
-| 4. Obvious crux | 35s | Load-readiness item stays red | "One item is a real disagreement: SRE is not comfortable with 11.11 traffic readiness." |
-| 5. Fake agreement | 85s | Security item turns amber, assumption diff opens | "This is the important one. Everyone said 'secure checkout,' so the naive baseline says agreed. But assumption-aware classification catches the mismatch: PM and Backend assume server-side session; Security means no client-side token. This becomes the second real meeting item." |
-| 6. Decision record | 45s | Final agenda: 2 items, evidence and dissents | "The meeting is now 2 items, not 9. The human owner still decides, with provenance, evidence, and dissents preserved." |
-| 7. Codex/OpenAI close | 25s | Eval tests passing, build trail | "We used OpenAI agents for the stakeholder simulation and Codex to build and red-team the classifier. The key engineering choice was cutting live infrastructure and spending the day proving the reasoning layer." |
+| 1. Set your stance | 50s | Slack DM with your own agent | "I tell my agent, in plain Slack: 'I'm fine shipping, but only if no checkout token is ever stored client-side.' My agent maps that onto a structured stance. Stances are grounded in what people actually said — not made up." |
+| 2. Call the meeting | 35s | `/premeeting` posts the decision + 9-item agenda + action items | "The organizer calls the pre-meeting in Slack. A transient orchestrator spins up." |
+| 3. Agents reach out | 60s | OpenAI trace viewer: orchestrator → each participant agent | "The orchestrator queries every participant's persistent agent, item by item. This is real agent-to-agent reasoning — you can watch the call graph live in the trace." |
+| 4. The easy 7 dissolve | 35s | Digest: 7 items agreed | "Seven items are genuine agreement. They never reach the meeting." |
+| 5. Action items pre-cleared | 35s | Digest: action items resolved / needs-owner | "Resolvable action items get closed before the meeting too — rollback owner assigned, one load-test item flagged because no agent could own it without a human." |
+| 6. The real crux | 30s | Load-readiness stays red | "One real disagreement: SRE is not comfortable with 11.11 traffic readiness." |
+| 7. Fake agreement caught | 75s | Security item amber → assumption diff | "Here's the important one. Everyone said 'secure checkout,' so a naive baseline says agreed. But the assumption-aware classifier catches the mismatch: PM/Backend assume a server-side session; Security means no client-side token. The orchestrator wasn't sure, so it DM'd the human, the human confirmed, and it locked as a crux." |
+| 8. The result | 30s | Digest: 9 → 2 + decision record | "The meeting is now 2 items, not 9 — with provenance and dissents preserved. The human owner still decides." |
+| 9. Codex close | 30s | Commit trail, evals, trace | "We used OpenAI Agents SDK for the persistent and transient agents, Slack as the human membrane, and Codex to build, test, and red-team the crux engine." |
 
 ## The Main Line
 
-Use this exact phrase:
-
-> "The product is not summarizing the meeting after it happens. It is preventing the wrong meeting from happening in the first place."
+> "We are not summarizing the meeting after it happens. We are preventing the wrong meeting
+> from happening — inside the tool the team already lives in."
 
 ## Judging Criteria Beats
 
 Make these explicit during the 6 minutes:
 
-- **Problem & Solution Fit:** the 11.11 launch meeting is a real cross-functional go/no-go workflow.
-- **Build Quality:** the board, structured stances, classifier, fallback, and evals are working artifacts.
-- **Insight & Originality:** fake agreement is the wedge; the baseline proves why this is not summarization.
-- **Real-World Value:** fewer meeting items and fewer false-consensus launch decisions.
-- **Build Direction:** AI-native operations workflow powered by managed agents.
-- **Codex Use:** Codex helped scope, build, test, and red-team the product.
+- **Problem & Solution Fit:** the 11.11 launch go/no-go is a real cross-functional meeting; most of the hour is spent re-discovering agreement.
+- **Build Quality:** persistent + transient managed agents, conversational stance editing, assumption-aware classifier, naive baseline, action-item clearing, Slack digest, evals, cached fallback — all working.
+- **Insight & Originality:** fake-agreement detection is the wedge; the baseline proves it's not summarization.
+- **Real-World Value:** shorter meetings, fewer false-consensus launch decisions, action items closed before anyone meets — all in Slack, no new tool to adopt.
+- **Build Direction (AI-native operations):** the operating pattern changes — people send agents into a pre-meeting reasoning loop; humans receive only unresolved cruxes with provenance.
+- **Use of Codex:** Codex scoped the pivot, built the engine and orchestrator, wrote the evals, and red-teamed the classifier.
 
-## What To Say About Managed Agents
+## Why Slack, Why Persistent vs Transient
 
-> "We use managed agents as the stakeholder layer. Each agent has a role, private context, and a structured output contract. That lets us spend our hackathon time on the product logic: comparing assumptions and extracting cruxes."
+> "Slack is where the team already is, so adoption cost is zero. The persistent agents are
+> the enterprise reality — everyone gets a standing agent. The orchestrator is transient on
+> purpose: it exists only for the meeting, holds no standing authority, and dissolves when
+> it's done. It compresses *what to discuss*; it never makes the business decision."
 
-## What To Say About What Is Live
+## What Is Live vs Cached
 
-> "For demo reliability, stakeholder responses can be cached. The assumption-diff classification runs on those structured stances, and we keep deterministic fallback output so stage timing does not decide the demo."
-
-If asked whether this is fair:
-
-> "Yes. The core claim is not that the API call is slow or fast. The claim is that position-only classification misses fake agreement, while assumption-aware classification catches it. That is what we show with the baseline and evals."
+> "Stances can be cached for stage timing, but the assumption-diff classification runs live
+> on those structured stances, and we keep a deterministic fallback so stage timing never
+> decides the demo. The core claim isn't about API speed — it's that position-only
+> classification misses fake agreement while assumption-aware classification catches it.
+> That's what the baseline and evals show."
 
 ## Judge Q&A
 
 ### "Isn't this just a meeting summarizer?"
 
-No. Summarizers act after the meeting. This acts before the meeting and catches hidden disagreement that a transcript summary would often flatten.
+No. Summarizers act after the meeting. PerMyLastEmail acts before it, in Slack, and catches
+hidden disagreement a transcript summary would flatten.
 
-### "How do you know it is not staged?"
+### "How do you know the agents aren't just making the stances up?"
 
-We show three things:
+Stances are set by the humans, conversationally, through their own agents. Every stance
+traces back to something a person actually told their agent — and the human can revise it
+any time. That's why we can trust the compression.
 
-1. the naive baseline fails on the security item,
-2. the assumption diff explains exactly why,
-3. the eval suite includes a false-positive trap where different wording has the same assumption and should still classify as agreed.
+### "How do you know it isn't staged?"
+
+Three things: the naive baseline fails on the security item; the assumption diff explains
+exactly why; and the eval suite includes a false-positive trap where different wording with
+the same assumption still classifies as agreed.
 
 ### "Do agents decide for humans?"
 
-No. The system compresses the agenda. The human owner still makes the decision. Every compressed item has provenance and can be pulled back into the meeting.
+No. The orchestrator compresses the agenda. The human owner decides, with provenance, and
+can pull any compressed item back into the meeting.
 
 ### "Do agents leak private context?"
 
-No raw private context is shared. Agents emit structured stances: position, rationale, assumptions, confidence, and evidence references.
+No raw private context is shared between agents. They emit structured stances: position,
+rationale, assumptions, confidence, evidence references.
 
-### "Why not build live agent joining?"
+### "Why managed agents / OpenAI?"
 
-Because live joining is infrastructure proof, not product proof. For a one-day hackathon, the valuable proof is catching the hidden disagreement that changes the decision.
-
-### "Why OpenAI?"
-
-The project needs structured multi-agent reasoning. OpenAI gives us reliable structured outputs and agent workflows; Codex helped us simplify the architecture and build the classifier, UI, and tests quickly.
-
-### "What was built during the hackathon?"
-
-This repo, the product docs, managed-agent workflow, stance schema, crux classifier, baseline, evals, board/prototype, and decision record were built during the hackathon. Any standard framework/library dependencies are declared separately.
+We need persistent per-person sessions, transient orchestration, agent-to-agent tool calls,
+and built-in tracing — the Agents SDK gives all four out of the box, so we spent our day on
+the product logic: comparing assumptions and extracting cruxes.
 
 ## Backup Lines
 
-If the demo is slow:
+If Slack is slow or flaky:
 
-> "We will switch to cached stances so we can focus on the reasoning result."
+> "I'll switch to the cached path — same orchestrator, same digest, no network dependency."
 
-If the classifier output is delayed:
+If the trace is the only thing live:
 
-> "The deterministic fallback shows the same board state from the last successful run."
-
-If the judges push on scope:
-
-> "We intentionally scoped this to the crux-finding layer. That is the part with product novelty."
+> "The trace viewer is the durable proof: that's the real orchestrator-to-agent call graph
+> from this run."
 
 ## Closing
 
-> "Meetings do not fail because people disagree. They fail because people think they agree. PerMyLastEmail catches that before the hour is gone."
+> "Meetings don't fail because people disagree. They fail because people think they agree.
+> PerMyLastEmail catches that before the hour is gone — right inside Slack."

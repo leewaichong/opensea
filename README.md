@@ -1,89 +1,77 @@
 # PerMyLastEmail
 
-Pre-meeting crux finder for the Sea x OpenAI Codex Hackathon.
+A **Slack-native pre-meeting crux finder** for the Sea x OpenAI Codex Hackathon.
 
-PerMyLastEmail uses managed/SDK-style OpenAI agents to collect stakeholder stances before a decision meeting, compare the assumptions underneath those stances, and surface only the agenda items that actually need human discussion.
+Every person has a persistent personal agent in Slack. When a meeting is called, a
+transient **orchestrator** agent reaches out to each participant's agent, compares the
+*assumptions* underneath their stances, clears what it can before anyone sits down, and
+hands humans only the disagreements that actually need a meeting.
 
 The demo scenario is a go/no-go decision:
 
 > Should we ship the new checkout flow before the 11.11 promo freeze?
 
-The headline demo compresses a 9-item agenda into 2 real cruxes:
+It compresses a 9-item agenda into **2 real cruxes**:
 
 - 7 items resolve as genuine agreement.
-- 1 item remains an obvious crux: 11.11 load readiness.
-- 1 item looks agreed but is actually fake agreement: "secure checkout" means different things to different stakeholders.
+- 1 item stays a clear crux: 11.11 load readiness.
+- 1 item looks agreed but is **fake agreement**: "secure checkout" means different things to different stakeholders.
+
+Resolvable **action items** are pre-cleared in the same pass.
 
 ## Why It Matters
 
-A normal meeting summarizer would mark "make checkout secure" as agreement because everyone used the same words.
+A normal meeting summarizer marks "make checkout secure" as agreement because everyone
+used the same words. PerMyLastEmail compares the assumptions underneath:
 
-PerMyLastEmail compares the assumptions:
+- PM and Backend assume a **server-side session**.
+- Security means **no client-side token at all**.
 
-- PM and Backend assume a server-side session.
-- Security means no client-side token at all.
+Same words, different assumptions. That hidden mismatch becomes one of the two real
+meeting topics — caught before the meeting, inside the tool the team already uses.
 
-Same words, different assumptions. That hidden mismatch becomes one of the two real meeting topics.
+## How It Works
 
-## Hackathon Scope
+- **Persistent participant agents** — each person has an OpenAI Agents SDK session
+  (`SQLiteSession`) that holds their context and a structured stance contract. People
+  set and update their stances by chatting with their agent in Slack.
+- **Transient orchestrator** — spun up per meeting; queries each participant agent via
+  agents-as-tools, runs the assumption-aware crux engine, escalates the one real gap to a
+  human via Slack DM, posts the digest, then dissolves.
+- **Reasoning view** — the agent-to-agent call graph is visible in the OpenAI Dashboard
+  trace viewer (built-in tracing), no custom dashboard needed.
+- **Slack** is the human membrane; no new tool to adopt.
 
-This repo intentionally avoids heavy distributed infrastructure for the first demo. The winning artifact is the reasoning layer:
+## Build Direction
 
-- four stakeholder agents,
-- structured stance outputs,
-- naive baseline classifier,
-- assumption-aware crux classifier,
-- live board showing `9 -> 2`,
-- decision record with provenance,
-- small eval suite for credibility.
+Primary: **AI-Native Products & Operations**. PerMyLastEmail changes the operating
+pattern — people send agents into a pre-meeting reasoning loop, and humans receive only
+the unresolved cruxes with provenance.
 
-No cross-laptop MCP join, real meeting listener, email integration, or auth system is on the critical path.
+Secondary: **Deep Domain AI** for product-launch readiness (how PM, Backend, SRE, and
+Security actually reason about a high-stakes release).
 
-## Build Direction Alignment
+## Built During The Hackathon
 
-Primary direction: **AI-Native Products & Operations**.
+This is a new public repository created for the Sea x OpenAI Codex Hackathon.
 
-PerMyLastEmail is not a faster version of an existing meeting note-taker. It changes the operating pattern: stakeholders send agents into a pre-meeting reasoning loop, and humans receive only the unresolved cruxes with provenance.
+- Slack-native managed-agent architecture (persistent participant agents + transient orchestrator)
+- conversational stance/contract editing
+- assumption-aware crux classifier + naive baseline
+- action-item pre-clearing
+- evaluation cases and cached/offline fallback
+- Slack Socket Mode app and digest
 
-Secondary fit: **Deep Domain AI** for product launch readiness. The demo models how PM, Backend, SRE, and Security actually reason about a high-stakes release decision.
+Existing OSS used: standard framework/library dependencies only (OpenAI Agents SDK,
+Slack Bolt, pydantic).
 
-## Judging Alignment
+## Use of Codex
 
-| Criterion | What the repo/demo should prove |
-|---|---|
-| Problem & Solution Fit | Go/no-go meetings waste time on settled topics and miss hidden disagreement. Pre-meeting crux extraction is the right intervention. |
-| Build Quality | Working board, structured stance outputs, classifier, baseline, evals, deterministic fallback. |
-| Insight & Originality | The novel wedge is fake-agreement detection: same words, incompatible assumptions. |
-| Real-World Value | Product teams get shorter launch meetings and avoid shipping decisions based on false consensus. |
-| Build Direction | AI-native operations workflow that would not be practical without agentic structured reasoning. |
-| Use of Codex | Codex is used for planning, scoping, implementation, tests, red-team review, and demo hardening. |
-
-## Hackathon Declaration Template
-
-This is a new public repository created for the hackathon.
-
-Target artifacts to build during the hackathon:
-
-- project docs and build plan,
-- agent/persona workflow,
-- assumption-aware crux classifier,
-- baseline classifier,
-- evaluation cases,
-- demo board/prototype,
-- decision record view.
-
-Existing code or external projects used:
-
-- none declared yet.
-
-Update this section before final submission so it accurately states what was actually built during the hackathon and what starter code or open-source libraries were used.
+Codex scoped the Slack pivot, built the crux engine and orchestrator, wrote the evals,
+and red-teamed the classifier — visible in the commit trail, tests, and design docs.
 
 ## Docs
 
-- [Overview](./docs/overview.md)
-- [Design Spec v2 — Slack-native](./docs/design-spec-slack.md) (current direction)
-- [Design Spec v1 — web app](./docs/design-spec.md) (superseded)
-- [Build Plan](./docs/build-plan.md)
+- [Design Spec — Slack-native](./docs/design-spec-slack.md)
+- [Build Plan — implementation tasks](./docs/build-plan-slack.md)
 - [Pitch Script](./docs/pitch-script.md)
-- [Judging Alignment](./docs/judging-alignment.md)
-- [Submission Checklist](./docs/submission-checklist.md)
