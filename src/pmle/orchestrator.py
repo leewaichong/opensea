@@ -24,18 +24,21 @@ async def run_meeting(escalate=None) -> BoardState:
 
 
 async def _clear_action_items() -> list[ActionItem]:
-    # For the demo, deterministically pre-clear the resolvable ones; leave one needing an owner.
+    # For the demo, deterministically pre-clear the Shopee pre-read items.
     cleared = []
     for ai in ACTION_ITEMS:
-        if ai.id == "ai-rollback":
+        if ai.id == "ai-live-slot":
             cleared.append(ai.model_copy(update={
-                "status": "resolved", "owner": "SRE",
-                "resolution": "SRE accepted rollback ownership.", "resolved_by": ["Backend", "SRE"]}))
-        elif ai.id == "ai-loadtest":
+                "status": "resolved", "owner": "Shang",
+                "resolution": "At least one Shopee Live slot is required.", "resolved_by": ["Shang"]}))
+        elif ai.id == "ai-tracking":
             cleared.append(ai.model_copy(update={
-                "status": "needs_owner",
-                "resolution": "No agent could schedule it without SRE sign-off."}))
+                "status": "resolved",
+                "resolution": "Track affiliate links, promo codes, voucher redemption, live GMV, and app installs.",
+                "resolved_by": ["Wai Chong", "Shang"]}))
         else:
             cleared.append(ai.model_copy(update={
-                "status": "resolved", "resolution": "Confirmed by the owning agent."}))
+                "status": "resolved",
+                "resolution": "Brand-safety, disclosure, and competitor-sponsorship review required.",
+                "resolved_by": ["John Taylor", "Shang"]}))
     return cleared

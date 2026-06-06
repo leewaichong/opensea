@@ -1,21 +1,24 @@
 from pmle.schemas import Stance
 
-# Minimal but sufficient: the security item shows the fake-agreement trap; load shows a real crux.
+# Shopee SG 11.11 creator mix scenario. Minimal but sufficient: the objective
+# item shows fake agreement around "younger shoppers"; role-mix is a real crux.
 CACHED: list[Stance] = [
-    # security — same word "secure", conflicting assumptions
-    Stance(stakeholder="PM", item_id="security", position="support",
-           rationale="Secure via server-side session is fine.",
-           key_assumptions=["Server-side session"], confidence=0.8),
-    Stance(stakeholder="Backend", item_id="security", position="support",
-           rationale="Server controls the session; we're good.",
-           key_assumptions=["Server-side session"], confidence=0.8),
-    Stance(stakeholder="Security", item_id="security", position="agree_with_condition",
-           rationale="Only if NO checkout token is stored client-side.",
-           key_assumptions=["No client-side token storage"], confidence=0.9),
-    # load — real crux
-    Stance(stakeholder="SRE", item_id="load", position="block",
-           rationale="Checkout has not passed 11.11 traffic simulation.",
-           key_assumptions=["Traffic may exceed last peak by 35%"], confidence=0.85),
-    Stance(stakeholder="PM", item_id="load", position="support",
-           rationale="We can throttle promos if needed.", key_assumptions=[], confidence=0.6),
+    Stance(stakeholder="Wai Chong", item_id="objective", position="support",
+           rationale="Target younger shoppers, meaning new Shopee app users and first purchases.",
+           key_assumptions=["Younger shoppers means acquisition", "Success is new users, app installs, first purchases, and CAC"], confidence=0.9),
+    Stance(stakeholder="Shang", item_id="objective", position="support",
+           rationale="Target younger shoppers only if they actually buy during 11.11.",
+           key_assumptions=["Younger shoppers means GMV, conversion, voucher redemption, and live sales"], confidence=0.9),
+    Stance(stakeholder="John Taylor", item_id="objective", position="agree_with_condition",
+           rationale="The campaign should feel youth-relevant while staying mainstream-safe.",
+           key_assumptions=["Younger shoppers means mainstream youth reach without brand-safety risk"], confidence=0.85),
+    Stance(stakeholder="Wai Chong", item_id="role-mix", position="support",
+           rationale="Mika Tan should be the hero face for TikTok-native youth acquisition.",
+           key_assumptions=["Hero face should optimize acquisition", "Mika is strongest for 18-24 reach"], confidence=0.86),
+    Stance(stakeholder="Shang", item_id="role-mix", position="block",
+           rationale="Do not choose one viral hero without a strong Shopee Live conversion engine.",
+           key_assumptions=["Jayden Cho should own Shopee Live conversion", "Conversion is not a secondary detail"], confidence=0.9),
+    Stance(stakeholder="John Taylor", item_id="role-mix", position="agree_with_condition",
+           rationale="Use a mainstream-safe hero face, potentially with a separate conversion partner.",
+           key_assumptions=["Hero face can be Mika or Nora", "Jayden may be conversion partner rather than hero"], confidence=0.82),
 ]

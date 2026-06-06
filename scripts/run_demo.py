@@ -20,22 +20,22 @@ async def _offline_ask(person, item_id, item_text):
 
 async def _offline_classify(stances):
     item = stances[0].item_id
-    if item == "security":
+    if item == "objective":
         return ClassificationResult(
             item_id=item,
             status="fake_agreement",
-            summary="All agree on secure checkout, but assumptions differ.",
-            divergence="PM/Backend: server-side session; Security: no client-side token storage",
-            cited_stances=["PM", "Backend", "Security"],
-            follow_up="Confirm whether any checkout token is stored client-side.",
+            summary="Everyone says younger shoppers, but success criteria differ.",
+            divergence="Growth: acquisition and app installs; Commerce: GMV and voucher redemption; Campaign Lead: mainstream-safe youth reach",
+            cited_stances=["Wai Chong", "Shang", "John Taylor"],
+            follow_up="Decide whether the primary objective is acquisition, GMV, or brand reach.",
         )
-    if any(s.position == "block" for s in stances):
+    if item == "role-mix":
         return ClassificationResult(
             item_id=item,
             status="crux",
-            summary="SRE blocks until 11.11 load readiness is proven.",
-            divergence="SRE needs traffic simulation before launch.",
-            cited_stances=["SRE", "PM"],
+            summary="The creator role split is unresolved.",
+            divergence="Wai Chong prefers Mika as hero face; Shang requires Jayden for Shopee Live conversion; John may split hero and conversion roles.",
+            cited_stances=["Wai Chong", "Shang", "John Taylor"],
         )
     return ClassificationResult(
         item_id=item,
