@@ -2,13 +2,13 @@
   "schema": "openai.presentation.layout/v4",
   "unit": "px",
   "slide": {
-    "aid": "sl/5n21ut",
-    "id": "5n21ut",
+    "aid": "sl/x2begs",
+    "id": "x2begs",
     "slide": 7,
-    "layoutId": "25a3c43c-a607-497b-a724-0ccc240d0238",
+    "layoutId": "c4a22467-35de-460a-9825-9c3688774f8a",
     "layoutName": "Title Slide",
     "layoutType": "title",
-    "masterLayoutId": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+    "masterLayoutId": "24b108e8-66cc-48d0-a375-0a9d764a90a4",
     "masterLayoutName": "Master",
     "backgroundColor": "#FFFFFF",
     "frame": {
@@ -45,15 +45,15 @@
   "inheritedLayers": [
     {
       "scope": "layout",
-      "id": "25a3c43c-a607-497b-a724-0ccc240d0238",
+      "id": "c4a22467-35de-460a-9825-9c3688774f8a",
       "name": "Title Slide",
       "type": "title",
-      "parentLayoutId": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+      "parentLayoutId": "24b108e8-66cc-48d0-a375-0a9d764a90a4",
       "elements": []
     },
     {
       "scope": "master",
-      "id": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+      "id": "24b108e8-66cc-48d0-a375-0a9d764a90a4",
       "name": "Master",
       "type": "master",
       "elements": []
@@ -64,7 +64,7 @@
       "order": 1,
       "kind": "image",
       "scope": "slide",
-      "aid": "im/al87ed8b",
+      "aid": "im/4nap4r65",
       "id": "1",
       "bbox": [
         0,
@@ -76,7 +76,7 @@
       "contentType": "image/png",
       "imageFit": "cover",
       "asset": {
-        "assetId": "68f83faa-7d2a-445e-8686-2862ad975aa8",
+        "assetId": "5f5be81b-55b4-4d94-93e0-701675246d2f",
         "contentType": "image/png",
         "byteLength": 124361
       }
@@ -85,7 +85,7 @@
       "order": 2,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/sneloj2t",
+      "aid": "sh/u18jqh0f",
       "id": "2",
       "bbox": [
         72,
@@ -94,8 +94,8 @@
         24
       ],
       "geometry": "rect",
-      "text": "PITCH FLOW",
-      "textPreview": "PITCH FLOW",
+      "text": "USE OF CODEX",
+      "textPreview": "USE OF CODEX",
       "resolvedFontSize": 13,
       "resolvedTextStyle": {
         "fontSize": 13,
@@ -117,18 +117,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "PITCH FLOW"
+            "text": "USE OF CODEX"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "PITCH FLOW",
+          "text": "USE OF CODEX",
           "runs": [
             {
               "index": 1,
-              "text": "PITCH FLOW",
+              "text": "USE OF CODEX",
               "fontSize": 13,
               "typeface": "Inter",
               "color": "#5D605E",
@@ -144,7 +144,7 @@
       "order": 3,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/l87ed8ba",
+      "aid": "sh/jm1cfa9w",
       "id": "3",
       "bbox": [
         70,
@@ -153,8 +153,8 @@
         112
       ],
       "geometry": "rect",
-      "text": "Six minutes, one narrative arc.",
-      "textPreview": "Six minutes, one narrative arc.",
+      "text": "Codex shaped the product and\nwrote the build.",
+      "textPreview": "Codex shaped the product and | wrote the build.",
       "resolvedFontSize": 40,
       "resolvedTextStyle": {
         "fontSize": 40,
@@ -171,22 +171,40 @@
         }
       },
       "textLayout": {
-        "lineCount": 1,
+        "lineCount": 2,
         "lines": [
           {
             "index": 1,
-            "text": "Six minutes, one narrative arc."
+            "text": "Codex shaped the product and"
+          },
+          {
+            "index": 2,
+            "text": "wrote the build."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Six minutes, one narrative arc.",
+          "text": "Codex shaped the product and",
           "runs": [
             {
               "index": 1,
-              "text": "Six minutes, one narrative arc.",
+              "text": "Codex shaped the product and",
+              "fontSize": 40,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "wrote the build.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "wrote the build.",
               "fontSize": 40,
               "typeface": "Inter",
               "color": "#181818"
@@ -201,7 +219,7 @@
       "order": 4,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/at47y1kr",
+      "aid": "sh/cfa9w3m9",
       "id": "4",
       "bbox": [
         72,
@@ -210,8 +228,8 @@
         18
       ],
       "geometry": "rect",
-      "text": "Sources: docs/pitch-script.md, docs/judging-alignment.md",
-      "textPreview": "Sources: docs/pitch-script.md, docs/judging-alignment.md",
+      "text": "Sources: AGENTS.md, docs/pitch-script.md",
+      "textPreview": "Sources: AGENTS.md, docs/pitch-script.md",
       "resolvedFontSize": 10,
       "resolvedTextStyle": {
         "fontSize": 10,
@@ -232,18 +250,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "Sources: docs/pitch-script.md, docs/judging-alignment.md"
+            "text": "Sources: AGENTS.md, docs/pitch-script.md"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Sources: docs/pitch-script.md, docs/judging-alignment.md",
+          "text": "Sources: AGENTS.md, docs/pitch-script.md",
           "runs": [
             {
               "index": 1,
-              "text": "Sources: docs/pitch-script.md, docs/judging-alignment.md",
+              "text": "Sources: AGENTS.md, docs/pitch-script.md",
               "fontSize": 10,
               "typeface": "Inter",
               "color": "#5D605E"
@@ -258,7 +276,7 @@
       "order": 5,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/3ex0nuxc",
+      "aid": "sh/1032lszq",
       "id": "5",
       "bbox": [
         1180,
@@ -329,13 +347,13 @@
       "order": 6,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/szqtcj6t",
+      "aid": "sh/u9knih4b",
       "id": "6",
       "bbox": [
         88,
-        244,
         236,
-        210
+        500,
+        138
       ],
       "geometry": "roundRect",
       "fillColor": "#FFFFFF",
@@ -346,20 +364,20 @@
       "order": 7,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/lkjm1cfa",
+      "aid": "sh/judg7ads",
       "id": "7",
       "bbox": [
-        112,
-        268,
-        48,
-        46
+        114,
+        258,
+        448,
+        28
       ],
       "geometry": "rect",
-      "text": "1",
-      "textPreview": "1",
-      "resolvedFontSize": 42,
+      "text": "Scenario pivot",
+      "textPreview": "Scenario pivot",
+      "resolvedFontSize": 22,
       "resolvedTextStyle": {
-        "fontSize": 42,
+        "fontSize": 22,
         "typeface": "Inter",
         "color": "#181818",
         "bold": true,
@@ -378,19 +396,19 @@
         "lines": [
           {
             "index": 1,
-            "text": "1"
+            "text": "Scenario pivot"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "1",
+          "text": "Scenario pivot",
           "runs": [
             {
               "index": 1,
-              "text": "1",
-              "fontSize": 42,
+              "text": "Scenario pivot",
+              "fontSize": 22,
               "typeface": "Inter",
               "color": "#181818",
               "bold": true
@@ -405,23 +423,22 @@
       "order": 8,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/ex0nuxc3",
+      "aid": "sh/cj6tovah",
       "id": "8",
       "bbox": [
-        112,
-        330,
-        180,
-        26
+        114,
+        300,
+        448,
+        60
       ],
       "geometry": "rect",
-      "text": "Name the pain",
-      "textPreview": "Name the pain",
-      "resolvedFontSize": 22,
+      "text": "Reframed the project into a Slack-native pre-meeting crux finder.",
+      "textPreview": "Reframed the project into a Slack-native pre-meeting crux finder.",
+      "resolvedFontSize": 18,
       "resolvedTextStyle": {
-        "fontSize": 22,
+        "fontSize": 18,
         "typeface": "Inter",
-        "color": "#181818",
-        "bold": true,
+        "color": "#282828",
         "alignment": "left",
         "wrap": "square",
         "autoFit": "none",
@@ -433,26 +450,29 @@
         }
       },
       "textLayout": {
-        "lineCount": 1,
+        "lineCount": 2,
         "lines": [
           {
             "index": 1,
-            "text": "Name the pain"
+            "text": "Reframed the project into a Slack-native pre-meeting"
+          },
+          {
+            "index": 2,
+            "text": "crux finder."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Name the pain",
+          "text": "Reframed the project into a Slack-native pre-meeting crux finder.",
           "runs": [
             {
               "index": 1,
-              "text": "Name the pain",
-              "fontSize": 22,
+              "text": "Reframed the project into a Slack-native pre-meeting crux finder.",
+              "fontSize": 18,
               "typeface": "Inter",
-              "color": "#181818",
-              "bold": true
+              "color": "#282828"
             }
           ],
           "marginLeft": 0
@@ -464,78 +484,13 @@
       "order": 9,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/3itgfmlk",
+      "aid": "sh/54zidony",
       "id": "9",
       "bbox": [
-        112,
-        374,
-        180,
-        54
-      ],
-      "geometry": "rect",
-      "text": "Meetings waste time resolving vague assumptions.",
-      "textPreview": "Meetings waste time resolving vague assumptions.",
-      "resolvedFontSize": 17,
-      "resolvedTextStyle": {
-        "fontSize": 17,
-        "typeface": "Inter",
-        "color": "#282828",
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 3,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Meetings waste time"
-          },
-          {
-            "index": 2,
-            "text": "resolving vague"
-          },
-          {
-            "index": 3,
-            "text": "assumptions."
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Meetings waste time resolving vague assumptions.",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Meetings waste time resolving vague assumptions.",
-              "fontSize": 17,
-              "typeface": "Inter",
-              "color": "#282828"
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 10,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/bm58z25k",
-      "id": "10",
-      "bbox": [
-        370,
-        244,
+        612,
         236,
-        210
+        500,
+        138
       ],
       "geometry": "roundRect",
       "fillColor": "#FFFFFF",
@@ -543,79 +498,20 @@
       "lineWidth": 1
     },
     {
-      "order": 11,
+      "order": 10,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/m1cfa9w3",
-      "id": "11",
+      "aid": "sh/t47y1kre",
+      "id": "10",
       "bbox": [
-        394,
-        268,
-        48,
-        46
+        638,
+        258,
+        448,
+        28
       ],
       "geometry": "rect",
-      "text": "2",
-      "textPreview": "2",
-      "resolvedFontSize": 42,
-      "resolvedTextStyle": {
-        "fontSize": 42,
-        "typeface": "Inter",
-        "color": "#181818",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "2"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "2",
-          "runs": [
-            {
-              "index": 1,
-              "text": "2",
-              "fontSize": 42,
-              "typeface": "Inter",
-              "color": "#181818",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 12,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/tsvu9kni",
-      "id": "12",
-      "bbox": [
-        394,
-        330,
-        180,
-        26
-      ],
-      "geometry": "rect",
-      "text": "Start in Slack",
-      "textPreview": "Start in Slack",
+      "text": "Orchestrator + Slack path",
+      "textPreview": "Orchestrator + Slack path",
       "resolvedFontSize": 22,
       "resolvedTextStyle": {
         "fontSize": 22,
@@ -637,18 +533,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "Start in Slack"
+            "text": "Orchestrator + Slack path"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Start in Slack",
+          "text": "Orchestrator + Slack path",
           "runs": [
             {
               "index": 1,
-              "text": "Start in Slack",
+              "text": "Orchestrator + Slack path",
               "fontSize": 22,
               "typeface": "Inter",
               "color": "#181818",
@@ -661,23 +557,23 @@
       "lineWidth": 0
     },
     {
-      "order": 13,
+      "order": 11,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/47y1kre1",
-      "id": "13",
+      "aid": "sh/0je9cvix",
+      "id": "11",
       "bbox": [
-        394,
-        374,
-        180,
-        54
+        638,
+        300,
+        448,
+        60
       ],
       "geometry": "rect",
-      "text": "John asks Mochi to prep the Shopee creator mix.",
-      "textPreview": "John asks Mochi to prep the Shopee creator mix.",
-      "resolvedFontSize": 17,
+      "text": "Built the transient orchestrator and free-form DM routing on the OpenAI Agents SDK.",
+      "textPreview": "Built the transient orchestrator and free-form DM routing on the OpenAI Agents SDK.",
+      "resolvedFontSize": 18,
       "resolvedTextStyle": {
-        "fontSize": 17,
+        "fontSize": 18,
         "typeface": "Inter",
         "color": "#282828",
         "alignment": "left",
@@ -691,31 +587,27 @@
         }
       },
       "textLayout": {
-        "lineCount": 3,
+        "lineCount": 2,
         "lines": [
           {
             "index": 1,
-            "text": "John asks Mochi to"
+            "text": "Built the transient orchestrator and free-form DM"
           },
           {
             "index": 2,
-            "text": "prep the Shopee"
-          },
-          {
-            "index": 3,
-            "text": "creator mix."
+            "text": "routing on the OpenAI Agents SDK."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "John asks Mochi to prep the Shopee creator mix.",
+          "text": "Built the transient orchestrator and free-form DM routing on the OpenAI Agents SDK.",
           "runs": [
             {
               "index": 1,
-              "text": "John asks Mochi to prep the Shopee creator mix.",
-              "fontSize": 17,
+              "text": "Built the transient orchestrator and free-form DM routing on the OpenAI Agents SDK.",
+              "fontSize": 18,
               "typeface": "Inter",
               "color": "#282828"
             }
@@ -726,16 +618,16 @@
       "lineWidth": 0
     },
     {
-      "order": 14,
+      "order": 12,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/bat47y1k",
-      "id": "14",
+      "aid": "sh/byhgn29g",
+      "id": "12",
       "bbox": [
-        652,
-        244,
-        236,
-        210
+        88,
+        390,
+        500,
+        138
       ],
       "geometry": "roundRect",
       "fillColor": "#FFFFFF",
@@ -743,79 +635,20 @@
       "lineWidth": 1
     },
     {
-      "order": 15,
+      "order": 13,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/mp0bi9s3",
-      "id": "15",
+      "aid": "sh/idonyd0z",
+      "id": "13",
       "bbox": [
-        676,
-        268,
-        48,
-        46
+        114,
+        412,
+        448,
+        28
       ],
       "geometry": "rect",
-      "text": "3",
-      "textPreview": "3",
-      "resolvedFontSize": 42,
-      "resolvedTextStyle": {
-        "fontSize": 42,
-        "typeface": "Inter",
-        "color": "#181818",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "3"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "3",
-          "runs": [
-            {
-              "index": 1,
-              "text": "3",
-              "fontSize": 42,
-              "typeface": "Inter",
-              "color": "#181818",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 16,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/tgfmlkjm",
-      "id": "16",
-      "bbox": [
-        676,
-        330,
-        180,
-        26
-      ],
-      "geometry": "rect",
-      "text": "Agents fan out",
-      "textPreview": "Agents fan out",
+      "text": "Docs in sync with code",
+      "textPreview": "Docs in sync with code",
       "resolvedFontSize": 22,
       "resolvedTextStyle": {
         "fontSize": 22,
@@ -837,18 +670,155 @@
         "lines": [
           {
             "index": 1,
-            "text": "Agents fan out"
+            "text": "Docs in sync with code"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Agents fan out",
+          "text": "Docs in sync with code",
           "runs": [
             {
               "index": 1,
-              "text": "Agents fan out",
+              "text": "Docs in sync with code",
+              "fontSize": 22,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tcj6tova",
+      "id": "14",
+      "bbox": [
+        114,
+        454,
+        448,
+        60
+      ],
+      "geometry": "rect",
+      "text": "Kept README, specs, and implementation aligned as the design changed.",
+      "textPreview": "Kept README, specs, and implementation aligned as the design changed.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "Inter",
+        "color": "#282828",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Kept README, specs, and implementation aligned as"
+          },
+          {
+            "index": 2,
+            "text": "the design changed."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Kept README, specs, and implementation aligned as the design changed.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Kept README, specs, and implementation aligned as the design changed.",
+              "fontSize": 18,
+              "typeface": "Inter",
+              "color": "#282828"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0rqd4vmt",
+      "id": "15",
+      "bbox": [
+        612,
+        390,
+        500,
+        138
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F3F3F3",
+      "lineColor": "#282828",
+      "lineWidth": 1
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/b6xkf6dc",
+      "id": "16",
+      "bbox": [
+        638,
+        412,
+        448,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Tests + hardening",
+      "textPreview": "Tests + hardening",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Tests + hardening"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Tests + hardening",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Tests + hardening",
               "fontSize": 22,
               "typeface": "Inter",
               "color": "#181818",
@@ -864,20 +834,20 @@
       "order": 17,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/4vmtwra5",
+      "aid": "sh/il0rqd4v",
       "id": "17",
       "bbox": [
-        676,
-        374,
-        180,
-        54
+        638,
+        454,
+        448,
+        60
       ],
       "geometry": "rect",
-      "text": "Persistent sessions collect each stakeholder stance.",
-      "textPreview": "Persistent sessions collect each stakeholder stance.",
-      "resolvedFontSize": 17,
+      "text": "Wrote 58 deterministic offline tests and hardened the demo fallback.",
+      "textPreview": "Wrote 58 deterministic offline tests and hardened the demo fallback.",
+      "resolvedFontSize": 18,
       "resolvedTextStyle": {
-        "fontSize": 17,
+        "fontSize": 18,
         "typeface": "Inter",
         "color": "#282828",
         "alignment": "left",
@@ -891,31 +861,27 @@
         }
       },
       "textLayout": {
-        "lineCount": 3,
+        "lineCount": 2,
         "lines": [
           {
             "index": 1,
-            "text": "Persistent sessions"
+            "text": "Wrote 58 deterministic offline tests and hardened the"
           },
           {
             "index": 2,
-            "text": "collect each"
-          },
-          {
-            "index": 3,
-            "text": "stakeholder stance."
+            "text": "demo fallback."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Persistent sessions collect each stakeholder stance.",
+          "text": "Wrote 58 deterministic offline tests and hardened the demo fallback.",
           "runs": [
             {
               "index": 1,
-              "text": "Persistent sessions collect each stakeholder stance.",
-              "fontSize": 17,
+              "text": "Wrote 58 deterministic offline tests and hardened the demo fallback.",
+              "fontSize": 18,
               "typeface": "Inter",
               "color": "#282828"
             }
@@ -929,39 +895,38 @@
       "order": 18,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/b2hwfyxo",
+      "aid": "sh/tovahoza",
       "id": "18",
       "bbox": [
-        934,
-        244,
-        236,
-        210
+        88,
+        556,
+        1024,
+        62
       ],
       "geometry": "roundRect",
-      "fillColor": "#F3F3F3",
-      "lineColor": "#282828",
-      "lineWidth": 1
+      "fillColor": "#17191A",
+      "lineWidth": 0
     },
     {
       "order": 19,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/mhk3q5o7",
+      "aid": "sh/032lszqt",
       "id": "19",
       "bbox": [
-        958,
-        268,
-        48,
-        46
+        120,
+        578,
+        180,
+        18
       ],
       "geometry": "rect",
-      "text": "4",
-      "textPreview": "4",
-      "resolvedFontSize": 42,
+      "text": "Built with Codex",
+      "textPreview": "Built with Codex",
+      "resolvedFontSize": 13,
       "resolvedTextStyle": {
-        "fontSize": 42,
+        "fontSize": 13,
         "typeface": "Inter",
-        "color": "#181818",
+        "color": "#BFC5C9",
         "bold": true,
         "alignment": "left",
         "wrap": "square",
@@ -978,21 +943,21 @@
         "lines": [
           {
             "index": 1,
-            "text": "4"
+            "text": "Built with Codex"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "4",
+          "text": "Built with Codex",
           "runs": [
             {
               "index": 1,
-              "text": "4",
-              "fontSize": 42,
+              "text": "Built with Codex",
+              "fontSize": 13,
               "typeface": "Inter",
-              "color": "#181818",
+              "color": "#BFC5C9",
               "bold": true
             }
           ],
@@ -1005,22 +970,22 @@
       "order": 20,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/udg7adsj",
+      "aid": "sh/czed8v6p",
       "id": "20",
       "bbox": [
-        958,
-        330,
-        180,
-        26
+        312,
+        576,
+        788,
+        24
       ],
       "geometry": "rect",
-      "text": "Show the brief",
-      "textPreview": "Show the brief",
-      "resolvedFontSize": 22,
+      "text": "From scenario pivot to test suite, Codex built alongside — not just autocomplete.",
+      "textPreview": "From scenario pivot to test suite, Codex built alongside — not just autocomplete.",
+      "resolvedFontSize": 19,
       "resolvedTextStyle": {
-        "fontSize": 22,
+        "fontSize": 19,
         "typeface": "Inter",
-        "color": "#181818",
+        "color": "#FFFFFF",
         "bold": true,
         "alignment": "left",
         "wrap": "square",
@@ -1037,220 +1002,21 @@
         "lines": [
           {
             "index": 1,
-            "text": "Show the brief"
+            "text": "From scenario pivot to test suite, Codex built alongside — not just autocomplete."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Show the brief",
+          "text": "From scenario pivot to test suite, Codex built alongside — not just autocomplete.",
           "runs": [
             {
               "index": 1,
-              "text": "Show the brief",
-              "fontSize": 22,
+              "text": "From scenario pivot to test suite, Codex built alongside — not just autocomplete.",
+              "fontSize": 19,
               "typeface": "Inter",
-              "color": "#181818",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 21,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/nyd0z610",
-      "id": "21",
-      "bbox": [
-        958,
-        374,
-        180,
-        54
-      ],
-      "geometry": "rect",
-      "text": "Nine items become two decisions.",
-      "textPreview": "Nine items become two decisions.",
-      "resolvedFontSize": 17,
-      "resolvedTextStyle": {
-        "fontSize": 17,
-        "typeface": "Inter",
-        "color": "#282828",
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 2,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Nine items become"
-          },
-          {
-            "index": 2,
-            "text": "two decisions."
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Nine items become two decisions.",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Nine items become two decisions.",
-              "fontSize": 17,
-              "typeface": "Inter",
-              "color": "#282828"
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 22,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/cj6tovah",
-      "id": "22",
-      "bbox": [
-        110,
-        500,
-        990,
-        1
-      ],
-      "geometry": "rect",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 23,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/54zidony",
-      "id": "23",
-      "bbox": [
-        112,
-        532,
-        150,
-        20
-      ],
-      "geometry": "rect",
-      "text": "Narrative turn",
-      "textPreview": "Narrative turn",
-      "resolvedFontSize": 14,
-      "resolvedTextStyle": {
-        "fontSize": 14,
-        "typeface": "Inter",
-        "color": "#5D605E",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Narrative turn"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Narrative turn",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Narrative turn",
-              "fontSize": 14,
-              "typeface": "Inter",
-              "color": "#5D605E",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 24,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/upwb2hwf",
-      "id": "24",
-      "bbox": [
-        270,
-        528,
-        760,
-        28
-      ],
-      "geometry": "rect",
-      "text": "A summarizer sees agreement. Mochi sees the assumptions that would waste the meeting.",
-      "textPreview": "A summarizer sees agreement. Mochi sees the assumptions that would waste the meeting.",
-      "resolvedFontSize": 22,
-      "resolvedTextStyle": {
-        "fontSize": 22,
-        "typeface": "Inter",
-        "color": "#181818",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 2,
-        "lines": [
-          {
-            "index": 1,
-            "text": "A summarizer sees agreement. Mochi sees the assumptions that would"
-          },
-          {
-            "index": 2,
-            "text": "waste the meeting."
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "A summarizer sees agreement. Mochi sees the assumptions that would waste the meeting.",
-          "runs": [
-            {
-              "index": 1,
-              "text": "A summarizer sees agreement. Mochi sees the assumptions that would waste the meeting.",
-              "fontSize": 22,
-              "typeface": "Inter",
-              "color": "#181818",
+              "color": "#FFFFFF",
               "bold": true
             }
           ],

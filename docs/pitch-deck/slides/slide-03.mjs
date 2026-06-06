@@ -19,8 +19,7 @@ export async function slide03(presentation) {
     addText(slide, body, x + 18, 308, 146, 68, { size: 18, color: C.ink, leading: 110 });
     if (i < steps.length - 1) addArrow(slide, x + 190, 322, 42, C.line);
   });
-  addText(slide, "Trust boundary", 88, 498, 170, 22, { size: 13, color: C.muted, bold: true });
-  addText(slide, "Mochi compresses what needs discussion. John Taylor still owns the creator-mix decision with logged dissents.", 88, 528, 930, 54, {
+  addText(slide, "Mochi compresses what needs discussion. John Taylor still owns the creator-mix decision with logged dissents.", 88, 512, 930, 54, {
     size: 22,
     color: C.ink,
   });

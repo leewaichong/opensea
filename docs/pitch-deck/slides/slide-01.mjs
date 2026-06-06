@@ -1,27 +1,29 @@
-import { C, setup, addText, addBox, addRule, addImageAsset } from "./deck-helpers.mjs";
+import { C, setup, addText, addBox, addRule, addPill, addImageAsset } from "./deck-helpers.mjs";
 
 export async function slide01(presentation) {
   const slide = presentation.slides.add();
-  setup(slide, `Cold open. Everyone says "reach younger shoppers" for Shopee SG 11.11. A summarizer marks alignment. Growth means acquisition and app installs; Commerce means GMV and voucher redemption; the Campaign Lead means mainstream-safe youth reach. Same phrase, different assumptions. Introduce Mochi as the Slack-native pre-meeting crux finder. Do not claim measured time savings or adoption; those are not in the source docs.`, "soft");
+  setup(slide, `Cold open. Lead with the outcome, not the mechanism: Mochi helps teams meet less and decide faster by clearing the items that do not need a live meeting and starting the room at the real crux. The Shopee SG 11.11 creator-mix demo compresses a nine-item agenda to two live decisions. Do not claim measured time savings or adoption; those are not in the source docs. The 9 to 2 figure is the demo artifact, not a time metric.`, "soft");
 
-  addText(slide, "PerMyLastEmail / Mochi", 74, 64, 320, 24, { size: 17, bold: true, color: C.muted });
-  addText(slide, "Same phrase,\ndifferent goals.", 70, 128, 650, 142, {
+  addText(slide, "PerMyLastEmail / Mochi", 74, 60, 320, 24, { size: 17, bold: true, color: C.muted });
+  addPill(slide, "BUILD DIRECTION  ·  AI-NATIVE PRODUCTS & OPERATIONS", 74, 94, 480, C.codexDeep, C.blueSoft);
+  addText(slide, "Cut the meeting,\nnot the decision.", 70, 142, 660, 142, {
     size: 54,
     color: C.ink,
     insets: { top: 0, right: 0, bottom: 0, left: 0 },
   });
-  addText(slide, "Persistent personal agents + transient meeting orchestrator", 74, 306, 660, 32, {
+  addText(slide, "Meet less, decide faster. Mochi clears the easy items in Slack before you meet, so the room opens on the real crux.", 74, 300, 690, 60, {
     size: 20,
     color: C.graphite,
+    leading: 124,
   });
-  addRule(slide, 74, 360, 560, C.line);
-  addText(slide, "Demo decision", 76, 386, 160, 20, { size: 12, color: C.muted, bold: true });
-  addText(slide, "Prepare Shopee SG 11.11 creator mix", 76, 412, 560, 36, { size: 24, color: C.ink });
+  addRule(slide, 74, 374, 560, C.line);
+  addText(slide, "Demo decision", 76, 398, 160, 20, { size: 12, color: C.muted, bold: true });
+  addText(slide, "Prepare Shopee SG 11.11 creator mix", 76, 424, 410, 36, { size: 24, color: C.ink });
   addImageAsset(slide, "../assets/mochi-mascot-rounded.png", 496, 388, 144, 144, "Mochi mascot", "mochi-mascot-cover");
   addText(slide, "Mochi lives in Slack", 496, 542, 144, 22, { size: 13, color: C.graphite, bold: true, align: "center" });
 
   addBox(slide, 775, 108, 360, 444, C.white, "none", 8);
-  addText(slide, "Slack pre-meeting digest", 808, 142, 280, 22, { size: 13, color: C.muted, bold: true });
+  addText(slide, "Shorter meeting, fewer items", 808, 142, 300, 22, { size: 13, color: C.muted, bold: true });
   addText(slide, "9", 810, 202, 115, 96, { size: 96, color: C.ink, bold: true, align: "center" });
   addText(slide, "items", 820, 302, 95, 22, { size: 16, color: C.muted, align: "center" });
   addText(slide, "->", 940, 240, 40, 34, { size: 30, color: C.muted, align: "center" });

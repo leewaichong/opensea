@@ -2,13 +2,13 @@
   "schema": "openai.presentation.layout/v4",
   "unit": "px",
   "slide": {
-    "aid": "sl/wege4m",
-    "id": "wege4m",
+    "aid": "sl/ta2zfr",
+    "id": "ta2zfr",
     "slide": 5,
-    "layoutId": "25a3c43c-a607-497b-a724-0ccc240d0238",
+    "layoutId": "c4a22467-35de-460a-9825-9c3688774f8a",
     "layoutName": "Title Slide",
     "layoutType": "title",
-    "masterLayoutId": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+    "masterLayoutId": "24b108e8-66cc-48d0-a375-0a9d764a90a4",
     "masterLayoutName": "Master",
     "backgroundColor": "#FFFFFF",
     "frame": {
@@ -45,15 +45,15 @@
   "inheritedLayers": [
     {
       "scope": "layout",
-      "id": "25a3c43c-a607-497b-a724-0ccc240d0238",
+      "id": "c4a22467-35de-460a-9825-9c3688774f8a",
       "name": "Title Slide",
       "type": "title",
-      "parentLayoutId": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+      "parentLayoutId": "24b108e8-66cc-48d0-a375-0a9d764a90a4",
       "elements": []
     },
     {
       "scope": "master",
-      "id": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+      "id": "24b108e8-66cc-48d0-a375-0a9d764a90a4",
       "name": "Master",
       "type": "master",
       "elements": []
@@ -64,7 +64,7 @@
       "order": 1,
       "kind": "image",
       "scope": "slide",
-      "aid": "im/a1gvy90j",
+      "aid": "im/m94fu18j",
       "id": "1",
       "bbox": [
         0,
@@ -76,7 +76,7 @@
       "contentType": "image/png",
       "imageFit": "cover",
       "asset": {
-        "assetId": "020727f9-569a-4408-be16-a3e0c38fe7bf",
+        "assetId": "f292e593-e347-4d7c-92c9-acbdd5a2099a",
         "contentType": "image/png",
         "byteLength": 124361
       }
@@ -85,7 +85,7 @@
       "order": 2,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/cbulwval",
+      "aid": "sh/orytsvu9",
       "id": "2",
       "bbox": [
         72,
@@ -94,8 +94,8 @@
         24
       ],
       "geometry": "rect",
-      "text": "WEDGE",
-      "textPreview": "WEDGE",
+      "text": "DEMO PROOF",
+      "textPreview": "DEMO PROOF",
       "resolvedFontSize": 13,
       "resolvedTextStyle": {
         "fontSize": 13,
@@ -117,18 +117,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "WEDGE"
+            "text": "DEMO PROOF"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "WEDGE",
+          "text": "DEMO PROOF",
           "runs": [
             {
               "index": 1,
-              "text": "WEDGE",
+              "text": "DEMO PROOF",
               "fontSize": 13,
               "typeface": "Inter",
               "color": "#5D605E",
@@ -144,7 +144,7 @@
       "order": 3,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/5sneloj2",
+      "aid": "sh/hcrmhk3q",
       "id": "3",
       "bbox": [
         70,
@@ -153,8 +153,8 @@
         112
       ],
       "geometry": "rect",
-      "text": "Position-only classification misses\nthe dangerous case.",
-      "textPreview": "Position-only classification misses | the dangerous case.",
+      "text": "The room starts with two real decisions.",
+      "textPreview": "The room starts with two real decisions.",
       "resolvedFontSize": 40,
       "resolvedTextStyle": {
         "fontSize": 40,
@@ -171,40 +171,22 @@
         }
       },
       "textLayout": {
-        "lineCount": 2,
+        "lineCount": 1,
         "lines": [
           {
             "index": 1,
-            "text": "Position-only classification misses"
-          },
-          {
-            "index": 2,
-            "text": "the dangerous case."
+            "text": "The room starts with two real decisions."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Position-only classification misses",
+          "text": "The room starts with two real decisions.",
           "runs": [
             {
               "index": 1,
-              "text": "Position-only classification misses",
-              "fontSize": 40,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 2,
-          "text": "the dangerous case.",
-          "runs": [
-            {
-              "index": 1,
-              "text": "the dangerous case.",
+              "text": "The room starts with two real decisions.",
               "fontSize": 40,
               "typeface": "Inter",
               "color": "#181818"
@@ -219,7 +201,7 @@
       "order": 4,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/ytsvu9kn",
+      "aid": "sh/a9w3m94f",
       "id": "4",
       "bbox": [
         72,
@@ -228,8 +210,8 @@
         18
       ],
       "geometry": "rect",
-      "text": "Sources: docs/design-spec.md, docs/pitch-script.md",
-      "textPreview": "Sources: docs/design-spec.md, docs/pitch-script.md",
+      "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
+      "textPreview": "Sources: docs/pitch-script.md, docs/build-plan.md",
       "resolvedFontSize": 10,
       "resolvedTextStyle": {
         "fontSize": 10,
@@ -250,18 +232,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "Sources: docs/design-spec.md, docs/pitch-script.md"
+            "text": "Sources: docs/pitch-script.md, docs/build-plan.md"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Sources: docs/design-spec.md, docs/pitch-script.md",
+          "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
           "runs": [
             {
               "index": 1,
-              "text": "Sources: docs/design-spec.md, docs/pitch-script.md",
+              "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
               "fontSize": 10,
               "typeface": "Inter",
               "color": "#5D605E"
@@ -276,7 +258,7 @@
       "order": 5,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/neloj2t8",
+      "aid": "sh/zupwb2hw",
       "id": "5",
       "bbox": [
         1180,
@@ -347,13 +329,13 @@
       "order": 6,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/czed8v6p",
+      "aid": "sh/sfil0rqd",
       "id": "6",
       "bbox": [
-        92,
-        230,
-        430,
-        270
+        82,
+        206,
+        448,
+        350
       ],
       "geometry": "roundRect",
       "fillColor": "#FFFFFF",
@@ -364,22 +346,22 @@
       "order": 7,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/5kb6xkf6",
+      "aid": "sh/h0fepkzu",
       "id": "7",
       "bbox": [
-        124,
-        260,
-        260,
-        26
+        110,
+        224,
+        320,
+        22
       ],
       "geometry": "rect",
-      "text": "Naive baseline",
-      "textPreview": "Naive baseline",
-      "resolvedFontSize": 18,
+      "text": "Mochi pre-meeting digest",
+      "textPreview": "Mochi pre-meeting digest",
+      "resolvedFontSize": 14,
       "resolvedTextStyle": {
-        "fontSize": 18,
+        "fontSize": 14,
         "typeface": "Inter",
-        "color": "#181818",
+        "color": "#5D605E",
         "bold": true,
         "alignment": "left",
         "wrap": "square",
@@ -396,21 +378,21 @@
         "lines": [
           {
             "index": 1,
-            "text": "Naive baseline"
+            "text": "Mochi pre-meeting digest"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Naive baseline",
+          "text": "Mochi pre-meeting digest",
           "runs": [
             {
               "index": 1,
-              "text": "Naive baseline",
-              "fontSize": 18,
+              "text": "Mochi pre-meeting digest",
+              "fontSize": 14,
               "typeface": "Inter",
-              "color": "#181818",
+              "color": "#5D605E",
               "bold": true
             }
           ],
@@ -423,23 +405,22 @@
       "order": 8,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/yhgn29gr",
+      "aid": "sh/65wjudg7",
       "id": "8",
       "bbox": [
-        124,
-        318,
-        70,
-        16
+        110,
+        248,
+        360,
+        20
       ],
       "geometry": "rect",
-      "text": "Input",
-      "textPreview": "Input",
-      "resolvedFontSize": 11,
+      "text": "Slack DM · agenda compressed 9 -> 2",
+      "textPreview": "Slack DM · agenda compressed 9 -> 2",
+      "resolvedFontSize": 13,
       "resolvedTextStyle": {
-        "fontSize": 11,
+        "fontSize": 13,
         "typeface": "Inter",
         "color": "#5D605E",
-        "bold": true,
         "alignment": "left",
         "wrap": "square",
         "autoFit": "none",
@@ -455,22 +436,21 @@
         "lines": [
           {
             "index": 1,
-            "text": "Input"
+            "text": "Slack DM · agenda compressed 9 -> 2"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Input",
+          "text": "Slack DM · agenda compressed 9 -> 2",
           "runs": [
             {
               "index": 1,
-              "text": "Input",
-              "fontSize": 11,
+              "text": "Slack DM · agenda compressed 9 -> 2",
+              "fontSize": 13,
               "typeface": "Inter",
-              "color": "#5D605E",
-              "bold": true
+              "color": "#5D605E"
             }
           ],
           "marginLeft": 0
@@ -482,518 +462,37 @@
       "order": 9,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/n29gr2p8",
+      "aid": "sh/zqtcj6to",
       "id": "9",
       "bbox": [
-        124,
-        340,
-        320,
-        44
+        102,
+        282,
+        408,
+        80
       ],
-      "geometry": "rect",
-      "text": "Everyone supports reaching younger shoppers.",
-      "textPreview": "Everyone supports reaching younger shoppers.",
-      "resolvedFontSize": 22,
-      "resolvedTextStyle": {
-        "fontSize": 22,
-        "typeface": "Inter",
-        "color": "#181818",
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 2,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Everyone supports reaching"
-          },
-          {
-            "index": 2,
-            "text": "younger shoppers."
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Everyone supports reaching younger shoppers.",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Everyone supports reaching younger shoppers.",
-              "fontSize": 22,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
+      "geometry": "roundRect",
+      "fillColor": "#F3F3F3",
+      "lineColor": "#282828",
+      "lineWidth": 1
     },
     {
       "order": 10,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/fyxobm58",
+      "aid": "sh/zupwb2hw",
       "id": "10",
       "bbox": [
-        124,
-        408,
-        80,
+        116,
+        294,
+        380,
         16
-      ],
-      "geometry": "rect",
-      "text": "Output",
-      "textPreview": "Output",
-      "resolvedFontSize": 11,
-      "resolvedTextStyle": {
-        "fontSize": 11,
-        "typeface": "Inter",
-        "color": "#5D605E",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Output"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Output",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Output",
-              "fontSize": 11,
-              "typeface": "Inter",
-              "color": "#5D605E",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 11,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/qd4vmtwr",
-      "id": "11",
-      "bbox": [
-        124,
-        434,
-        150,
-        34
-      ],
-      "geometry": "rect",
-      "text": "AGREED",
-      "textPreview": "AGREED",
-      "resolvedFontSize": 27,
-      "resolvedTextStyle": {
-        "fontSize": 27,
-        "typeface": "Inter",
-        "color": "#282828",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "AGREED"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "AGREED",
-          "runs": [
-            {
-              "index": 1,
-              "text": "AGREED",
-              "fontSize": 27,
-              "typeface": "Inter",
-              "color": "#282828",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 12,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/x4nap4r6",
-      "id": "12",
-      "bbox": [
-        552,
-        358,
-        68,
-        2
-      ],
-      "geometry": "rect",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 13,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/8jqh0fep",
-      "id": "13",
-      "bbox": [
-        618,
-        354,
-        14,
-        10
-      ],
-      "geometry": "triangle",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 14,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/fa9w3m94",
-      "id": "14",
-      "bbox": [
-        660,
-        230,
-        464,
-        270
-      ],
-      "geometry": "roundRect",
-      "fillColor": "#F9F9F9",
-      "lineColor": "#282828",
-      "lineWidth": 1
-    },
-    {
-      "order": 15,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/qpg3ex0n",
-      "id": "15",
-      "bbox": [
-        692,
-        260,
-        330,
-        26
-      ],
-      "geometry": "rect",
-      "text": "Assumption-aware classifier",
-      "textPreview": "Assumption-aware classifier",
-      "resolvedFontSize": 18,
-      "resolvedTextStyle": {
-        "fontSize": 18,
-        "typeface": "Inter",
-        "color": "#282828",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Assumption-aware classifier"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Assumption-aware classifier",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Assumption-aware classifier",
-              "fontSize": 18,
-              "typeface": "Inter",
-              "color": "#282828",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 16,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/xczed8v6",
-      "id": "16",
-      "bbox": [
-        692,
-        318,
-        70,
-        16
-      ],
-      "geometry": "rect",
-      "text": "Input",
-      "textPreview": "Input",
-      "resolvedFontSize": 11,
-      "resolvedTextStyle": {
-        "fontSize": 11,
-        "typeface": "Inter",
-        "color": "#5D605E",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Input"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Input",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Input",
-              "fontSize": 11,
-              "typeface": "Inter",
-              "color": "#5D605E",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 17,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/8v6psfil",
-      "id": "17",
-      "bbox": [
-        692,
-        336,
-        342,
-        72
-      ],
-      "geometry": "rect",
-      "text": "Growth: app installs\nCommerce: GMV\nLead: safe youth reach",
-      "textPreview": "Growth: app installs | Commerce: GMV | Lead: safe youth reach",
-      "resolvedFontSize": 20,
-      "resolvedTextStyle": {
-        "fontSize": 20,
-        "typeface": "Inter",
-        "color": "#181818",
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 3,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Growth: app installs"
-          },
-          {
-            "index": 2,
-            "text": "Commerce: GMV"
-          },
-          {
-            "index": 3,
-            "text": "Lead: safe youth reach"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Growth: app installs",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Growth: app installs",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 2,
-          "text": "Commerce: GMV",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Commerce: GMV",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 3,
-          "text": "Lead: safe youth reach",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Lead: safe youth reach",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 18,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/je9cvixc",
-      "id": "18",
-      "bbox": [
-        692,
-        420,
-        80,
-        16
-      ],
-      "geometry": "rect",
-      "text": "Output",
-      "textPreview": "Output",
-      "resolvedFontSize": 11,
-      "resolvedTextStyle": {
-        "fontSize": 11,
-        "typeface": "Inter",
-        "color": "#5D605E",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Output"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Output",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Output",
-              "fontSize": 11,
-              "typeface": "Inter",
-              "color": "#5D605E",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 19,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/qtcj6tov",
-      "id": "19",
-      "bbox": [
-        692,
-        446,
-        282,
-        34
       ],
       "geometry": "rect",
       "text": "FAKE AGREEMENT",
       "textPreview": "FAKE AGREEMENT",
-      "resolvedFontSize": 27,
+      "resolvedFontSize": 10,
       "resolvedTextStyle": {
-        "fontSize": 27,
+        "fontSize": 10,
         "typeface": "Inter",
         "color": "#282828",
         "bold": true,
@@ -1001,10 +500,10 @@
         "wrap": "square",
         "autoFit": "none",
         "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
         }
       },
       "textLayout": {
@@ -1024,7 +523,7 @@
             {
               "index": 1,
               "text": "FAKE AGREEMENT",
-              "fontSize": 27,
+              "fontSize": 10,
               "typeface": "Inter",
               "color": "#282828",
               "bold": true
@@ -1036,42 +535,599 @@
       "lineWidth": 0
     },
     {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a9w3m94f",
+      "id": "11",
+      "bbox": [
+        116,
+        316,
+        380,
+        44
+      ],
+      "geometry": "rect",
+      "text": "Objective: success criteria differ",
+      "textPreview": "Objective: success criteria differ",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Objective: success criteria differ"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Objective: success criteria differ",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Objective: success criteria differ",
+              "fontSize": 17,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h0fepkzu",
+      "id": "12",
+      "bbox": [
+        116,
+        332,
+        380,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Growth · Commerce · Campaign Lead",
+      "textPreview": "Growth · Commerce · Campaign Lead",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Growth · Commerce · Campaign Lead"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Growth · Commerce · Campaign Lead",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Growth · Commerce · Campaign Lead",
+              "fontSize": 11,
+              "typeface": "Inter",
+              "color": "#5D605E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sfil0rqd",
+      "id": "13",
+      "bbox": [
+        102,
+        372,
+        408,
+        80
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#282828",
+      "lineWidth": 1
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/z61032ls",
+      "id": "14",
+      "bbox": [
+        116,
+        384,
+        380,
+        16
+      ],
+      "geometry": "rect",
+      "text": "CRUX",
+      "textPreview": "CRUX",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Inter",
+        "color": "#282828",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CRUX"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CRUX",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CRUX",
+              "fontSize": 10,
+              "typeface": "Inter",
+              "color": "#282828",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/al87ed8b",
+      "id": "15",
+      "bbox": [
+        116,
+        406,
+        380,
+        44
+      ],
+      "geometry": "rect",
+      "text": "Creator role split unresolved",
+      "textPreview": "Creator role split unresolved",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Creator role split unresolved"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Creator role split unresolved",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Creator role split unresolved",
+              "fontSize": 17,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hcrmhk3q",
+      "id": "16",
+      "bbox": [
+        116,
+        422,
+        380,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Hero face vs hero + Shopee Live",
+      "textPreview": "Hero face vs hero + Shopee Live",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Hero face vs hero + Shopee Live"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Hero face vs hero + Shopee Live",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Hero face vs hero + Shopee Live",
+              "fontSize": 11,
+              "typeface": "Inter",
+              "color": "#5D605E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/orytsvu9",
+      "id": "17",
+      "bbox": [
+        102,
+        462,
+        408,
+        80
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F9F9F9",
+      "lineColor": "#EDEDED",
+      "lineWidth": 1
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zed8v6ps",
+      "id": "18",
+      "bbox": [
+        116,
+        474,
+        380,
+        16
+      ],
+      "geometry": "rect",
+      "text": "CLEARED",
+      "textPreview": "CLEARED",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CLEARED"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CLEARED",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CLEARED",
+              "fontSize": 10,
+              "typeface": "Inter",
+              "color": "#5D605E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6xkf6dcb",
+      "id": "19",
+      "bbox": [
+        116,
+        496,
+        380,
+        44
+      ],
+      "geometry": "rect",
+      "text": "Action items cleared: 3",
+      "textPreview": "Action items cleared: 3",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Inter",
+        "color": "#181818",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Action items cleared: 3"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Action items cleared: 3",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Action items cleared: 3",
+              "fontSize": 17,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
       "order": 20,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/u54zidon",
+      "aid": "sh/e1w7mp0b",
       "id": "20",
       "bbox": [
-        112,
-        536,
-        940,
-        78
+        116,
+        512,
+        380,
+        18
       ],
-      "geometry": "roundRect",
-      "fillColor": "#17191A",
+      "geometry": "rect",
+      "text": "0 need an owner · owner: John Taylor",
+      "textPreview": "0 need an owner · owner: John Taylor",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "0 need an owner · owner: John Taylor"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "0 need an owner · owner: John Taylor",
+          "runs": [
+            {
+              "index": 1,
+              "text": "0 need an owner · owner: John Taylor",
+              "fontSize": 11,
+              "typeface": "Inter",
+              "color": "#5D605E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
       "lineWidth": 0
     },
     {
       "order": 21,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/nqxs72x4",
+      "aid": "sh/7mp0bi9s",
       "id": "21",
       "bbox": [
-        128,
-        552,
-        900,
-        50
+        554,
+        206,
+        560,
+        162
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F3F3F3",
+      "lineColor": "#282828",
+      "lineWidth": 1
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w7mp0bi9",
+      "id": "22",
+      "bbox": [
+        586,
+        236,
+        460,
+        30
       ],
       "geometry": "rect",
-      "text": "Judge takeaway: Mochi catches the objective mismatch before the creator decision meeting.",
-      "textPreview": "Judge takeaway: Mochi catches the objective mismatch before the creator decision meeting.",
-      "resolvedFontSize": 22,
+      "text": "1. Align the success objective",
+      "textPreview": "1. Align the success objective",
+      "resolvedFontSize": 24,
       "resolvedTextStyle": {
-        "fontSize": 22,
+        "fontSize": 24,
         "typeface": "Inter",
-        "color": "#FFFFFF",
+        "color": "#181818",
         "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1. Align the success objective"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1. Align the success objective",
+          "runs": [
+            {
+              "index": 1,
+              "text": "1. Align the success objective",
+              "fontSize": 24,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/psfil0rq",
+      "id": "23",
+      "bbox": [
+        586,
+        284,
+        470,
+        64
+      ],
+      "geometry": "rect",
+      "text": "Growth wants acquisition. Commerce wants GMV. The campaign lead wants mainstream-safe youth reach.",
+      "textPreview": "Growth wants acquisition. Commerce wants GMV. The campaign lead wants mainstream-safe youth reach.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "Inter",
+        "color": "#282828",
         "alignment": "left",
         "wrap": "square",
         "autoFit": "none",
@@ -1087,26 +1143,278 @@
         "lines": [
           {
             "index": 1,
-            "text": "Judge takeaway: Mochi catches the objective mismatch before the creator decision"
+            "text": "Growth wants acquisition. Commerce wants GMV. The"
           },
           {
             "index": 2,
-            "text": "meeting."
+            "text": "campaign lead wants mainstream-safe youth reach."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Judge takeaway: Mochi catches the objective mismatch before the creator decision meeting.",
+          "text": "Growth wants acquisition. Commerce wants GMV. The campaign lead wants mainstream-safe youth reach.",
           "runs": [
             {
               "index": 1,
-              "text": "Judge takeaway: Mochi catches the objective mismatch before the creator decision meeting.",
-              "fontSize": 22,
+              "text": "Growth wants acquisition. Commerce wants GMV. The campaign lead wants mainstream-safe youth reach.",
+              "fontSize": 18,
               "typeface": "Inter",
-              "color": "#FFFFFF",
+              "color": "#282828"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/epkzupwb",
+      "id": "24",
+      "bbox": [
+        554,
+        392,
+        560,
+        164
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#282828",
+      "lineWidth": 1
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7adsji5s",
+      "id": "25",
+      "bbox": [
+        586,
+        422,
+        460,
+        30
+      ],
+      "geometry": "rect",
+      "text": "2. Decide the creator role split",
+      "textPreview": "2. Decide the creator role split",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2. Decide the creator role split"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2. Decide the creator role split",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2. Decide the creator role split",
+              "fontSize": 24,
+              "typeface": "Inter",
+              "color": "#181818",
               "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wval87ed",
+      "id": "26",
+      "bbox": [
+        586,
+        470,
+        470,
+        44
+      ],
+      "geometry": "rect",
+      "text": "One hero face, or hero plus Shopee Live conversion partner. John owns the final call.",
+      "textPreview": "One hero face, or hero plus Shopee Live conversion partner. John owns the final call.",
+      "resolvedFontSize": 19,
+      "resolvedTextStyle": {
+        "fontSize": 19,
+        "typeface": "Inter",
+        "color": "#282828",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "One hero face, or hero plus Shopee Live conversion"
+          },
+          {
+            "index": 2,
+            "text": "partner. John owns the final call."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "One hero face, or hero plus Shopee Live conversion partner. John owns the final call.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "One hero face, or hero plus Shopee Live conversion partner. John owns the final call.",
+              "fontSize": 19,
+              "typeface": "Inter",
+              "color": "#282828"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pg3ex0nu",
+      "id": "27",
+      "bbox": [
+        90,
+        584,
+        220,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Pre-read, not live debate",
+      "textPreview": "Pre-read, not live debate",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Pre-read, not live debate"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Pre-read, not live debate",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Pre-read, not live debate",
+              "fontSize": 14,
+              "typeface": "Inter",
+              "color": "#5D605E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/eloj2t83",
+      "id": "28",
+      "bbox": [
+        90,
+        612,
+        900,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Short-form + Shopee Live, tracking, hero categories, paid amplification, brand-safety review, backup creators.",
+      "textPreview": "Short-form + Shopee Live, tracking, hero categories, paid amplification, brand-safety review, backup creators.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Inter",
+        "color": "#282828",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Short-form + Shopee Live, tracking, hero categories, paid amplification, brand-safety review, backup creators."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Short-form + Shopee Live, tracking, hero categories, paid amplification, brand-safety review, backup creators.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Short-form + Shopee Live, tracking, hero categories, paid amplification, brand-safety review, backup creators.",
+              "fontSize": 17,
+              "typeface": "Inter",
+              "color": "#282828"
             }
           ],
           "marginLeft": 0

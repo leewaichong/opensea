@@ -1,26 +1,37 @@
-import { C, setup, addText, addBox, addKicker, addArrow } from "./deck-helpers.mjs";
+import { C, setup, addText, addBox, addKicker, agendaTile } from "./deck-helpers.mjs";
 
 export async function slide05(presentation) {
   const slide = presentation.slides.add();
-  setup(slide, `This is the core originality slide. The naive baseline looks only at positions, so it marks "support reaching younger shoppers" as agreed. The assumption-aware classifier compares success criteria and surfaces fake agreement: acquisition, GMV, and mainstream-safe youth reach are different objectives.`, "soft");
-  addKicker(slide, "Wedge", "Position-only classification misses\nthe dangerous case.", "Sources: docs/design-spec.md, docs/pitch-script.md", 5);
+  setup(slide, `Demo proof. Show the actual Mochi digest shape from docs/pitch-script.md: the agenda compresses to one fake-agreement objective, one unresolved role-mix crux, and three cleared action items. That leaves two live decisions: align the primary objective, then decide the creator role mix. Do not show a final influencer decision. Do not claim measured time savings; no such metric is in the docs.`, "soft");
+  addKicker(slide, "Demo Proof", "The room starts with two real decisions.", "Sources: docs/pitch-script.md, docs/build-plan.md", 5);
 
-  addBox(slide, 92, 230, 430, 270, C.white, C.line, 8);
-  addText(slide, "Naive baseline", 124, 260, 260, 26, { size: 18, bold: true });
-  addText(slide, "Input", 124, 318, 70, 16, { size: 11, color: C.muted, bold: true });
-  addText(slide, "Everyone supports reaching younger shoppers.", 124, 340, 320, 44, { size: 22 });
-  addText(slide, "Output", 124, 408, 80, 16, { size: 11, color: C.muted, bold: true });
-  addText(slide, "AGREED", 124, 434, 150, 34, { size: 27, color: C.graphite, bold: true });
+  addBox(slide, 82, 206, 448, 350, C.white, C.line, 8);
+  addText(slide, "Mochi pre-meeting digest", 110, 224, 320, 22, { size: 14, color: C.muted, bold: true });
+  addText(slide, "Slack DM · agenda compressed 9 -> 2", 110, 248, 360, 20, { size: 13, color: C.muted });
+  agendaTile(slide, 102, 282, 408, 80, "Objective: success criteria differ", "fake", "Growth · Commerce · Campaign Lead");
+  agendaTile(slide, 102, 372, 408, 80, "Creator role split unresolved", "crux", "Hero face vs hero + Shopee Live");
+  agendaTile(slide, 102, 462, 408, 80, "Action items cleared: 3", "agreed", "0 need an owner · owner: John Taylor");
 
-  addArrow(slide, 552, 354, 80, C.line);
+  addBox(slide, 554, 206, 560, 162, C.linen, C.graphite, 8);
+  addText(slide, "1. Align the success objective", 586, 236, 460, 30, { size: 24, color: C.ink, bold: true });
+  addText(slide, "Growth wants acquisition. Commerce wants GMV. The campaign lead wants mainstream-safe youth reach.", 586, 284, 470, 64, {
+    size: 18,
+    color: C.graphite,
+    leading: 130,
+  });
 
-  addBox(slide, 660, 230, 464, 270, C.fog, C.graphite, 8);
-  addText(slide, "Assumption-aware classifier", 692, 260, 330, 26, { size: 18, color: C.graphite, bold: true });
-  addText(slide, "Input", 692, 318, 70, 16, { size: 11, color: C.muted, bold: true });
-  addText(slide, "Growth: app installs\nCommerce: GMV\nLead: safe youth reach", 692, 336, 342, 72, { size: 20, leading: 110 });
-  addText(slide, "Output", 692, 420, 80, 16, { size: 11, color: C.muted, bold: true });
-  addText(slide, "FAKE AGREEMENT", 692, 446, 282, 34, { size: 27, color: C.graphite, bold: true });
-  addBox(slide, 112, 536, 940, 78, C.darkPanel, "none", 8);
-  addText(slide, "Judge takeaway: Mochi catches the objective mismatch before the creator decision meeting.", 128, 552, 900, 50, { size: 22, bold: true, color: C.white });
+  addBox(slide, 554, 392, 560, 164, C.white, C.graphite, 8);
+  addText(slide, "2. Decide the creator role split", 586, 422, 460, 30, { size: 24, color: C.ink, bold: true });
+  addText(slide, "One hero face, or hero plus Shopee Live conversion partner. John owns the final call.", 586, 470, 470, 44, {
+    size: 19,
+    color: C.graphite,
+    leading: 130,
+  });
+
+  addText(slide, "Pre-read, not live debate", 90, 584, 220, 20, { size: 14, color: C.muted, bold: true });
+  addText(slide, "Short-form + Shopee Live, tracking, hero categories, paid amplification, brand-safety review, backup creators.", 90, 612, 900, 28, {
+    size: 17,
+    color: C.graphite,
+  });
   return slide;
 }

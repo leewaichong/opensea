@@ -2,7 +2,7 @@ import { C, setup, addText, addBox, addKicker, addImageAsset } from "./deck-help
 
 export async function slide08(presentation) {
   const slide = presentation.slides.add();
-  setup(slide, `Close. Bring the judges back to the sentence from the live script: meetings do not fail because people think they agree. Mochi catches the fake agreement before the hour is gone, inside Slack. Stop at the generated pre-meeting brief; do not imply a final influencer decision. Missing for final submission: GitHub/demo URLs, raw test output, live trace artifact, latency/reliability, and measured adoption/time-saved only if measured.`, "soft");
+  setup(slide, `Close. Bring the judges back to the sentence from the live script: meetings do not fail because people think they agree. Mochi catches the fake agreement before the hour is gone, inside Slack. Stop at the generated pre-meeting brief; do not imply a final influencer decision. The repo URL is now on the slide for submission. Still missing for final submission: optional hosted demo link, live trace artifact, and latency/reliability or measured adoption/time-saved only if measured.`, "soft");
   addKicker(slide, "Close", "Mochi catches fake agreement\nbefore the hour is gone.", "Sources: docs/pitch-script.md, docs/submission-checklist.md", 8);
 
   addText(slide, "Not after-meeting summary.\nBefore-meeting crux.\nInside Slack.", 92, 214, 620, 132, {
@@ -23,15 +23,16 @@ export async function slide08(presentation) {
   });
 
   const criteria = [
-    ["Problem", "unprepared meetings waste time"],
     ["Technology", "persistent + ephemeral agents"],
     ["Outcome", "two decisions before the meeting"],
   ];
   criteria.forEach(([head, body], i) => {
-    const y = 420 + i * 42;
+    const y = 420 + i * 40;
     addText(slide, head, 842, y, 132, 20, { size: 15, bold: true, color: C.graphite });
-    addText(slide, body, 982, y, 230, 20, { size: 15, color: C.muted });
+    addText(slide, body, 974, y, 250, 20, { size: 15, color: C.muted });
   });
+  addText(slide, "Repo", 842, 500, 132, 20, { size: 15, bold: true, color: C.graphite });
+  addText(slide, "github.com/leewaichong/opensea", 906, 500, 300, 20, { size: 15, color: C.codexDeep, bold: true });
 
   addBox(slide, 92, 584, 1040, 54, C.darkPanel, "none", 8);
   addText(slide, "The vision", 124, 600, 140, 18, { size: 13, color: "#BFC5C9", bold: true });

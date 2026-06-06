@@ -18,7 +18,13 @@ export async function slide06(presentation) {
     addText(slide, body, x + 22, 304, 170, 110, { size: 20, leading: 120 });
     if (i < lanes.length - 1) addArrow(slide, x + 228, 340, 38, C.line);
   });
-  addBox(slide, 96, 520, 1020, 72, C.darkPanel, "none", 8);
+  addBox(slide, 96, 480, 1020, 34, C.fog, C.line, 8);
+  addText(slide, "58 tests passing  ·  pydantic v2 contracts  ·  SQLiteSession persistence  ·  Block Kit digest  ·  assumption-aware vs naive baseline", 112, 488, 992, 20, {
+    size: 13,
+    color: C.graphite,
+    bold: true,
+  });
+  addBox(slide, 96, 528, 1020, 64, C.darkPanel, "none", 8);
   addText(slide, "OpenAI Agents SDK", 124, 544, 220, 18, { size: 13, color: "#BFC5C9", bold: true });
   addText(slide, "Persistent context + ephemeral orchestration is the product pattern.", 360, 536, 700, 34, {
     size: 22,

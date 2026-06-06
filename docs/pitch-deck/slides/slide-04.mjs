@@ -1,40 +1,32 @@
-import { C, setup, addText, addBox, addKicker, addRule } from "./deck-helpers.mjs";
+import { C, setup, addText, addBox, addKicker, addArrow } from "./deck-helpers.mjs";
 
 export async function slide04(presentation) {
   const slide = presentation.slides.add();
-  setup(slide, `Demo proof. Show the final Mochi brief shape. The brief compresses nine agenda items to two live agenda items: align the primary objective, then decide the creator role mix. Action items are three resolved and zero need an owner. Do not show a final influencer decision. Do not claim measured time savings; no such metric is in the docs.`, "soft");
-  addKicker(slide, "Demo Proof", "The room starts with two real decisions.", "Sources: docs/pitch-script.md, docs/build-plan.md", 4);
+  setup(slide, `This is the core originality slide, placed before the demo proof so judges know what to watch for. The naive baseline looks only at positions, so it marks "support reaching younger shoppers" as agreed. The assumption-aware classifier compares success criteria and surfaces fake agreement: acquisition, GMV, and mainstream-safe youth reach are different objectives. Both paths are implemented and tested in src/pmle/crux_engine.py, so this is a verifiable build artifact, not a claim.`, "soft");
+  addKicker(slide, "Wedge", "Position-only classification misses\nthe dangerous case.", "Sources: docs/design-spec.md, docs/pitch-script.md", 4);
 
-  addBox(slide, 82, 214, 410, 302, C.white, C.line, 8);
-  addText(slide, "Mochi pre-meeting brief", 116, 246, 320, 24, { size: 18, color: C.muted, bold: true });
-  addText(slide, "9", 116, 294, 112, 96, { size: 92, color: C.ink, bold: true, align: "center" });
-  addText(slide, "agenda items", 118, 394, 112, 24, { size: 16, color: C.muted, align: "center" });
-  addText(slide, "->", 254, 326, 54, 34, { size: 30, color: C.muted, align: "center" });
-  addText(slide, "2", 332, 294, 94, 96, { size: 92, color: C.ink, bold: true, align: "center" });
-  addText(slide, "live decisions", 318, 394, 122, 24, { size: 16, color: C.muted, align: "center" });
-  addRule(slide, 116, 444, 326, C.line);
-  addText(slide, "Action items: 3 resolved, 0 need an owner", 116, 466, 320, 24, { size: 18, color: C.graphite, bold: true });
+  addBox(slide, 92, 222, 430, 262, C.white, C.line, 8);
+  addText(slide, "Naive baseline", 124, 252, 260, 26, { size: 18, bold: true });
+  addText(slide, "Input", 124, 310, 70, 16, { size: 11, color: C.muted, bold: true });
+  addText(slide, "Everyone supports reaching younger shoppers.", 124, 332, 320, 44, { size: 22 });
+  addText(slide, "Output", 124, 400, 80, 16, { size: 11, color: C.muted, bold: true });
+  addText(slide, "AGREED", 124, 426, 150, 34, { size: 27, color: C.graphite, bold: true });
 
-  addBox(slide, 554, 214, 560, 160, C.linen, C.graphite, 8);
-  addText(slide, "1. Align the success objective", 586, 244, 460, 30, { size: 24, color: C.ink, bold: true });
-  addText(slide, "Growth wants acquisition. Commerce wants GMV. The campaign lead wants mainstream-safe youth reach.", 586, 292, 470, 64, {
-    size: 18,
-    color: C.graphite,
-    leading: 130,
+  addArrow(slide, 552, 346, 80, C.line);
+
+  addBox(slide, 660, 222, 464, 262, C.fog, C.graphite, 8);
+  addText(slide, "Assumption-aware classifier", 692, 252, 330, 26, { size: 18, color: C.graphite, bold: true });
+  addText(slide, "Input", 692, 310, 70, 16, { size: 11, color: C.muted, bold: true });
+  addText(slide, "Growth: app installs\nCommerce: GMV\nLead: safe youth reach", 692, 328, 342, 72, { size: 20, leading: 110 });
+  addText(slide, "Output", 692, 412, 80, 16, { size: 11, color: C.muted, bold: true });
+  addText(slide, "FAKE AGREEMENT", 692, 438, 282, 34, { size: 27, color: C.graphite, bold: true });
+
+  addText(slide, "Both paths shipped and tested — naive_baseline vs classify_item in src/pmle/crux_engine.py", 92, 500, 1032, 20, {
+    size: 13,
+    color: C.muted,
   });
 
-  addBox(slide, 554, 398, 560, 146, C.white, C.graphite, 8);
-  addText(slide, "2. Decide the creator role split", 586, 428, 460, 30, { size: 24, color: C.ink, bold: true });
-  addText(slide, "One hero face, or hero plus Shopee Live conversion partner. John owns the final call.", 586, 476, 470, 44, {
-    size: 19,
-    color: C.graphite,
-    leading: 130,
-  });
-
-  addText(slide, "Pre-read, not live debate", 90, 584, 220, 20, { size: 14, color: C.muted, bold: true });
-  addText(slide, "Short-form + Shopee Live, tracking, hero categories, paid amplification, brand-safety review, backup creators.", 90, 612, 900, 28, {
-    size: 17,
-    color: C.graphite,
-  });
+  addBox(slide, 112, 536, 940, 78, C.darkPanel, "none", 8);
+  addText(slide, "Judge takeaway: Mochi catches the objective mismatch before the creator decision meeting.", 128, 552, 900, 50, { size: 22, bold: true, color: C.white });
   return slide;
 }
