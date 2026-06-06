@@ -45,6 +45,6 @@ mkdir -p "$OUTPUT_DIR" "$PREVIEW_DIR" "$LAYOUT_DIR"
   --preview-dir "$PREVIEW_DIR" \
   --layout-dir "$LAYOUT_DIR" \
   --contact-sheet "$CONTACT_SHEET" \
-  --slide-count 8 \
+  --slide-count 9 \
   --scale 1
 

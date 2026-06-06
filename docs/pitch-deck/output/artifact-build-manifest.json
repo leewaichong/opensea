@@ -1,7 +1,7 @@
 {
   "output": "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/output/per-my-last-email-hackathon-pitch.pptx",
-  "outputBytes": 1631076,
-  "slideCount": 8,
+  "outputBytes": 1760713,
+  "slideCount": 9,
   "slideSize": {
     "width": 1280,
     "height": 720
@@ -15,7 +15,8 @@
     "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/preview/slide-05.png",
     "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/preview/slide-06.png",
     "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/preview/slide-07.png",
-    "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/preview/slide-08.png"
+    "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/preview/slide-08.png",
+    "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/preview/slide-09.png"
   ],
   "layoutDir": "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/layout/final",
   "layoutResults": [
@@ -42,6 +43,9 @@
     },
     {
       "layoutPath": "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/layout/final/slide-08.layout.json"
+    },
+    {
+      "layoutPath": "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/layout/final/slide-09.layout.json"
     }
   ],
   "contactSheet": "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/preview/contact-sheet.png",
@@ -93,6 +97,12 @@
       "requestedSlideNumber": 8,
       "modulePath": "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/slides/slide-08.mjs",
       "exportName": "slide08"
+    },
+    {
+      "index": 9,
+      "requestedSlideNumber": 9,
+      "modulePath": "/Users/leewaichong/Desktop/opensea/docs/pitch-deck/slides/slide-09.mjs",
+      "exportName": "slide09"
     }
   ]
 }

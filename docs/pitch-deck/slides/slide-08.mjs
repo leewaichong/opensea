@@ -1,42 +1,44 @@
-import { C, setup, addText, addBox, addKicker, addImageAsset } from "./deck-helpers.mjs";
+import { C, setup, addText, addBox, addKicker, addArrow, addPill } from "./deck-helpers.mjs";
 
 export async function slide08(presentation) {
   const slide = presentation.slides.add();
-  setup(slide, `Close. Bring the judges back to the sentence from the live script: meetings do not fail because people think they agree. Mochi catches the fake agreement before the hour is gone, inside Slack. Stop at the generated pre-meeting brief; do not imply a final influencer decision. The repo URL is now on the slide for submission. Still missing for final submission: optional hosted demo link, live trace artifact, and latency/reliability or measured adoption/time-saved only if measured.`, "soft");
-  addKicker(slide, "Close", "Mochi catches fake agreement\nbefore the hour is gone.", "Sources: docs/pitch-script.md, docs/submission-checklist.md", 8);
+  setup(slide, `Vision slide, framed as architecture and roadmap, not a shipped demo feature. Mochi is an orchestration layer: it coordinates agents rather than replacing them. The structured stance contract (position, rationale, assumptions, confidence) is the open interface. Today, managed agents fill that contract for each participant. The roadmap is bring-your-own-agent: a user points their own personal agent at Mochi; it negotiates their stance in their voice, keeps their context private, and emits only a structured stance. Do not claim BYOA is demoed; label it roadmap. The point is that Mochi is the protocol for pre-meeting agent reasoning, not a silo.`, "soft");
+  addKicker(slide, "Vision", "An orchestration layer.\nBring your own agent.", "Sources: docs/design-spec.md, AGENTS.md", 8);
 
-  addText(slide, "Not after-meeting summary.\nBefore-meeting crux.\nInside Slack.", 92, 214, 620, 132, {
-    size: 36,
-    color: C.ink,
-  });
-  addImageAsset(slide, "../assets/mochi-mascot-rounded.png", 790, 212, 176, 176, "Mochi mascot", "mochi-mascot-close");
-
-  addBox(slide, 92, 388, 694, 136, C.white, C.line, 8);
-  addText(slide, "The owner still decides. The meeting just starts at the crux.", 124, 420, 610, 56, {
-    size: 22,
-    color: C.ink,
-    bold: true,
-  });
-  addText(slide, "Shopee 11.11 creator mix: objective first, role split second, provenance preserved.", 124, 484, 610, 24, {
-    size: 16,
-    color: C.muted,
-  });
-
-  const criteria = [
-    ["Technology", "persistent + ephemeral agents"],
-    ["Outcome", "two decisions before the meeting"],
+  const lanes = [
+    ["Your agents", "one per participant\nyour model + context\nyour tools", C.white, C.line],
+    ["Stance contract", "position\nrationale, assumptions\nconfidence", C.linen, C.graphite],
+    ["Mochi orchestrator", "compares assumptions\nclears easy items\nthen dissolves", C.white, C.line],
+    ["Compressed brief", "only real cruxes\nprovenance\nhuman-owned", C.white, C.line],
   ];
-  criteria.forEach(([head, body], i) => {
-    const y = 420 + i * 40;
-    addText(slide, head, 842, y, 132, 20, { size: 15, bold: true, color: C.graphite });
-    addText(slide, body, 974, y, 250, 20, { size: 15, color: C.muted });
+  lanes.forEach(([head, body, fill, line], i) => {
+    const x = 94 + i * 268;
+    addBox(slide, x, 224, 220, 176, fill, line, 8);
+    addText(slide, head, x + 22, 250, 176, 26, { size: 21, bold: true, color: C.ink });
+    addText(slide, body, x + 22, 296, 176, 96, { size: 17, color: C.graphite, leading: 122 });
+    if (i < lanes.length - 1) addArrow(slide, x + 228, 308, 38, C.line);
   });
-  addText(slide, "Repo", 842, 500, 132, 20, { size: 15, bold: true, color: C.graphite });
-  addText(slide, "github.com/leewaichong/opensea", 906, 500, 300, 20, { size: 15, color: C.codexDeep, bold: true });
 
-  addBox(slide, 92, 584, 1040, 54, C.darkPanel, "none", 8);
-  addText(slide, "The vision", 124, 600, 140, 18, { size: 13, color: "#BFC5C9", bold: true });
-  addText(slide, "Every recurring meeting gets a pre-meeting reasoning loop.", 284, 600, 760, 24, {
+  addBox(slide, 94, 424, 500, 134, C.white, C.line, 8);
+  addText(slide, "Today", 120, 446, 200, 20, { size: 13, color: C.muted, bold: true });
+  addText(slide, "Managed agents fill the stance contract for each person.", 120, 472, 446, 60, {
+    size: 19,
+    color: C.ink,
+    leading: 124,
+  });
+
+  addBox(slide, 612, 424, 500, 134, C.fog, C.graphite, 8);
+  addPill(slide, "ROADMAP", 638, 442, 112, C.codexDeep, C.blueSoft);
+  addText(slide, "Bring your own agent", 762, 446, 330, 22, { size: 15, color: C.graphite, bold: true });
+  addText(slide, "Point your own agent at Mochi. It speaks the stance contract, keeps your context private, and emits only a structured stance.", 638, 482, 452, 70, {
+    size: 17,
+    color: C.ink,
+    leading: 120,
+  });
+
+  addBox(slide, 94, 584, 1018, 56, C.darkPanel, "none", 8);
+  addText(slide, "The protocol", 122, 602, 150, 18, { size: 13, color: "#BFC5C9", bold: true });
+  addText(slide, "Mochi is the protocol for pre-meeting agent reasoning, not the silo.", 288, 600, 800, 24, {
     size: 20,
     color: C.white,
     bold: true,

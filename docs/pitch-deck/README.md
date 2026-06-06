@@ -7,7 +7,7 @@ PerMyLastEmail / Mochi hackathon pitch deck.
 
 - PowerPoint: `output/per-my-last-email-hackathon-pitch.pptx`
 - Contact sheet: `preview/contact-sheet.png`
-- Slide previews: `preview/slide-01.png` through `preview/slide-08.png`
+- Slide previews: `preview/slide-01.png` through `preview/slide-09.png`
 
 ## Edit the deck
 
@@ -15,7 +15,7 @@ Edit the slide modules in `slides/`:
 
 - `slides/deck-helpers.mjs` contains shared colors, typography helpers, image
   background helpers, and repeated components.
-- `slides/slide-01.mjs` through `slides/slide-08.mjs` contain the individual
+- `slides/slide-01.mjs` through `slides/slide-09.mjs` contain the individual
   slide content and speaker notes.
 - `assets/` contains the Codex-style generated backgrounds and rounded Mochi
   mascot image.

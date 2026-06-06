@@ -2,9 +2,9 @@
   "schema": "openai.presentation.layout/v4",
   "unit": "px",
   "slide": {
-    "aid": "sl/k0d74v",
-    "id": "k0d74v",
-    "slide": 6,
+    "aid": "sl/owabd3",
+    "id": "owabd3",
+    "slide": 9,
     "layoutId": "a0fd5d2d-ecab-4ad2-bff4-6e8302b5b2dc",
     "layoutName": "Title Slide",
     "layoutType": "title",
@@ -64,7 +64,7 @@
       "order": 1,
       "kind": "image",
       "scope": "slide",
-      "aid": "im/r65wjudg",
+      "aid": "im/ji5snelo",
       "id": "1",
       "bbox": [
         0,
@@ -76,7 +76,7 @@
       "contentType": "image/png",
       "imageFit": "cover",
       "asset": {
-        "assetId": "e0bd8bff-a0cc-4292-838e-7ade2ce3fc44",
+        "assetId": "4c63302b-41ba-4806-9020-4a4f7ce28f6a",
         "contentType": "image/png",
         "byteLength": 124361
       }
@@ -85,7 +85,7 @@
       "order": 2,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/l87ed8ba",
+      "aid": "sh/d0z61032",
       "id": "2",
       "bbox": [
         72,
@@ -94,8 +94,8 @@
         24
       ],
       "geometry": "rect",
-      "text": "BUILD",
-      "textPreview": "BUILD",
+      "text": "CLOSE",
+      "textPreview": "CLOSE",
       "resolvedFontSize": 13,
       "resolvedTextStyle": {
         "fontSize": 13,
@@ -117,18 +117,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "BUILD"
+            "text": "CLOSE"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "BUILD",
+          "text": "CLOSE",
           "runs": [
             {
               "index": 1,
-              "text": "BUILD",
+              "text": "CLOSE",
               "fontSize": 13,
               "typeface": "Inter",
               "color": "#5D605E",
@@ -144,7 +144,7 @@
       "order": 3,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/sneloj2t",
+      "aid": "sh/kf6dcbul",
       "id": "3",
       "bbox": [
         70,
@@ -153,8 +153,8 @@
         112
       ],
       "geometry": "rect",
-      "text": "Managed agents make prep continuous,\nthen disappear.",
-      "textPreview": "Managed agents make prep continuous, | then disappear.",
+      "text": "Mochi catches fake agreement\nbefore the hour is gone.",
+      "textPreview": "Mochi catches fake agreement | before the hour is gone.",
       "resolvedFontSize": 40,
       "resolvedTextStyle": {
         "fontSize": 40,
@@ -175,22 +175,22 @@
         "lines": [
           {
             "index": 1,
-            "text": "Managed agents make prep continuous,"
+            "text": "Mochi catches fake agreement"
           },
           {
             "index": 2,
-            "text": "then disappear."
+            "text": "before the hour is gone."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Managed agents make prep continuous,",
+          "text": "Mochi catches fake agreement",
           "runs": [
             {
               "index": 1,
-              "text": "Managed agents make prep continuous,",
+              "text": "Mochi catches fake agreement",
               "fontSize": 40,
               "typeface": "Inter",
               "color": "#181818"
@@ -200,11 +200,11 @@
         },
         {
           "index": 2,
-          "text": "then disappear.",
+          "text": "before the hour is gone.",
           "runs": [
             {
               "index": 1,
-              "text": "then disappear.",
+              "text": "before the hour is gone.",
               "fontSize": 40,
               "typeface": "Inter",
               "color": "#181818"
@@ -219,7 +219,7 @@
       "order": 4,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/3ex0nuxc",
+      "aid": "sh/v6psfil0",
       "id": "4",
       "bbox": [
         72,
@@ -228,8 +228,8 @@
         18
       ],
       "geometry": "rect",
-      "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
-      "textPreview": "Sources: docs/pitch-script.md, docs/build-plan.md",
+      "text": "Sources: docs/pitch-script.md, docs/submission-checklist.md",
+      "textPreview": "Sources: docs/pitch-script.md, docs/submission-checklist.md",
       "resolvedFontSize": 10,
       "resolvedTextStyle": {
         "fontSize": 10,
@@ -250,18 +250,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "Sources: docs/pitch-script.md, docs/build-plan.md"
+            "text": "Sources: docs/pitch-script.md, docs/submission-checklist.md"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
+          "text": "Sources: docs/pitch-script.md, docs/submission-checklist.md",
           "runs": [
             {
               "index": 1,
-              "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
+              "text": "Sources: docs/pitch-script.md, docs/submission-checklist.md",
               "fontSize": 10,
               "typeface": "Inter",
               "color": "#5D605E"
@@ -276,7 +276,7 @@
       "order": 5,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/at47y1kr",
+      "aid": "sh/2lszqtcj",
       "id": "5",
       "bbox": [
         1180,
@@ -285,8 +285,8 @@
         18
       ],
       "geometry": "rect",
-      "text": "06",
-      "textPreview": "06",
+      "text": "09",
+      "textPreview": "09",
       "resolvedFontSize": 10,
       "resolvedTextStyle": {
         "fontSize": 10,
@@ -307,14 +307,14 @@
         "lines": [
           {
             "index": 1,
-            "text": "06"
+            "text": "09"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "06",
+          "text": "09",
           "resolvedTextStyle": {
             "fontSize": 10,
             "typeface": "Inter",
@@ -332,7 +332,7 @@
           "runs": [
             {
               "index": 1,
-              "text": "06",
+              "text": "09",
               "fontSize": 10,
               "typeface": "Inter",
               "color": "#5D605E"
@@ -347,518 +347,20 @@
       "order": 6,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/lkjm1cfa",
+      "aid": "sh/d8bat47y",
       "id": "6",
       "bbox": [
-        94,
-        226,
-        220,
-        242
-      ],
-      "geometry": "roundRect",
-      "fillColor": "#FFFFFF",
-      "lineColor": "#EDEDED",
-      "lineWidth": 1
-    },
-    {
-      "order": 7,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/szqtcj6t",
-      "id": "7",
-      "bbox": [
-        116,
-        254,
-        160,
-        28
+        92,
+        214,
+        620,
+        132
       ],
       "geometry": "rect",
-      "text": "Slack",
-      "textPreview": "Slack",
-      "resolvedFontSize": 24,
+      "text": "Not after-meeting summary.\nBefore-meeting crux.\nInside Slack.",
+      "textPreview": "Not after-meeting summary. | Before-meeting crux. | Inside Slack.",
+      "resolvedFontSize": 36,
       "resolvedTextStyle": {
-        "fontSize": 24,
-        "typeface": "Inter",
-        "color": "#181818",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 1,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Slack"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Slack",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Slack",
-              "fontSize": 24,
-              "typeface": "Inter",
-              "color": "#181818",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 8,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/3itgfmlk",
-      "id": "8",
-      "bbox": [
-        116,
-        304,
-        170,
-        110
-      ],
-      "geometry": "rect",
-      "text": "natural-language prep\nstakeholder mentions\nbrief delivery",
-      "textPreview": "natural-language prep | stakeholder mentions | brief delivery",
-      "resolvedFontSize": 20,
-      "resolvedTextStyle": {
-        "fontSize": 20,
-        "typeface": "Inter",
-        "color": "#181818",
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 5,
-        "lines": [
-          {
-            "index": 1,
-            "text": "natural-language"
-          },
-          {
-            "index": 2,
-            "text": "prep"
-          },
-          {
-            "index": 3,
-            "text": "stakeholder"
-          },
-          {
-            "index": 4,
-            "text": "mentions"
-          },
-          {
-            "index": 5,
-            "text": "brief delivery"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "natural-language prep",
-          "runs": [
-            {
-              "index": 1,
-              "text": "natural-language prep",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 2,
-          "text": "stakeholder mentions",
-          "runs": [
-            {
-              "index": 1,
-              "text": "stakeholder mentions",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 3,
-          "text": "brief delivery",
-          "runs": [
-            {
-              "index": 1,
-              "text": "brief delivery",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 9,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/ex0nuxc3",
-      "id": "9",
-      "bbox": [
-        322,
-        344,
-        26,
-        2
-      ],
-      "geometry": "rect",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 10,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/wfyxobm5",
-      "id": "10",
-      "bbox": [
-        346,
-        340,
-        14,
-        10
-      ],
-      "geometry": "triangle",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 11,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/l0rqd4vm",
-      "id": "11",
-      "bbox": [
-        362,
-        226,
-        220,
-        242
-      ],
-      "geometry": "roundRect",
-      "fillColor": "#FFFFFF",
-      "lineColor": "#EDEDED",
-      "lineWidth": 1
-    },
-    {
-      "order": 12,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/ed8bat47",
-      "id": "12",
-      "bbox": [
-        384,
-        254,
-        160,
-        28
-      ],
-      "geometry": "rect",
-      "text": "Persistent sessions",
-      "textPreview": "Persistent sessions",
-      "resolvedFontSize": 24,
-      "resolvedTextStyle": {
-        "fontSize": 24,
-        "typeface": "Inter",
-        "color": "#181818",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 2,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Persistent"
-          },
-          {
-            "index": 2,
-            "text": "sessions"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Persistent sessions",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Persistent sessions",
-              "fontSize": 24,
-              "typeface": "Inter",
-              "color": "#181818",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 13,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/7u54zido",
-      "id": "13",
-      "bbox": [
-        384,
-        304,
-        170,
-        110
-      ],
-      "geometry": "rect",
-      "text": "one agent per person\nstance history\nstructured tools",
-      "textPreview": "one agent per person | stance history | structured tools",
-      "resolvedFontSize": 20,
-      "resolvedTextStyle": {
-        "fontSize": 20,
-        "typeface": "Inter",
-        "color": "#181818",
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 4,
-        "lines": [
-          {
-            "index": 1,
-            "text": "one agent per"
-          },
-          {
-            "index": 2,
-            "text": "person"
-          },
-          {
-            "index": 3,
-            "text": "stance history"
-          },
-          {
-            "index": 4,
-            "text": "structured tools"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "one agent per person",
-          "runs": [
-            {
-              "index": 1,
-              "text": "one agent per person",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 2,
-          "text": "stance history",
-          "runs": [
-            {
-              "index": 1,
-              "text": "stance history",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 3,
-          "text": "structured tools",
-          "runs": [
-            {
-              "index": 1,
-              "text": "structured tools",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 14,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/wra5gbq1",
-      "id": "14",
-      "bbox": [
-        590,
-        344,
-        26,
-        2
-      ],
-      "geometry": "rect",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 15,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/lc7u54zi",
-      "id": "15",
-      "bbox": [
-        614,
-        340,
-        14,
-        10
-      ],
-      "geometry": "triangle",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 16,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/eloj2t83",
-      "id": "16",
-      "bbox": [
-        630,
-        226,
-        220,
-        242
-      ],
-      "geometry": "roundRect",
-      "fillColor": "#F3F3F3",
-      "lineColor": "#282828",
-      "lineWidth": 1
-    },
-    {
-      "order": 17,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/36hcrmhk",
-      "id": "17",
-      "bbox": [
-        652,
-        254,
-        160,
-        28
-      ],
-      "geometry": "rect",
-      "text": "Ephemeral session",
-      "textPreview": "Ephemeral session",
-      "resolvedFontSize": 24,
-      "resolvedTextStyle": {
-        "fontSize": 24,
-        "typeface": "Inter",
-        "color": "#181818",
-        "bold": true,
-        "alignment": "left",
-        "wrap": "square",
-        "autoFit": "none",
-        "insets": {
-          "top": 4,
-          "right": 4,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      "textLayout": {
-        "lineCount": 2,
-        "lines": [
-          {
-            "index": 1,
-            "text": "Ephemeral"
-          },
-          {
-            "index": 2,
-            "text": "session"
-          }
-        ]
-      },
-      "paragraphs": [
-        {
-          "index": 1,
-          "text": "Ephemeral session",
-          "runs": [
-            {
-              "index": 1,
-              "text": "Ephemeral session",
-              "fontSize": 24,
-              "typeface": "Inter",
-              "color": "#181818",
-              "bold": true
-            }
-          ],
-          "marginLeft": 0
-        }
-      ],
-      "lineWidth": 0
-    },
-    {
-      "order": 18,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/wval87ed",
-      "id": "18",
-      "bbox": [
-        652,
-        304,
-        170,
-        110
-      ],
-      "geometry": "rect",
-      "text": "one orchestrator\nfor one meeting\nthen dissolves",
-      "textPreview": "one orchestrator | for one meeting | then dissolves",
-      "resolvedFontSize": 20,
-      "resolvedTextStyle": {
-        "fontSize": 20,
+        "fontSize": 36,
         "typeface": "Inter",
         "color": "#181818",
         "alignment": "left",
@@ -876,27 +378,27 @@
         "lines": [
           {
             "index": 1,
-            "text": "one orchestrator"
+            "text": "Not after-meeting summary."
           },
           {
             "index": 2,
-            "text": "for one meeting"
+            "text": "Before-meeting crux."
           },
           {
             "index": 3,
-            "text": "then dissolves"
+            "text": "Inside Slack."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "one orchestrator",
+          "text": "Not after-meeting summary.",
           "runs": [
             {
               "index": 1,
-              "text": "one orchestrator",
-              "fontSize": 20,
+              "text": "Not after-meeting summary.",
+              "fontSize": 36,
               "typeface": "Inter",
               "color": "#181818"
             }
@@ -905,12 +407,12 @@
         },
         {
           "index": 2,
-          "text": "for one meeting",
+          "text": "Before-meeting crux.",
           "runs": [
             {
               "index": 1,
-              "text": "for one meeting",
-              "fontSize": 20,
+              "text": "Before-meeting crux.",
+              "fontSize": 36,
               "typeface": "Inter",
               "color": "#181818"
             }
@@ -919,12 +421,12 @@
         },
         {
           "index": 3,
-          "text": "then dissolves",
+          "text": "Inside Slack.",
           "runs": [
             {
               "index": 1,
-              "text": "then dissolves",
-              "fontSize": 20,
+              "text": "Inside Slack.",
+              "fontSize": 36,
               "typeface": "Inter",
               "color": "#181818"
             }
@@ -935,48 +437,37 @@
       "lineWidth": 0
     },
     {
-      "order": 19,
-      "kind": "shape",
+      "order": 7,
+      "kind": "image",
       "scope": "slide",
-      "aid": "sh/pg3ex0nu",
-      "id": "19",
+      "aid": "im/1cfa9w3m",
+      "id": "7",
       "bbox": [
-        858,
-        344,
-        26,
-        2
+        790,
+        212,
+        176,
+        176
       ],
-      "geometry": "rect",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
+      "alt": "Mochi mascot",
+      "contentType": "image/png",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "16c86f12-dd96-440d-b399-2aec21d3e18e",
+        "contentType": "image/png",
+        "byteLength": 294572
+      }
     },
     {
-      "order": 20,
+      "order": 8,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/9knih4by",
-      "id": "20",
+      "aid": "sh/val87ed8",
+      "id": "8",
       "bbox": [
-        882,
-        340,
-        14,
-        10
-      ],
-      "geometry": "triangle",
-      "fillColor": "#EDEDED",
-      "lineWidth": 0
-    },
-    {
-      "order": 21,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/kzupwb2h",
-      "id": "21",
-      "bbox": [
-        898,
-        226,
-        220,
-        242
+        92,
+        388,
+        694,
+        136
       ],
       "geometry": "roundRect",
       "fillColor": "#FFFFFF",
@@ -984,23 +475,23 @@
       "lineWidth": 1
     },
     {
-      "order": 22,
+      "order": 9,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/re1w7mp0",
-      "id": "22",
+      "aid": "sh/6psfil0r",
+      "id": "9",
       "bbox": [
-        920,
-        254,
-        160,
-        28
+        124,
+        420,
+        610,
+        56
       ],
       "geometry": "rect",
-      "text": "Traceable output",
-      "textPreview": "Traceable output",
-      "resolvedFontSize": 24,
+      "text": "The owner still decides. The meeting just starts at the crux.",
+      "textPreview": "The owner still decides. The meeting just starts at the crux.",
+      "resolvedFontSize": 22,
       "resolvedTextStyle": {
-        "fontSize": 24,
+        "fontSize": 22,
         "typeface": "Inter",
         "color": "#181818",
         "bold": true,
@@ -1019,23 +510,23 @@
         "lines": [
           {
             "index": 1,
-            "text": "Traceable"
+            "text": "The owner still decides. The meeting just starts at the"
           },
           {
             "index": 2,
-            "text": "output"
+            "text": "crux."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Traceable output",
+          "text": "The owner still decides. The meeting just starts at the crux.",
           "runs": [
             {
               "index": 1,
-              "text": "Traceable output",
-              "fontSize": 24,
+              "text": "The owner still decides. The meeting just starts at the crux.",
+              "fontSize": 22,
               "typeface": "Inter",
               "color": "#181818",
               "bold": true
@@ -1047,25 +538,25 @@
       "lineWidth": 0
     },
     {
-      "order": 23,
+      "order": 10,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/2t83itgf",
-      "id": "23",
+      "aid": "sh/4r65wjud",
+      "id": "10",
       "bbox": [
-        920,
-        304,
-        170,
-        110
+        124,
+        484,
+        610,
+        24
       ],
       "geometry": "rect",
-      "text": "assumption diff\nprovenance\nhuman-owned brief",
-      "textPreview": "assumption diff | provenance | human-owned brief",
-      "resolvedFontSize": 20,
+      "text": "Shopee 11.11 creator mix: objective first, role split second, provenance preserved.",
+      "textPreview": "Shopee 11.11 creator mix: objective first, role split second, provenance preserved.",
+      "resolvedFontSize": 16,
       "resolvedTextStyle": {
-        "fontSize": 20,
+        "fontSize": 16,
         "typeface": "Inter",
-        "color": "#181818",
+        "color": "#5D605E",
         "alignment": "left",
         "wrap": "square",
         "autoFit": "none",
@@ -1077,65 +568,25 @@
         }
       },
       "textLayout": {
-        "lineCount": 4,
+        "lineCount": 1,
         "lines": [
           {
             "index": 1,
-            "text": "assumption diff"
-          },
-          {
-            "index": 2,
-            "text": "provenance"
-          },
-          {
-            "index": 3,
-            "text": "human-owned"
-          },
-          {
-            "index": 4,
-            "text": "brief"
+            "text": "Shopee 11.11 creator mix: objective first, role split second, provenance preserved."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "assumption diff",
+          "text": "Shopee 11.11 creator mix: objective first, role split second, provenance preserved.",
           "runs": [
             {
               "index": 1,
-              "text": "assumption diff",
-              "fontSize": 20,
+              "text": "Shopee 11.11 creator mix: objective first, role split second, provenance preserved.",
+              "fontSize": 16,
               "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 2,
-          "text": "provenance",
-          "runs": [
-            {
-              "index": 1,
-              "text": "provenance",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
-            }
-          ],
-          "marginLeft": 0
-        },
-        {
-          "index": 3,
-          "text": "human-owned brief",
-          "runs": [
-            {
-              "index": 1,
-              "text": "human-owned brief",
-              "fontSize": 20,
-              "typeface": "Inter",
-              "color": "#181818"
+              "color": "#5D605E"
             }
           ],
           "marginLeft": 0
@@ -1144,40 +595,23 @@
       "lineWidth": 0
     },
     {
-      "order": 24,
+      "order": 11,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/9w3m94fu",
-      "id": "24",
+      "aid": "sh/xc3ylc7u",
+      "id": "11",
       "bbox": [
-        96,
-        480,
-        1020,
-        34
-      ],
-      "geometry": "roundRect",
-      "fillColor": "#F9F9F9",
-      "lineColor": "#EDEDED",
-      "lineWidth": 1
-    },
-    {
-      "order": 25,
-      "kind": "shape",
-      "scope": "slide",
-      "aid": "sh/kb6xkf6d",
-      "id": "25",
-      "bbox": [
-        112,
-        488,
-        992,
+        842,
+        420,
+        132,
         20
       ],
       "geometry": "rect",
-      "text": "58 tests passing  ·  pydantic v2 contracts  ·  SQLiteSession persistence  ·  Block Kit digest  ·  assumption-aware vs naive baseline",
-      "textPreview": "58 tests passing  ·  pydantic v2 contracts  ·  SQLiteSession persistence  ·  Block Kit digest  ·  assumption-aware vs naive baseline",
-      "resolvedFontSize": 13,
+      "text": "Technology",
+      "textPreview": "Technology",
+      "resolvedFontSize": 15,
       "resolvedTextStyle": {
-        "fontSize": 13,
+        "fontSize": 15,
         "typeface": "Inter",
         "color": "#282828",
         "bold": true,
@@ -1196,19 +630,19 @@
         "lines": [
           {
             "index": 1,
-            "text": "58 tests passing  ·  pydantic v2 contracts  ·  SQLiteSession persistence  ·  Block Kit digest  ·  assumption-aware vs naive baseline"
+            "text": "Technology"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "58 tests passing  ·  pydantic v2 contracts  ·  SQLiteSession persistence  ·  Block Kit digest  ·  assumption-aware vs naive baseline",
+          "text": "Technology",
           "runs": [
             {
               "index": 1,
-              "text": "58 tests passing  ·  pydantic v2 contracts  ·  SQLiteSession persistence  ·  Block Kit digest  ·  assumption-aware vs naive baseline",
-              "fontSize": 13,
+              "text": "Technology",
+              "fontSize": 15,
               "typeface": "Inter",
               "color": "#282828",
               "bold": true
@@ -1220,36 +654,327 @@
       "lineWidth": 0
     },
     {
-      "order": 26,
+      "order": 12,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/rqd4vmtw",
-      "id": "26",
+      "aid": "sh/mlkjm1cf",
+      "id": "12",
       "bbox": [
-        96,
-        528,
-        1020,
-        64
+        974,
+        420,
+        250,
+        20
+      ],
+      "geometry": "rect",
+      "text": "persistent + ephemeral agents",
+      "textPreview": "persistent + ephemeral agents",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "persistent + ephemeral agents"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "persistent + ephemeral agents",
+          "runs": [
+            {
+              "index": 1,
+              "text": "persistent + ephemeral agents",
+              "fontSize": 15,
+              "typeface": "Inter",
+              "color": "#5D605E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/f6dcbulw",
+      "id": "13",
+      "bbox": [
+        842,
+        460,
+        132,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Outcome",
+      "textPreview": "Outcome",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "Inter",
+        "color": "#282828",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Outcome"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Outcome",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Outcome",
+              "fontSize": 15,
+              "typeface": "Inter",
+              "color": "#282828",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4zidonyd",
+      "id": "14",
+      "bbox": [
+        974,
+        460,
+        250,
+        20
+      ],
+      "geometry": "rect",
+      "text": "two decisions before the meeting",
+      "textPreview": "two decisions before the meeting",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "two decisions before the meeting"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "two decisions before the meeting",
+          "runs": [
+            {
+              "index": 1,
+              "text": "two decisions before the meeting",
+              "fontSize": 15,
+              "typeface": "Inter",
+              "color": "#5D605E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xkf6dcbu",
+      "id": "15",
+      "bbox": [
+        842,
+        500,
+        132,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Repo",
+      "textPreview": "Repo",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "Inter",
+        "color": "#282828",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Repo"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Repo",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Repo",
+              "fontSize": 15,
+              "typeface": "Inter",
+              "color": "#282828",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mtwra5gb",
+      "id": "16",
+      "bbox": [
+        906,
+        500,
+        300,
+        20
+      ],
+      "geometry": "rect",
+      "text": "github.com/leewaichong/opensea",
+      "textPreview": "github.com/leewaichong/opensea",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "Inter",
+        "color": "#2636B8",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "github.com/leewaichong/opensea"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "github.com/leewaichong/opensea",
+          "runs": [
+            {
+              "index": 1,
+              "text": "github.com/leewaichong/opensea",
+              "fontSize": 15,
+              "typeface": "Inter",
+              "color": "#2636B8",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fepkzupw",
+      "id": "17",
+      "bbox": [
+        92,
+        584,
+        1040,
+        54
       ],
       "geometry": "roundRect",
       "fillColor": "#17191A",
       "lineWidth": 0
     },
     {
-      "order": 27,
+      "order": 18,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/25kb6xkf",
-      "id": "27",
+      "aid": "sh/83itgfml",
+      "id": "18",
       "bbox": [
         124,
-        544,
-        220,
+        600,
+        140,
         18
       ],
       "geometry": "rect",
-      "text": "OpenAI Agents SDK",
-      "textPreview": "OpenAI Agents SDK",
+      "text": "The vision",
+      "textPreview": "The vision",
       "resolvedFontSize": 13,
       "resolvedTextStyle": {
         "fontSize": 13,
@@ -1271,18 +996,18 @@
         "lines": [
           {
             "index": 1,
-            "text": "OpenAI Agents SDK"
+            "text": "The vision"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "OpenAI Agents SDK",
+          "text": "The vision",
           "runs": [
             {
               "index": 1,
-              "text": "OpenAI Agents SDK",
+              "text": "The vision",
               "fontSize": 13,
               "typeface": "Inter",
               "color": "#BFC5C9",
@@ -1295,23 +1020,23 @@
       "lineWidth": 0
     },
     {
-      "order": 28,
+      "order": 19,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/94fu18jq",
-      "id": "28",
+      "aid": "sh/xobm58z2",
+      "id": "19",
       "bbox": [
-        360,
-        536,
-        700,
-        34
+        284,
+        600,
+        760,
+        24
       ],
       "geometry": "rect",
-      "text": "Persistent context + ephemeral orchestration is the product pattern.",
-      "textPreview": "Persistent context + ephemeral orchestration is the product pattern.",
-      "resolvedFontSize": 22,
+      "text": "Every recurring meeting gets a pre-meeting reasoning loop.",
+      "textPreview": "Every recurring meeting gets a pre-meeting reasoning loop.",
+      "resolvedFontSize": 20,
       "resolvedTextStyle": {
-        "fontSize": 22,
+        "fontSize": 20,
         "typeface": "Inter",
         "color": "#FFFFFF",
         "bold": true,
@@ -1326,27 +1051,23 @@
         }
       },
       "textLayout": {
-        "lineCount": 2,
+        "lineCount": 1,
         "lines": [
           {
             "index": 1,
-            "text": "Persistent context + ephemeral orchestration is the product"
-          },
-          {
-            "index": 2,
-            "text": "pattern."
+            "text": "Every recurring meeting gets a pre-meeting reasoning loop."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Persistent context + ephemeral orchestration is the product pattern.",
+          "text": "Every recurring meeting gets a pre-meeting reasoning loop.",
           "runs": [
             {
               "index": 1,
-              "text": "Persistent context + ephemeral orchestration is the product pattern.",
-              "fontSize": 22,
+              "text": "Every recurring meeting gets a pre-meeting reasoning loop.",
+              "fontSize": 20,
               "typeface": "Inter",
               "color": "#FFFFFF",
               "bold": true
