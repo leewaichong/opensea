@@ -2,160 +2,136 @@
 
 ## Overview
 
-PerMyLastEmail (PMLE) is a Slack-native pre-meeting **crux finder**. A transient
-orchestrator agent queries persistent per-person managed agents, compares the
-*assumptions* underneath their stances (not just their surface positions), classifies
-each agenda item (`agreed` / `fake_agreement` / `crux` / `needs_clarification`),
-pre-clears resolvable action items, and posts a compressed "9 → 2" digest to Slack — only
-the items that actually need a live meeting reach humans. Built for the Sea x OpenAI Codex
-Hackathon.
+PerMyLastEmail (PMLE) is a Slack-native pre-meeting **crux finder**. You DM the bot in plain
+language ("prep the Q3 vendor decision — @alice owns budget, @bob runs eng"); it deduces that
+you want to prepare a meeting, reaches out to the **real teammates** you tagged, collects each
+person's input, compares the *assumptions* underneath their stances (not just their surface
+positions), and DMs everyone a compressed brief: which items are genuine conflicts that need
+the live meeting, which only one side weighed in on, and which are already aligned. The point
+is to catch **fake agreement** — people using the same words to mean different things — before
+anyone sits down. Built for the Sea x OpenAI Codex Hackathon (team PerMyLastEmail).
 
 **Tech:** Python 3.11+, OpenAI Agents SDK (`openai-agents` → `import agents`),
 `slack-bolt` Socket Mode, pydantic v2, SQLite, pytest.
 
-## Architecture & Data Flow
+## Entry point & flow
+
+There is **no slash command to start** — the entry point is a free-form DM. `on_dm` in
+`slack_app.py` routes every DM:
 
 ```
-human (Slack DM) ──> persistent participant Agent (SQLiteSession per person)
-                          │  owns structured Stance via set/update_stance tools
-                          ▼
-                     StanceStore (SQLite: pmle_stances.db, keyed by person+item_id)
-                          ▲
-   orchestrator.run_meeting() (transient, per-meeting) reads stances ──┘
-                          │
-                          ▼
-   crux_engine.classify_item (assumption-aware LLM)  OR  naive_baseline (position-only)
-                          ▼
-                     BoardState ──> digest.render_text / render_blocks ──> Slack
+DM ──> "clear"/"reset"/"restart"? ──> wipe state, reset scenario (kill switch)
+   ──> already in a setup session / meeting? ──> continue it
+   ──> fresh DM:
+         @mentioned real teammates?  ──> MULTI-PARTICIPANT: DM each for input,
+                                          collect, auto-compile, DM the brief to all
+         prep intent but no mentions? ──> ask the one setup question, then fan out
+         not a meeting?               ──> the persistent agent just replies
 ```
 
-- **`src/pmle/schemas.py`** — the **locked shared data contract** (pydantic v2). `Stance`
-  (position, rationale, `key_assumptions`, confidence), `AgendaItem`, `ActionItem`,
-  `ClassificationResult`, `BoardState`. Change deliberately — everything keys off it.
-- **`participants.py`** — `build_participant(person)` returns an `Agent` + persistent
-  `SQLiteSession("participant::<person>", "pmle_sessions.db")` with `get/set/update_stance`
-  function-tools. `ask_stance()` is what the orchestrator calls per (person, item); it
-  short-circuits to the cached `StanceStore` value if one exists.
-- **`stance_store.py`** — `StanceStore`, SQLite-backed, keyed by `(person, item_id)`.
-  Persistent across meetings.
-- **`crux_engine.py`** — `classify_item(stances)` is the assumption-aware LLM classifier
-  (the `_CLASSIFIER` Agent). `naive_baseline(stances)` is the deterministic position-only
-  foil that *deliberately misses* fake agreement (used in evals to show the contrast).
-- **`orchestrator.py`** — `run_meeting(escalate=None, ask_stance=None, classify_item=None)`.
-  Loops agenda items, asks each participant, classifies, optionally escalates
-  `needs_clarification` to a human via the `escalate` hook, then deterministically
-  pre-clears the Shopee action items. The `ask_stance=`/`classify_item=` params let a
-  caller **inject** the stance source/classifier (Slack demo path); when `None` they fall
-  back to the module-level functions, so test monkeypatching of `orchestrator.ask_stance`
-  still works.
-- **`digest.py`** — renders `BoardState` to plain text (`render_text`) and Slack Block Kit
-  (`render_blocks`). Only `crux`/`fake_agreement` items show in the "needs a meeting" list.
-- **`manual_flow.py`** — pure, I/O-free conversation **state machine** for the `/premeeting`
-  DM flow (`brief → setup → growth → commerce → owner_gap → confirm_growth →
-  confirm_commerce → complete`). Returns `{reply, ground, complete}` signals; the Slack
-  layer applies the side effects.
-- **`slack_app.py`** — `slack-bolt` Socket Mode entrypoint (`main()` starts the server).
-- **`data/`** — `agenda.py` (decision, 9 agenda items, 3 action items, participants),
-  `cached_stances.py` (`CACHED` — the seeded Shopee stances), `personas.py` (private agent
-  context per person).
+The compiled brief is **DM'd to every participant** (and the initiator) — there is no meeting
+channel. Auto-compiles once everyone replies, or the initiator DMs `compile`.
 
-## Slack Commands & the Key Gate (most important non-obvious behavior)
+## Two gates (the most important non-obvious behavior)
 
-Two slash commands (defined in `slack_app.py`):
+Behavior is controlled by two env vars, read in `slack_app.py`:
 
-- **`/premeeting`** — opens a DM and hosts the dynamic flow driven by `manual_flow.py`.
-  Each stakeholder reply is grounded into a participant's `Stance`; the brief is generated
-  from collected inputs.
-- **`/premeeting-scripted`** — the fast, deterministic cached fallback (canned Shopee
-  digest). Safe for stage/demo timing.
+| | `PMLE_LIVE_AGENTS` unset/`0` | `PMLE_LIVE_AGENTS=1` |
+|---|---|---|
+| **`PMLE_HARDCODED=1`** | deterministic cached **Shopee** digest (offline, no key, input-independent — safe for stage timing) | live LLM, but the **fixed Shopee scenario**: 9-item agenda, 3 personas, grounding pinned to `objective`/`role-mix`, hardcoded action items |
+| **`PMLE_HARDCODED` unset/`0`** | (same as left — demo can't be dynamic without the LLM) | **FULL DYNAMIC** flow ↓ |
 
-**Brief generation is gated by the `PMLE_LIVE_AGENTS` env var** (read only in
-`slack_app.py._live_agents()`):
+`_dynamic() = _live_agents() and PMLE_HARDCODED != "1"`. **Dynamic only applies to the
+multi-participant branch** (you @mention real people); the solo branch is always canned Shopee.
 
-| `PMLE_LIVE_AGENTS` | Behavior |
-|---|---|
-| unset / `0` (default) | Deterministic **cached Shopee digest**, input-independent. `run_meeting` is called with `ask_stance=_demo_ask_stance, classify_item=_demo_classify_item`. Safe for demo timing. |
-| `1` | Grounds the user's typed inputs into stances via persistent agents, then classifies **live**. Only mode where the brief reflects what the user typed. Needs `OPENAI_API_KEY`; non-deterministic; slow (the code header says "~21 extra agent calls"). |
+**Dynamic live flow:** the agenda is generated from your setup (`triage.build_agenda`), roles
+are free-text lenses inferred from the text (`triage.llm_roster(open_roles=True)`), each real
+reply is grounded into stances over the *real* agenda (`triage.ground_reply`, filtered to the
+exact agenda ids, keyed by **slack id** so same-role people don't clobber), and **Mochi**
+(`crux_engine`) classifies. No personas, no hardcoded topic — `_build_dynamic_board(meeting)`.
 
-> **Two different live gates — don't conflate them.** `slack_app.py` gates on
-> `PMLE_LIVE_AGENTS == "1"`. `scripts/run_demo.py` instead gates on **`OPENAI_API_KEY`
-> presence** and does *not* call `load_dotenv()`, so a key in `.env` will **not** trigger
-> the live path there — only a shell-exported key does. Likewise the injection style
-> differs: `slack_app` injects via the `ask_stance=`/`classify_item=` params, while
-> `run_demo` still **monkeypatches** `orchestrator.ask_stance`/`classify_item` globals
-> (the orchestrator supports both deliberately).
+## Modules (`src/pmle/`)
 
-## Commands (all fast & offline except the live path)
+- **`schemas.py`** — the **locked shared data contract** (pydantic v2): `Stance` (position,
+  rationale, `key_assumptions`, confidence), `AgendaItem`, `ActionItem`, `ClassificationResult`
+  (status ∈ `agreed`/`fake_agreement`/`crux`/`needs_clarification`/`open`), `BoardState`.
+  Everything keys off it.
+- **`slack_app.py`** — Socket Mode entrypoint (`main()`). `on_dm` routing, `_dynamic()` gate,
+  `_extract_roster`, `_start_multihuman` (DM resilience + dynamic agenda build), `_handle_meeting_dm`,
+  `_ground_meeting_reply`, `_build_dynamic_board`, `_compile_and_post`, the `/clear` kill switch
+  (`_full_reset`), and the hardcoded helpers (`_build_board`, `_ground_stance`).
+- **`triage.py`** — the LLM "deduce structure from NL" layer: `heuristic_intent`/`llm_intent`
+  (is this a meeting request?), `llm_roster(open_roles)` (tagged user → role), `build_agenda`
+  (setup → {decision, owner, agenda}), `ground_reply` (reply → stances over the agenda).
+- **`meeting.py`** — Slack-free core for the multi-participant flow: `parse_participants` and
+  `extract_targets` (parse the roster from the setup), `ROLE_TO_PERSONA`, and the `Meeting`
+  dataclass (participants, responses, phase, + dynamic `decision`/`owner`/`agenda`/`stances`).
+- **`crux_engine.py`** — `classify_item(stances)` is the assumption-aware classifier (the
+  **Mochi** agent). `naive_baseline` is the position-only foil that deliberately misses fake
+  agreement (eval contrast).
+- **`orchestrator.py`** — `run_meeting(...)` for the **hardcoded** path: loops the fixed agenda,
+  asks each persona, classifies, pre-clears Shopee action items. `ask_stance=`/`classify_item=`
+  are injectable (demo path) and fall back to module globals (test monkeypatching).
+- **`participants.py`** — `build_participant(person)` → persona `Agent` + persistent
+  `SQLiteSession("participant::<person>", "pmle_sessions.db")`. Used by the hardcoded/solo path.
+- **`stance_store.py`** — `StanceStore` (SQLite `pmle_stances.db`, keyed by `(person, item_id)`).
+- **`manual_flow.py`** — pure state machine for the **solo** setup flow (`brief → setup →
+  growth → commerce → owner_gap → confirm_* → complete`).
+- **`digest.py`** — renders `BoardState` to text/Block Kit. Four distinct buckets kept
+  consistent with the header count: `_DISCUSS` (crux+fake = "needs the meeting", the headline
+  count), `_CLARIFY` (needs_clarification = "needs more input"), `_NO_INPUT` (open), `_RESOLVED`
+  (agreed). Footer derives from the same buckets so header/sections/footer can't disagree.
+- **`data/`** — `agenda.py` (Shopee decision, 9 agenda items, 3 action items), `cached_stances.py`
+  (`CACHED` seeded Shopee stances), `personas.py` (private persona context — hardcoded path only).
+
+## Slack surface
+
+- **Entry:** free-form DM (primary). Type `clear`/`reset`/`restart` to reset at any point.
+- **Slash commands:** `/premeeting` (manual fallback that opens the setup flow), `/premeeting-compile`
+  (force-compile a pending meeting), `/premeeting-scripted` (fast cached digest), `/clear`
+  (kill switch — needs registering in the Slack app config; typed `clear` works without it).
+- **Manifest** (per the `slack_app.py` header): Socket Mode ON; bot scopes `chat:write`,
+  `im:write`, `im:history`, `commands`, `app_mentions:read`; subscribe to `message.im`.
+
+## Commands
 
 ```bash
 pip install -e ".[dev]"            # editable install with pytest extras
 
-python -m pytest -q                # 17 tests, ~1s, fully offline (LLM calls stubbed)
-python -m pytest -v                # verbose
-
-python scripts/run_demo.py         # offline 9→2 digest to stdout (deterministic)
+python -m pytest -q                # 58 tests, ~1s, fully offline (LLM stubbed/injected)
+python scripts/run_demo.py         # offline 9→2 hardcoded digest to stdout (deterministic)
 python scripts/seed_sessions.py    # load CACHED stances into pmle_stances.db
 python -c "import pmle.slack_app; print('ok')"   # import smoke
 
-# LIVE — slow/costly, makes real OpenAI calls; do NOT run casually:
-OPENAI_API_KEY=sk-... python scripts/run_demo.py      # run_demo live path
-# (Slack app live path: set PMLE_LIVE_AGENTS=1 and drive /premeeting)
-
-python -m pmle.slack_app           # starts Socket Mode server (needs Slack tokens)
+# Start the Socket Mode app (needs SLACK_BOT_TOKEN + SLACK_APP_TOKEN):
+python -m pmle.slack_app                              # default: demo/canned, offline
+PMLE_LIVE_AGENTS=1 python -m pmle.slack_app           # live + DYNAMIC (real OpenAI calls)
+PMLE_LIVE_AGENTS=1 PMLE_HARDCODED=1 python -m pmle.slack_app   # live but canned Shopee
 ```
 
-### Verified output (run during doc authoring)
+Clean restart for a live demo: `pkill -f pmle.slack_app; rm -f pmle_sessions.db*;
+python scripts/seed_sessions.py; PMLE_LIVE_AGENTS=1 python -m pmle.slack_app`.
 
-- `python -m pytest -q` → `17 passed in 0.89s`
-- `python scripts/run_demo.py` →
-  ```
-  PerMyLastEmail — Prepare Shopee SG 11.11 creator mix decision: ...
-  Agenda compressed: 9 → 2 items need a meeting
-    :large_orange_circle: objective: Everyone says younger shoppers, but success criteria differ. [...]
-    :red_circle: role-mix: The creator role split is unresolved. [...]
-  Action items: 3 resolved, 0 need an owner
-  Decision owner: John Taylor (owner call with logged dissents)
-  ```
-- `python -c "import pmle.slack_app; print('ok')"` → `ok`
+## Environment variables
 
-## Environment Variables
+`OPENAI_API_KEY` (live only), `SLACK_BOT_TOKEN`, `SLACK_APP_TOKEN` (start the server),
+`PMLE_HUMAN_USER` (scripted-escalation target). `PMLE_LIVE_AGENTS` and `PMLE_HARDCODED` are the
+gates above — referenced only in code, set them explicitly. (`PMLE_MEETING_CHANNEL` is gone —
+the brief is DM'd to participants, there is no channel.)
 
-From `.env.example` (5 vars): `OPENAI_API_KEY`, `SLACK_BOT_TOKEN`, `SLACK_APP_TOKEN`,
-`PMLE_MEETING_CHANNEL`, `PMLE_HUMAN_USER`.
+## Conventions & gotchas
 
-> `PMLE_LIVE_AGENTS` is **NOT** in `.env.example` — it is referenced only in code
-> (`slack_app.py`). It is the key gate above; set it explicitly when you want the live path.
-
-**Slack manifest** (per the header comment in `slack_app.py`): Socket Mode ON; bot scopes
-`chat:write`, `im:write`, `im:history`, `commands`, `app_mentions:read`; slash commands
-`/premeeting` and `/premeeting-scripted`; subscribe to `message.im`.
-
-## Conventions & Gotchas
-
-- **`schemas.py` is the locked contract.** All modules, tests, and stored JSON depend on
-  it; change it deliberately and update the SQLite payloads accordingly.
-- **Tests are offline & deterministic** — they stub/inject the LLM (no network, no key
-  needed). 17 tests across `test_crux_engine`, `test_manual_flow`, `test_orchestrator`,
-  `test_schemas`, `test_slack_brief`, `test_stance_store`. `test_slack_brief.py` is the one
-  that locks down which brief path each mode takes (prevents the canned path leaking into
-  the live path).
-- **Generated local artifacts must NOT be committed:** `pmle_sessions.db*`,
-  `pmle_stances.db`, `src/pmle.egg-info/`. (`.gitignore` covers `.env`, `__pycache__/`,
-  `.pytest_cache/`, build dirs — but it does **not** currently list the `*.db` files, so be
-  careful not to `git add` them.)
-- **The live path mutates `pmle_stances.db`.** After any live run, re-run
-  `python scripts/seed_sessions.py` to reset the cached Shopee stances.
-- **`import smoke` works without real tokens** because `slack_app.py` constructs the Bolt
-  `App` with `token_verification_enabled=False` and a placeholder token; `main()` still
-  requires real `SLACK_BOT_TOKEN`/`SLACK_APP_TOKEN` to start.
-- **Legacy "checkout / Security" scenario drift.** `README.md`, `docs/design-spec-slack.md`,
-  the `orchestrator.py` `escalate("Security", ...)` call, and the `.env.example` comment on
-  `PMLE_HUMAN_USER` ("Security stakeholder") are leftovers from an earlier secure-checkout
-  scenario. The **live code implements the Shopee SG 11.11 creator-mix** scenario
-  (participants: Wai Chong / Growth, Shang / Commerce, John Taylor / Campaign Lead+owner).
-  The escalation path is also **not exercised** by the demo — no cached item classifies as
-  `needs_clarification`. Trust the code/data over the prose.
-- **Docs** live in `docs/`: `build-plan-slack.md`, `design-spec-slack.md`,
-  `demo-scenario-shopee.md`, `pitch-script.md`.
-- **Do not start a second Socket Mode server** if one is already running, and never commit
-  or print secret values (`.env` is gitignored).
+- **`schemas.py` is the locked contract** — change deliberately; stored JSON depends on it.
+- **Tests are offline & deterministic** — they stub/inject the LLM (no network, no key). 58
+  tests. Live tests pin `PMLE_HARDCODED=1` so the default-dynamic flip doesn't call real agents;
+  new dynamic tests mock `build_agenda`/`ground_reply`/`llm_roster`/`classify_item`.
+- **Generated local artifacts must NOT be committed:** `pmle_sessions.db*`, `pmle_stances.db`,
+  `src/pmle.egg-info/`, `tasks/` (covered by `.git/info/exclude`).
+- **State is in-memory** — `_PENDING_MEETINGS`/`_USER_TO_MEETING`/per-meeting `stances` live in
+  the process. Restarting drops in-flight meetings. `clear` resets per-user; a host restart is
+  the cold reset.
+- **In-band mode tells** (for debugging what produced a brief): the hardcoded path is always
+  exactly `9 → 2` with `N action items cleared`; the dynamic path varies and shows `N for the
+  meeting · N need more input · N already aligned` with no action-item line.
+- **Don't start a second Socket Mode server** if one is running; never commit/print secrets
+  (`.env` is gitignored).
