@@ -121,6 +121,24 @@ Carried over from v1 (unchanged). The `Stance` and `Classification Result` schem
 
 Statuses: `open`, `agreed`, `fake_agreement`, `crux`, `needs_clarification`.
 
+### Action Item (first-class — the "clear it before the meeting" half)
+
+```json
+{
+  "id": "ai-rollback-owner",
+  "text": "Assign a rollback owner for the 11.11 launch",
+  "status": "resolved",
+  "resolution": "Backend agent confirmed SRE owns rollback; SRE agent agreed.",
+  "owner": "SRE",
+  "resolved_by": ["Backend", "SRE"]
+}
+```
+
+Action-item statuses: `open`, `resolved` (agents reached closure async),
+`reassigned` (owner changed), `needs_owner` (no one claimed it — goes to the meeting).
+The orchestrator attempts to clear each action item by querying the relevant agents,
+exactly like agenda items, and reports the outcome as its own digest beat.
+
 ## Conversational Contract Editing
 
 The Stance contract is **owned by the human, edited through their agent.** A person DMs
@@ -161,9 +179,14 @@ mapping to structured fields is the agent's job.
 5. When a stance is missing/ambiguous (`needs_clarification`) → the orchestrator asks that
    participant's agent to fill the gap, which **DMs the human** to set the field
    conversationally, then re-runs the item with the updated contract.
-6. Orchestrator assembles the digest (compressed agenda + decision record) and posts it
-   back to the meeting channel. Session is discarded.
-7. Judges can open the OpenAI Trace viewer to see the agent-to-agent call graph.
+6. Orchestrator clears resolvable **action items** the same way (query relevant agents →
+   `resolved` / `reassigned` / `needs_owner`).
+7. Orchestrator assembles the digest and posts it back to the meeting channel:
+   - **Agenda compression:** `9 → 2` with the two real cruxes.
+   - **Action items pre-cleared:** e.g. "3 resolved, 1 reassigned, 1 needs an owner."
+   - **Decision record:** provenance, dissents, owner.
+   Session is discarded.
+8. Judges can open the OpenAI Trace viewer to see the agent-to-agent call graph.
 
 ## The Human-in-the-Loop Moment (demo)
 
