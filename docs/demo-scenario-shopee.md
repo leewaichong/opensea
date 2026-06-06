@@ -12,11 +12,11 @@ status: active-plan
 
 **Goal:** Prepare a human meeting to decide how far to automate PayLater merchant-dispute handling: which cases can be auto-resolved, which require manual review, and what launch criteria should govern the rollout.
 
-**Participants:** Product, Risk, Support Operations
+**Participants:** Product, Compliance/Legal, Support Operations
 
 **Meeting master:** John Taylor, PayLater Product Lead
 
-**Core hidden issue:** Everyone agrees the team needs "faster resolution," but each person means something different: customer self-serve containment, fraud-safe decisioning, or support SLA/backlog reduction.
+**Core hidden issue:** Everyone agrees the team needs "faster resolution," but each person means something different: customer self-serve containment, compliant decisioning, or support SLA/backlog reduction.
 
 The demo ends with a generated agenda and pre-meeting brief. It does not show a final automation policy decision.
 
@@ -29,9 +29,9 @@ flowchart TD
     C --> D[Bot opens async review with Wai Chong]
     C --> E[Bot opens async review with Shang]
 
-    D --> F[Wai Chong: Risk input]
-    F --> F1[Optimizes for fraud containment and loss exposure]
-    F --> F2[Prefers strict manual review for high-risk disputes]
+    D --> F[Wai Chong: Compliance/Legal input]
+    F --> F1[Optimizes for fair treatment, auditability, and regulatory defensibility]
+    F --> F2[Prefers manual review for regulated or ambiguous disputes]
 
     E --> G[Shang: Support Ops input]
     G --> G1[Optimizes for SLA, backlog, and agent capacity]
@@ -47,16 +47,16 @@ flowchart TD
 
     K --> L[Bot proposes compressed live agenda]
     L --> M[Agenda item 1: Align definition of fast resolution]
-    L --> N[Agenda item 2: Decide automation boundary]
+    L --> N[Agenda item 2: Decide automation boundary and launch guardrails]
 
     L --> O[Bot confirms compressed items with Wai Chong and Shang]
-    O --> P[Wai Chong confirms, preserves risk thresholds and audit trail]
+    O --> P[Wai Chong confirms, preserves compliance controls and audit trail]
     O --> Q[Shang confirms, preserves SLA metrics and fallback queue]
 
     P --> R[Bot generates pre-meeting brief]
     Q --> R
-    R --> S[Consensus: channels, pilot segment, metrics, audit logging, rollback, comms]
-    R --> T[Needs discussion: success definition and automation boundary]
+    R --> S[Consensus: pilot segment, metrics, audit logging, rollback, fallback queue, comms]
+    R --> T[Needs discussion: success definition, automation boundary, and launch guardrails]
 
     T --> U[Human meeting starts with 2 focused agenda items, not 9]
 ```
@@ -93,33 +93,33 @@ Meeting title: SeaMoney PayLater Dispute Automation Planning
 Decision owner: me, John Taylor, PayLater Product Lead.
 
 Participants:
-- @waichong, Risk Lead
+- @waichong, Compliance/Legal Lead
 - @shang, Support Operations Lead
 - @John Taylor (myself), Product Lead
 
 Decision to prepare: how far we should automate PayLater merchant-dispute handling for the first rollout.
 
 Known policy options:
-- Auto-credit low-value disputes under a fixed threshold when merchant evidence is missing.
+- Apply provisional credit or conditional adjustment for low-value disputes under a fixed threshold when merchant evidence is missing.
 - Auto-reject disputes that fail basic eligibility checks.
-- Route high-risk merchants, repeat claimants, and large-ticket disputes to manual review.
-- Start with a staff-only pilot before exposing the flow to all customers.
+- Route restricted merchant categories, repeat claimants, and large-ticket disputes to manual review.
+- Start with one market, one dispute reason, and a staff-only shadow-mode pilot before exposing the flow to customers.
 
 Initial agenda:
 1. Align on what "fast resolution" means.
 2. Decide which dispute types can be auto-resolved.
-3. Set value thresholds and risk exclusions.
+3. Set value thresholds and manual-review exclusions.
 4. Confirm evidence requirements from merchants and customers.
 5. Confirm customer communication and appeal messaging.
-6. Review fraud, abuse, and loss-exposure controls.
+6. Review abuse, fairness, and compliance controls.
 7. Confirm operating metrics and SLA targets.
 8. Confirm audit logging and compliance review.
 9. Define pilot scope, rollback criteria, and owner.
 
-Additional context: support volume is rising, customers complain about slow PayLater dispute outcomes, and leadership wants a safer self-serve path. We need speed, trust, and risk control, but we cannot let automation create avoidable loss or compliance gaps.
+Additional context: support volume is rising, customers complain about slow PayLater dispute outcomes, and leadership wants a safer self-serve path. We need speed, trust, and operational control, but we cannot let automation create unfair outcomes, avoidable loss, or compliance gaps.
 ```
 
-**Bot should confirm it will ask Wai Chong for risk input and Shang for support operations input.**
+**Bot should confirm it will ask Wai Chong for compliance/legal input and Shang for support operations input.**
 
 ### Turn 3: Wai Chong Reviews The Agenda
 
@@ -128,9 +128,9 @@ Additional context: support volume is rising, customers complain about slow PayL
 ```text
 John Taylor is preparing a meeting for SeaMoney PayLater Dispute Automation Planning.
 
-John listed you as the Risk Lead. I need your risk view before I compress the agenda.
+John listed you as the Compliance/Legal Lead. I need your compliance and legal view before I compress the agenda.
 
-Please review the draft agenda with a risk lens:
+Please review the draft agenda with a compliance and legal lens:
 1. Which cases are safe to automate?
 2. Which agenda item must stay in the live meeting?
 3. Which items are already safe to treat as agreed?
@@ -140,13 +140,13 @@ Please review the draft agenda with a risk lens:
 **Wai Chong -> Bot**
 
 ```text
-My goal is to keep fraud and loss exposure controlled. Faster resolution is good, but only if we do not train bad actors to exploit instant credits.
+My goal is to make sure automated dispute outcomes are fair, explainable, and defensible if a customer, merchant, regulator, or internal audit team challenges them. Faster resolution is good, but only if customers still understand the decision and have a real appeal path.
 
-The live meeting needs to decide the automation boundary. I am comfortable with automation for very low-value disputes where merchant evidence is missing and the customer has a clean history.
+The live meeting needs to decide the automation boundary and launch guardrails. I am comfortable with provisional credit or a conditional adjustment for very low-value disputes where merchant evidence is missing, the customer has a clean history, and the decision reason can be logged clearly.
 
-I am not comfortable auto-crediting repeat claimants, high-risk merchants, cross-border disputes, or large-ticket cases. Those need manual review until we have stronger abuse monitoring.
+I am not comfortable automating repeat claimants, regulated complaint categories, vulnerable-customer cases, cross-border disputes, or large-ticket cases. Those need manual review until Legal signs off on the decision logic and customer messaging.
 
-The metrics I care about are fraud rate, repeat-claim rate, merchant dispute reversal rate, loss per resolved case, and percentage of automated decisions overturned on appeal.
+The metrics I care about are appeal rate, appeal overturn rate, complaint escalation rate, audit exception rate, merchant dispute reversal rate, and percentage of automated decisions with complete evidence and reason codes.
 ```
 
 ### Turn 4: Shang Reviews The Agenda
@@ -186,20 +186,20 @@ Based only on the stakeholder input collected so far, I found a likely alignment
 
 Both Wai Chong and Shang are comfortable with faster dispute resolution, but they are optimizing different outcomes.
 
-Wai Chong is optimizing risk control: fraud rate, repeat claims, loss exposure, and appeal overturns.
+Wai Chong is optimizing compliance and legal defensibility: fair treatment, appealability, audit trail, and clear reason codes.
 Shang is optimizing operations: SLA, backlog reduction, agent capacity, and customer satisfaction.
 
-From the product-lead side, should the automation plan optimize for customer self-serve trust, loss containment, or support efficiency? Or should the agenda explicitly decide the split between those objectives?
+From the product-lead side, should the automation plan optimize for customer self-serve trust, compliance defensibility, or support efficiency? Or should the agenda explicitly decide the split between those objectives?
 ```
 
 **John Taylor -> Bot**
 
 ```text
-For me, the first rollout needs to prove customers can trust the self-serve path without making the risk team feel bypassed.
+For me, the first rollout needs to prove customers can trust the self-serve path without making Compliance/Legal feel bypassed.
 
-I want fast resolution for clear, low-risk cases, but I do not want the product story to be "instant refunds for everyone." The launch should feel controlled: clear eligibility rules, visible appeal paths, and enough auditability that Risk and Compliance can review decisions.
+I want fast resolution for clear, low-complexity cases, but I do not want the product story to be "instant refunds for everyone." The launch should feel controlled: clear eligibility rules, visible appeal paths, and enough auditability that Compliance/Legal can review decisions.
 
-So I am comfortable with automation as the default for a narrow pilot segment, but not for repeat claimants, high-risk merchants, large-ticket disputes, or anything with inconsistent evidence.
+So I am comfortable with automation as the default for one market and one dispute reason in a shadow-mode pilot, then a narrow customer-facing segment. I am not comfortable automating repeat claimants, regulated complaint categories, vulnerable-customer cases, large-ticket disputes, or anything with inconsistent evidence.
 ```
 
 ### Turn 6: Bot Asks For Agenda Additions Or Objections
@@ -210,10 +210,10 @@ So I am comfortable with automation as the default for a narrow pilot segment, b
 I am moving resolved items out of the live meeting and into the pre-read.
 
 Proposed live agenda:
-1. Align on what "fast resolution" means: customer trust, loss containment, or support efficiency.
-2. Decide the automation boundary: which cases auto-resolve, auto-reject, or require manual review.
+1. Align on what "fast resolution" means: customer trust, compliance defensibility, or support efficiency.
+2. Decide the automation boundary and launch guardrails: which cases auto-resolve, auto-reject, or require manual review; pilot scope; rollback threshold; owner.
 
-Risk check: are you comfortable moving evidence requirements, customer messaging, audit logging, pilot scope, and rollback criteria into consensus?
+Compliance/legal check: are you comfortable moving evidence requirements, customer messaging, audit logging, pilot scope, and rollback criteria into consensus?
 ```
 
 **Wai Chong -> Bot**
@@ -221,7 +221,7 @@ Risk check: are you comfortable moving evidence requirements, customer messaging
 ```text
 No objection. I agree those can go into the consensus brief.
 
-Please preserve that every automated decision needs an audit trail, and the pilot must exclude high-risk merchants, repeat claimants, large-ticket disputes, and cases with inconsistent evidence. Also preserve that appeal overturn rate should be reviewed weekly.
+Please preserve that every automated decision needs an audit trail, customer-visible reason code, and appeal path. The pilot must exclude regulated complaint categories, vulnerable-customer cases, repeat claimants, large-ticket disputes, and cases with inconsistent evidence. Also preserve that appeal overturn rate and audit exceptions should be reviewed weekly.
 ```
 
 **Bot -> Shang**
@@ -230,8 +230,8 @@ Please preserve that every automated decision needs an audit trail, and the pilo
 I am moving resolved items out of the live meeting and into the pre-read.
 
 Proposed live agenda:
-1. Align on what "fast resolution" means: customer trust, loss containment, or support efficiency.
-2. Decide the automation boundary: which cases auto-resolve, auto-reject, or require manual review.
+1. Align on what "fast resolution" means: customer trust, compliance defensibility, or support efficiency.
+2. Decide the automation boundary and launch guardrails: which cases auto-resolve, auto-reject, or require manual review; pilot scope; rollback threshold; owner.
 
 Support check: are you comfortable moving communication, operating metrics, fallback queue, pilot scope, and rollback criteria into consensus?
 ```
@@ -239,7 +239,7 @@ Support check: are you comfortable moving communication, operating metrics, fall
 **Shang -> Bot**
 
 ```text
-No objection, as long as the brief states that cases excluded from automation must route to a dedicated fallback queue with a target SLA.
+No objection, as long as the brief states that cases excluded from automation must route to a dedicated fallback queue with a named owner, target SLA, daily backlog monitor, and escalation path.
 
 I also want the final agenda to make clear that automation scope cannot be so narrow that it has no operational impact. We need a measurable backlog reduction target for the pilot.
 ```
@@ -254,33 +254,33 @@ Pre-meeting prep complete for SeaMoney PayLater Dispute Automation Planning.
 Based only on the input collected from John, Wai Chong, and Shang, I reduced the original 9 agenda items to 2 live discussion items.
 
 Pre-meeting brief:
-- Agreed: start with a controlled pilot rather than full rollout.
-  Source: John proposed a staff-only or narrow pilot; Wai Chong and Shang did not object.
-- Agreed: automate clear low-value disputes only when eligibility is clean and evidence is missing or basic checks fail.
-  Source: Wai Chong accepted low-risk missing-evidence automation; Shang requested low-value missing-evidence and eligibility automation.
-- Agreed: high-risk merchants, repeat claimants, large-ticket disputes, and inconsistent-evidence cases require manual review.
+- Agreed: start with one market, one dispute reason, and shadow-mode validation before a narrow customer-facing pilot.
+  Source: John proposed this rollout shape; Wai Chong and Shang did not object.
+- Agreed: automate clear low-value disputes only when eligibility is clean, evidence is missing or basic checks fail, and the decision reason can be logged.
+  Source: Wai Chong accepted low-complexity missing-evidence automation with reason codes; Shang requested low-value missing-evidence and eligibility automation.
+- Agreed: regulated complaint categories, vulnerable-customer cases, repeat claimants, large-ticket disputes, and inconsistent-evidence cases require manual review.
   Source: Wai Chong explicitly excluded these cases; John confirmed the same boundary.
-- Agreed: excluded cases route to a dedicated fallback queue with a clear SLA.
+- Agreed: excluded cases route to a dedicated fallback queue with a named owner, target SLA, daily backlog monitor, and escalation path.
   Source: Shang requested this; no objections.
 - Agreed: customer communication must explain the outcome and preserve an appeal path.
   Source: John asked for trust and appealability; Shang asked for clear customer outcomes.
-- Agreed: audit logging and weekly review are required for automated decisions.
-  Source: Wai Chong requested audit trail and appeal-overturn review.
-- Agreed: pilot metrics should include resolution time, backlog, agent touches, fraud rate, loss per resolved case, appeal overturns, and customer satisfaction.
+- Agreed: audit logging, reason codes, and weekly review are required for automated decisions.
+  Source: Wai Chong requested audit trail, reason codes, appeal-overturn review, and audit-exception review.
+- Agreed: pilot metrics should include resolution time, backlog, agent touches, appeal rate, appeal overturns, audit exceptions, complaint escalations, and customer satisfaction.
   Source: Wai Chong and Shang each supplied their metric sets.
 
 Potential alignment gap:
 Everyone is comfortable with "fast resolution," but the success criteria differ:
-- Wai Chong optimizes for risk control: fraud rate, repeat claims, loss exposure, and appeal overturns.
+- Wai Chong optimizes for compliance/legal defensibility: fair treatment, appealability, reason codes, and audit trail.
 - Shang optimizes for support operations: SLA, backlog reduction, agent capacity, and customer satisfaction.
 - John optimizes for product trust: a controlled self-serve path that customers understand and internal teams can audit.
 
 Recommended meeting agenda:
-1. Align on what "fast resolution" means: customer trust, loss containment, or support efficiency.
-2. Decide the automation boundary: which cases auto-resolve, auto-reject, or require manual review.
+1. Align on what "fast resolution" means: customer trust, compliance defensibility, or support efficiency.
+2. Decide the automation boundary and launch guardrails: which cases auto-resolve, auto-reject, or require manual review; pilot scope; rollback threshold; owner.
 
 Policy tradeoffs:
-- Broad automation: largest SLA and backlog impact, but higher fraud and loss exposure.
+- Broad automation: largest SLA and backlog impact, but higher compliance, appeal, and fairness risk.
 - Narrow pilot: safer launch and easier audit, but may not reduce volume enough.
 - Manual-first review: lowest risk, but does not solve the customer wait-time problem.
 - Auto-reject eligibility failures: quick operational win, but needs careful customer messaging and appeal handling.
@@ -288,13 +288,13 @@ Policy tradeoffs:
 
 ## Participants
 
-### Wai Chong, Risk Lead
+### Wai Chong, Compliance/Legal Lead
 
-- Goal: control fraud, abuse, and loss exposure from automated dispute decisions.
-- Preference: narrow automation boundary with strict exclusions.
-- Says: "Faster resolution is fine for clean, low-risk disputes."
-- Actually means: speed is acceptable only when repeat-claim, merchant-risk, value, and evidence checks are safe.
-- Concern: instant credits could train abuse and create avoidable losses.
+- Goal: make automated dispute decisions fair, explainable, auditable, and legally defensible.
+- Preference: narrow automation boundary with clear exclusions, reason codes, and appeal path.
+- Says: "Faster resolution is fine for clean, explainable disputes."
+- Actually means: speed is acceptable only when the customer communication, evidence trail, and decision reason can survive challenge.
+- Concern: opaque automation could create unfair outcomes, complaint escalation, or regulatory exposure.
 
 ### Shang, Support Operations Lead
 
@@ -302,12 +302,12 @@ Policy tradeoffs:
 - Preference: automate low-value routine cases and basic eligibility outcomes.
 - Says: "Customers need a clear outcome without waiting days."
 - Actually means: automation must cover enough cases to move operational metrics.
-- Concern: a pilot that is too narrow will not reduce volume enough to matter.
+- Concern: a pilot that is too narrow will not reduce volume enough to matter, and manual-review exceptions need a named queue owner.
 
 ### John Taylor, PayLater Product Lead
 
 - Meeting-master role: owns the generated pre-meeting brief and decides what goes into the human agenda.
-- Goal: launch a trustworthy self-serve path that balances customer speed, risk control, and operational relief.
+- Goal: launch a trustworthy self-serve path that balances customer speed, compliance/legal defensibility, and operational relief.
 - Preference: controlled pilot with clear eligibility, appeal path, and auditability.
 - Says: "We need fast resolution customers can trust."
 - Actually means: fast for clean cases, explainable and reviewable for everyone else.
@@ -317,15 +317,15 @@ Policy tradeoffs:
 
 ### Broad Automation
 
-Auto-resolve most low-value disputes and auto-reject clear eligibility failures. Highest operational impact, but highest risk if abuse monitoring is weak.
+Auto-resolve most low-value disputes and auto-reject clear eligibility failures. Highest operational impact, but highest compliance and appeal risk if explanations are weak.
 
 ### Narrow Pilot
 
-Automate only clean, low-value, missing-evidence cases and basic eligibility outcomes. Safer launch, but may not reduce backlog enough.
+Automate only one market, one dispute reason, clean low-value missing-evidence cases, and basic eligibility outcomes after shadow-mode validation. Safer launch, but may not reduce backlog enough.
 
 ### Manual-First Review
 
-Keep all payment-impacting decisions with agents, using automation only for triage and customer-upload prompts. Lowest risk, weakest SLA impact.
+Keep all payment-impacting decisions with agents, using automation only for triage and customer-upload prompts. Lowest compliance risk, weakest SLA impact.
 
 ### Auto-Reject Eligibility Failures
 
@@ -335,10 +335,10 @@ Automatically reject disputes that fail basic rules while preserving an appeal p
 
 1. Align on what "fast resolution" means.
 2. Decide which dispute types can be auto-resolved.
-3. Set value thresholds and risk exclusions.
+3. Set value thresholds and manual-review exclusions.
 4. Confirm evidence requirements from merchants and customers.
 5. Confirm customer communication and appeal messaging.
-6. Review fraud, abuse, and loss-exposure controls.
+6. Review abuse, fairness, and compliance controls.
 7. Confirm operating metrics and SLA targets.
 8. Confirm audit logging and compliance review.
 9. Define pilot scope, rollback criteria, and owner.
@@ -347,23 +347,23 @@ Automatically reject disputes that fail basic rules while preserving an appeal p
 
 These items are compressible based only on the collected stakeholder input:
 
-- `agreed`: first rollout should be a controlled pilot, not full rollout.
+- `agreed`: first rollout should use one market, one dispute reason, and shadow-mode validation before customer exposure.
 - `agreed`: low-value missing-evidence cases are candidates for automation.
 - `agreed`: basic eligibility failures can be automated if messaging and appeals are clear.
-- `agreed`: repeat claimants, high-risk merchants, large-ticket disputes, and inconsistent-evidence cases require manual review.
-- `agreed`: manual-review cases need a dedicated fallback queue and SLA.
-- `agreed`: automated decisions need audit logging and weekly review.
-- `agreed`: pilot metrics must include both risk and operations outcomes.
+- `agreed`: regulated complaint categories, vulnerable-customer cases, repeat claimants, large-ticket disputes, and inconsistent-evidence cases require manual review.
+- `agreed`: manual-review cases need a dedicated fallback queue, named owner, target SLA, daily backlog monitor, and escalation path.
+- `agreed`: automated decisions need reason codes, audit logging, appeal path, and weekly review.
+- `agreed`: pilot metrics must include compliance/legal, customer, and operations outcomes.
 
 No item is finalized by the agent. The meeting owner can pull any compressed item back into the live agenda.
 
 ## Generated Meeting Agenda
 
 1. **Align on what "fast resolution" means**
-   Risk means fraud-safe and loss-controlled. Support Operations means lower SLA and backlog. Product means customer trust in a controlled self-serve path.
+   Compliance/Legal means fair, explainable, and auditable. Support Operations means lower SLA and backlog. Product means customer trust in a controlled self-serve path.
 
-2. **Decide the automation boundary**
-   Decide which disputes auto-resolve, which auto-reject, and which require manual review for the first rollout.
+2. **Decide the automation boundary and launch guardrails**
+   Decide which disputes auto-resolve, which auto-reject, which require manual review, and what pilot scope, rollback threshold, and owner govern the first rollout.
 
 ## Alignment-Gap Reveal
 
@@ -373,11 +373,11 @@ Naive summary:
 
 Assumption-aware output:
 
-> "Potential alignment gap: participants agree on speed, but optimize different outcomes and risk tolerance."
+> "Potential alignment gap: participants agree on speed, but optimize different outcomes and control expectations."
 
 Narration line:
 
-> "This looked like agreement. Everyone wanted faster resolution. But Risk meant loss-safe decisioning, Support Ops meant backlog reduction, and Product meant a trustworthy self-serve launch. The system caught that before the meeting, so the agenda starts with the real disagreement."
+> "This looked like agreement. Everyone wanted faster resolution. But Compliance/Legal meant fair and auditable decisioning, Support Ops meant backlog reduction, and Product meant a trustworthy self-serve launch. The system caught that before the meeting, so the agenda starts with the real disagreement."
 
 ## Demo Ending
 
@@ -385,16 +385,16 @@ Show the generated pre-meeting brief:
 
 **Compressed from live agenda**
 
-- `agreed`: launch as a controlled pilot.
-- `agreed`: automate clean low-value missing-evidence cases and basic eligibility outcomes.
-- `agreed`: keep high-risk, repeat-claim, large-ticket, and inconsistent-evidence cases in manual review.
-- `agreed`: route manual cases to a dedicated fallback queue with SLA.
-- `agreed`: preserve customer appeal messaging.
+- `agreed`: launch with one market, one dispute reason, and shadow-mode validation before customer exposure.
+- `agreed`: automate clean low-value missing-evidence cases and basic eligibility outcomes only with reason codes.
+- `agreed`: keep regulated complaint categories, vulnerable-customer cases, repeat-claim, large-ticket, and inconsistent-evidence cases in manual review.
+- `agreed`: route manual cases to a dedicated fallback queue with owner, SLA, daily monitor, and escalation path.
+- `agreed`: preserve customer reason codes and appeal messaging.
 - `agreed`: require audit logging, weekly review, and rollback criteria.
 
 **Needs discussion**
 
-- What does "fast resolution" optimize for: trust, loss containment, or support efficiency?
-- Where is the automation boundary for the first rollout?
+- What does "fast resolution" optimize for: trust, compliance defensibility, or support efficiency?
+- Where is the automation boundary and launch guardrail set for the first rollout?
 
 Stop here. Do not show the final automation policy decision.
