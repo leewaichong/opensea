@@ -31,7 +31,8 @@ def on_premeeting(ack, respond, client):
     ack("Spinning up the pre-meeting orchestrator…")
 
     async def escalate(person, item_id, question):
-        client.chat_postMessage(channel=HUMAN, text=f":mag: *{person} Agent*: {question}")
+        dm = client.conversations_open(users=HUMAN)
+        client.chat_postMessage(channel=dm["channel"]["id"], text=f":mag: *{person} Agent*: {question}")
         # Demo: human's DM reply is handled by on_dm which updates the stance store.
         # For timing safety the orchestrator re-reads the store; we poll briefly.
         for _ in range(30):
