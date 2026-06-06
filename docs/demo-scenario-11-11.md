@@ -142,13 +142,18 @@ Please review the draft agenda with a growth lens:
 ```text
 My goal is to use 11.11 to bring in younger shoppers and new Shopee app users, not just sell to people who already buy from us.
 
-The agenda looks mostly right. I want the live meeting to force a call on the primary campaign objective. If we say the campaign is for younger shoppers, I need to know whether we mean acquisition or just sales from a younger-looking audience.
+For new-user growth, Mika Tan is the strongest creator. She has the best 18-24 TikTok audience, her content feels native to students and young working adults, and she is the best fit if the objective is app installs and first purchases.
 
-My preference is Mika Tan as the hero face. She has the strongest 18-24 TikTok audience, and her content feels native to students and young working adults.
+The agenda item that must stay live is item 1: align on the primary campaign objective. If we say the campaign is for younger shoppers, I need to know whether we mean acquisition or just sales from a younger-looking audience. Item 2 should also stay live if the role split depends on that objective.
 
-My concern with Jayden is that he may convert well, but mostly with existing Shopee Live shoppers. That is useful, but it does not solve the acquisition goal.
+The items I am comfortable treating as agreed are:
+- item 4: deliverables should include short-form video, livestream slots, and affiliate content.
+- item 5: tracking should include app installs, install-to-first-purchase rate, affiliate links, promo codes, and voucher redemption.
+- item 7: hero categories should include fashion, beauty, and gadgets.
+- item 8: we should reserve paid amplification because TikTok reach alone may not produce installs.
+- item 9: we should prepare backup creators if contracting or review fails.
 
-The metrics I care about are new-to-Shopee users, app installs, install-to-first-purchase rate, and CAC after paid amplification.
+The assumption to preserve is that "younger shoppers" means new-to-Shopee users and first purchases, not only total sales from a younger-looking audience. My concern with Jayden is that he may convert well, but mostly with existing Shopee Live shoppers.
 ```
 
 ### Turn 4: Shang Reviews The Agenda
@@ -172,13 +177,18 @@ Please review the draft agenda with a commerce lens:
 ```text
 My goal is GMV during the 11.11 sale window. Reach is useful, but only if the audience actually buys.
 
-The agenda should keep the creator role mix as a real discussion point. I do not want us to choose one viral hero and then discover we have no strong conversion engine.
+For 11.11 GMV, Jayden Cho is the strongest creator. He has the best Shopee Live conversion record, reliable basket size, and category demo discipline.
 
-My preference is Jayden Cho for the Shopee Live conversion role. He has the strongest livestream sales record, reliable basket size, and category demo discipline.
+The agenda item that must stay live is item 2: decide the creator role mix. I do not want us to choose one viral hero and then discover we have no strong conversion engine. Item 1 also needs to stay live if the campaign objective is still unclear.
 
-My concern with Mika is that she may create awareness but not enough purchases. My concern with Ari is brand risk and unpredictable conversion.
+The items I am comfortable treating as agreed are:
+- item 4: deliverables should include short-form video, Shopee Live slots, and affiliate content.
+- item 5: tracking must include affiliate links, promo codes, voucher redemption, live GMV, livestream attendance, conversion rate, and average order value.
+- item 6: brand-safety, disclosure, and competitor-sponsorship review is required before contracting.
+- item 7: fashion, beauty, and gadgets are reasonable hero categories.
+- item 9: backup creators should be prepared.
 
-The metrics I care about are GMV, conversion rate, average order value, livestream attendance, affiliate sales, and voucher redemption.
+The assumption to preserve is that "younger shoppers" only matters commercially if the audience buys during the sale window. My concern with Mika is that she may create awareness but not enough purchases. My concern with Ari is brand risk and unpredictable conversion.
 ```
 
 ### Turn 5: Bot Detects A Possible Fake Agreement

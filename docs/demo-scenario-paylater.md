@@ -142,11 +142,17 @@ Please review the draft agenda with a compliance and legal lens:
 ```text
 My goal is to make sure automated dispute outcomes are fair, explainable, and defensible if a customer, merchant, regulator, or internal audit team challenges them. Faster resolution is good, but only if customers still understand the decision and have a real appeal path.
 
-The live meeting needs to decide the automation boundary and launch guardrails. I am comfortable with provisional credit or a conditional adjustment for very low-value disputes where merchant evidence is missing, the customer has a clean history, and the decision reason can be logged clearly.
+The cases I am comfortable automating are very low-value disputes where merchant evidence is missing, the customer has a clean history, the dispute reason is in the approved pilot category, and the system can issue a clear customer-visible reason code. In those cases, provisional credit or a conditional adjustment can be safe.
 
-I am not comfortable automating repeat claimants, regulated complaint categories, vulnerable-customer cases, cross-border disputes, or large-ticket cases. Those need manual review until Legal signs off on the decision logic and customer messaging.
+The agenda item that must stay live is item 2: decide which dispute types can be auto-resolved, auto-rejected, or routed to manual review. Item 9 should also stay live because pilot scope, rollback criteria, and owner are launch guardrails, not admin details.
 
-The metrics I care about are appeal rate, appeal overturn rate, complaint escalation rate, audit exception rate, merchant dispute reversal rate, and percentage of automated decisions with complete evidence and reason codes.
+The items I am comfortable treating as agreed are:
+- item 4: evidence requirements must be explicit for merchants and customers.
+- item 5: customer communication must include the decision reason and appeal path.
+- item 6: abuse, fairness, and compliance controls are required.
+- item 8: audit logging and compliance review are required.
+
+The assumption to preserve is that "fast resolution" only works if the decision is explainable and challengeable. I am not comfortable automating repeat claimants, regulated complaint categories, vulnerable-customer cases, cross-border disputes, or large-ticket cases until Legal signs off on the decision logic and customer messaging.
 ```
 
 ### Turn 4: Shang Reviews The Agenda
@@ -170,11 +176,17 @@ Please review the draft agenda with a support lens:
 ```text
 My goal is to reduce the dispute backlog and hit a predictable customer SLA. Fast resolution means customers get a clear outcome without waiting days for an agent.
 
-The live meeting should keep the question of which cases can be auto-resolved, because if the scope is too narrow we will not reduce volume enough to matter.
+The cases I would automate first are low-value missing-evidence disputes, basic eligibility rejects, and simple customer-upload follow-ups. Those are high-volume enough to matter operationally and structured enough to route without deep agent judgment.
 
-My preference is to automate low-value missing-evidence cases, basic eligibility rejects, and simple customer-upload follow-ups. Anything that still needs an agent should enter a dedicated fallback queue with a clear SLA.
+The agenda item that must stay live is item 2: decide which dispute types can be auto-resolved. If the scope is too narrow, we will not reduce volume enough to matter. Item 9 should also stay live unless we already have a named fallback queue owner and rollback threshold.
 
-The metrics I care about are first-response time, time to resolution, agent touches per dispute, backlog size, reopen rate, and customer satisfaction after resolution.
+The items I am comfortable treating as agreed are:
+- item 4: merchant and customer evidence requirements should be explicit.
+- item 5: customer communication and appeal messaging are required.
+- item 7: operating metrics should include first-response time, time to resolution, agent touches, backlog size, reopen rate, and customer satisfaction.
+- item 8: audit logging can move to consensus as long as it does not slow agents down.
+
+The assumption to preserve is that "fast resolution" must reduce actual support workload, not just move cases into another manual queue. Anything excluded from automation needs a dedicated fallback queue with a named owner, target SLA, daily backlog monitor, and escalation path.
 ```
 
 ### Turn 5: Bot Detects A Possible Fake Agreement
