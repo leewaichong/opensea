@@ -67,6 +67,35 @@ def test_freeform_intent_without_roster_asks_for_setup(monkeypatch):
     assert said and said[-1] == s.manual_flow.SETUP_PROMPT
 
 
+def test_extract_roster_demo_uses_keyword(monkeypatch):
+    monkeypatch.delenv("PMLE_LIVE_AGENTS", raising=False)
+    text = "- <@U_SHANG> Commerce\n- <@U_JT> Lead\n- me Growth"
+    assert s._extract_roster(text, "U_OWNER") == \
+        s.meeting_mod.parse_participants(text, initiator="U_OWNER")
+
+
+def test_extract_roster_live_infers_roles_via_llm(monkeypatch):
+    monkeypatch.setenv("PMLE_LIVE_AGENTS", "1")
+
+    async def fake_roster(text, targets):
+        # NL with no literal role words — the LLM is what maps it.
+        return {"U_WC": "Growth"}
+    monkeypatch.setattr(s.triage, "llm_roster", fake_roster)
+
+    out = s._extract_roster("<@U_WC> is driving our acquisition push", "U_OWNER")
+    assert out == {"U_WC": "Growth"}
+
+
+def test_extract_roster_live_no_mentions_skips_llm(monkeypatch):
+    monkeypatch.setenv("PMLE_LIVE_AGENTS", "1")
+
+    async def boom(text, targets):
+        raise AssertionError("llm_roster must not be called when there are no @mentions")
+    monkeypatch.setattr(s.triage, "llm_roster", boom)
+
+    assert s._extract_roster("can you help me prep a meeting?", "U_OWNER") == {}
+
+
 def test_nonmeeting_dm_falls_through_to_agent(monkeypatch):
     _reset(monkeypatch)
 

@@ -4,11 +4,13 @@
 # subscribe to message.im.
 #
 # ENTRY POINT: free-form DM. There's no slash command to start — the user just talks to the
-# bot ("help me prep the 11.11 creator-mix meeting, <@U_SHANG> commerce, <@U_JT> lead, me
-# growth") and the bot deduces the intent (triage.py) and spins the flow up itself:
-#   - roster parseable (@mention + role)  -> one-shot: DM each teammate for input immediately.
-#   - prep intent but no roster           -> ask the one setup question, then fan out.
-#   - not a meeting request               -> the user's persistent agent answers (chat).
+# bot ("help me prep the 11.11 creator-mix meeting; <@U_SHANG> owns the sale-window numbers,
+# <@U_JT> is running the call, I'll cover acquisition") and the bot deduces the intent
+# (triage.py) and spins the flow up itself:
+#   - @mentioned teammates present  -> one-shot: infer each role from the text (live: LLM;
+#                                      demo: keyword) and DM each teammate for input.
+#   - prep intent but no mentions   -> ask the one setup question, then fan out.
+#   - not a meeting request         -> the user's persistent agent answers (chat).
 # It grounds each reply into that role's persona Stance and auto-compiles once everyone has
 # replied (or the initiator DMs `compile`). The compiled brief is DM'd to every participant
 # (and the initiator) — there is no meeting channel. /premeeting still works as a manual
@@ -97,6 +99,17 @@ def _detect_intent(text: str) -> bool:
     return triage.heuristic_intent(text)
 
 
+def _extract_roster(text: str, user: str) -> dict:
+    """Map @mentioned teammates to roles. Live mode infers each role from the free-form text
+    (an LLM read of what the person owns); demo mode keyword-matches deterministically."""
+    if _live_agents():
+        targets = meeting_mod.extract_targets(text, initiator=user)
+        if not targets:
+            return {}
+        return asyncio.run(triage.llm_roster(text, targets))
+    return meeting_mod.parse_participants(text, initiator=user)
+
+
 def _ground_stance(person: str, text: str):
     """Map a stakeholder's free-form reply onto their structured Stance via their
     persistent agent (conversational contract editing). Returns the agent's confirmation
@@ -143,7 +156,7 @@ def _handle_manual_turn(user, text, say, client):
     session = _MANUAL_SESSIONS[user]
 
     if session.get("step") == "setup":
-        roster = meeting_mod.parse_participants(text, initiator=user)
+        roster = _extract_roster(text, user)
         if roster:
             session.setdefault("inputs", {})["setup"] = text
             _start_multihuman(user, session, roster, say, client)
@@ -319,9 +332,10 @@ def on_dm(event, say, client):
         _handle_meeting_dm(user, text, say, client)
         return
 
-    # Fresh DM. A parseable roster (@mention + role) is self-evidently a meeting setup, so
-    # spin the multi-participant flow up one-shot. Otherwise deduce intent from the words.
-    roster = meeting_mod.parse_participants(text, initiator=user)
+    # Fresh DM. A roster of @mentioned teammates is self-evidently a meeting setup, so spin
+    # the multi-participant flow up one-shot (live mode infers each role from the text).
+    # Otherwise deduce intent from the words.
+    roster = _extract_roster(text, user)
     if roster:
         _start_multihuman(user, {"inputs": {"brief": text, "setup": text}}, roster, say, client)
         return
