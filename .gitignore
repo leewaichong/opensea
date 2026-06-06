@@ -5,8 +5,8 @@ node_modules/
 !.env.example
 dist/
 build/
+outputs/
 __pycache__/
 .pytest_cache/
 .venv/
 venv/
-

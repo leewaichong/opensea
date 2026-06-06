@@ -1,0 +1,1286 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/mlndrh",
+    "id": "mlndrh",
+    "slide": 6,
+    "layoutId": "25a3c43c-a607-497b-a724-0ccc240d0238",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Inter"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "25a3c43c-a607-497b-a724-0ccc240d0238",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "f665d83c-fce0-4f46-8dd1-986ac75d4270",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/8z25kb6x",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "alt": "Soft Codex blue white gradient background",
+      "contentType": "image/png",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "b0a3e461-78df-4c85-a792-8524ff5304de",
+        "contentType": "image/png",
+        "byteLength": 124361
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u54zidon",
+      "id": "2",
+      "bbox": [
+        72,
+        44,
+        300,
+        24
+      ],
+      "geometry": "rect",
+      "text": "BUILD",
+      "textPreview": "BUILD",
+      "resolvedFontSize": 13,
+      "resolvedTextStyle": {
+        "fontSize": 13,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "BUILD"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "BUILD",
+          "runs": [
+            {
+              "index": 1,
+              "text": "BUILD",
+              "fontSize": 13,
+              "typeface": "Inter",
+              "color": "#5D605E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nqxs72x4",
+      "id": "3",
+      "bbox": [
+        70,
+        76,
+        920,
+        112
+      ],
+      "geometry": "rect",
+      "text": "Managed agents make prep continuous,\nthen disappear.",
+      "textPreview": "Managed agents make prep continuous, | then disappear.",
+      "resolvedFontSize": 40,
+      "resolvedTextStyle": {
+        "fontSize": 40,
+        "typeface": "Inter",
+        "color": "#181818",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Managed agents make prep continuous,"
+          },
+          {
+            "index": 2,
+            "text": "then disappear."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Managed agents make prep continuous,",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Managed agents make prep continuous,",
+              "fontSize": 40,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "then disappear.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "then disappear.",
+              "fontSize": 40,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/czed8v6p",
+      "id": "4",
+      "bbox": [
+        72,
+        684,
+        760,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
+      "textPreview": "Sources: docs/pitch-script.md, docs/build-plan.md",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Sources: docs/pitch-script.md, docs/build-plan.md"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Sources: docs/pitch-script.md, docs/build-plan.md",
+              "fontSize": 10,
+              "typeface": "Inter",
+              "color": "#5D605E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5kb6xkf6",
+      "id": "5",
+      "bbox": [
+        1180,
+        684,
+        40,
+        18
+      ],
+      "geometry": "rect",
+      "text": "06",
+      "textPreview": "06",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Inter",
+        "color": "#5D605E",
+        "alignment": "right",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "06"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "06",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "typeface": "Inter",
+            "color": "#5D605E",
+            "alignment": "right",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "06",
+              "fontSize": 10,
+              "typeface": "Inter",
+              "color": "#5D605E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ytsvu9kn",
+      "id": "6",
+      "bbox": [
+        94,
+        226,
+        220,
+        242
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EDEDED",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/neloj2t8",
+      "id": "7",
+      "bbox": [
+        116,
+        254,
+        160,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Slack",
+      "textPreview": "Slack",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Slack"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Slack",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Slack",
+              "fontSize": 24,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gn29gr2p",
+      "id": "8",
+      "bbox": [
+        116,
+        304,
+        170,
+        110
+      ],
+      "geometry": "rect",
+      "text": "natural-language prep\nstakeholder mentions\nbrief delivery",
+      "textPreview": "natural-language prep | stakeholder mentions | brief delivery",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Inter",
+        "color": "#181818",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 5,
+        "lines": [
+          {
+            "index": 1,
+            "text": "natural-language"
+          },
+          {
+            "index": 2,
+            "text": "prep"
+          },
+          {
+            "index": 3,
+            "text": "stakeholder"
+          },
+          {
+            "index": 4,
+            "text": "mentions"
+          },
+          {
+            "index": 5,
+            "text": "brief delivery"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "natural-language prep",
+          "runs": [
+            {
+              "index": 1,
+              "text": "natural-language prep",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "stakeholder mentions",
+          "runs": [
+            {
+              "index": 1,
+              "text": "stakeholder mentions",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "brief delivery",
+          "runs": [
+            {
+              "index": 1,
+              "text": "brief delivery",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/58z25kb6",
+      "id": "9",
+      "bbox": [
+        322,
+        344,
+        26,
+        2
+      ],
+      "geometry": "rect",
+      "fillColor": "#EDEDED",
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d8bat47y",
+      "id": "10",
+      "bbox": [
+        346,
+        340,
+        14,
+        10
+      ],
+      "geometry": "triangle",
+      "fillColor": "#EDEDED",
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/knih4byh",
+      "id": "11",
+      "bbox": [
+        362,
+        226,
+        220,
+        242
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EDEDED",
+      "lineWidth": 1
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/v6psfil0",
+      "id": "12",
+      "bbox": [
+        384,
+        254,
+        160,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Persistent sessions",
+      "textPreview": "Persistent sessions",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Persistent"
+          },
+          {
+            "index": 2,
+            "text": "sessions"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Persistent sessions",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Persistent sessions",
+              "fontSize": 24,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2lszqtcj",
+      "id": "13",
+      "bbox": [
+        384,
+        304,
+        170,
+        110
+      ],
+      "geometry": "rect",
+      "text": "one agent per person\nstance history\nstructured tools",
+      "textPreview": "one agent per person | stance history | structured tools",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Inter",
+        "color": "#181818",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "one agent per"
+          },
+          {
+            "index": 2,
+            "text": "person"
+          },
+          {
+            "index": 3,
+            "text": "stance history"
+          },
+          {
+            "index": 4,
+            "text": "structured tools"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "one agent per person",
+          "runs": [
+            {
+              "index": 1,
+              "text": "one agent per person",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "stance history",
+          "runs": [
+            {
+              "index": 1,
+              "text": "stance history",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "structured tools",
+          "runs": [
+            {
+              "index": 1,
+              "text": "structured tools",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d0z61032",
+      "id": "14",
+      "bbox": [
+        590,
+        344,
+        26,
+        2
+      ],
+      "geometry": "rect",
+      "fillColor": "#EDEDED",
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kf6dcbul",
+      "id": "15",
+      "bbox": [
+        614,
+        340,
+        14,
+        10
+      ],
+      "geometry": "triangle",
+      "fillColor": "#EDEDED",
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vu9knih4",
+      "id": "16",
+      "bbox": [
+        630,
+        226,
+        220,
+        242
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F3F3F3",
+      "lineColor": "#282828",
+      "lineWidth": 1
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/29gr2p8n",
+      "id": "17",
+      "bbox": [
+        652,
+        254,
+        160,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Ephemeral session",
+      "textPreview": "Ephemeral session",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Ephemeral"
+          },
+          {
+            "index": 2,
+            "text": "session"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Ephemeral session",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Ephemeral session",
+              "fontSize": 24,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/donyd0z6",
+      "id": "18",
+      "bbox": [
+        652,
+        304,
+        170,
+        110
+      ],
+      "geometry": "rect",
+      "text": "one orchestrator\nfor one meeting\nthen dissolves",
+      "textPreview": "one orchestrator | for one meeting | then dissolves",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Inter",
+        "color": "#181818",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "one orchestrator"
+          },
+          {
+            "index": 2,
+            "text": "for one meeting"
+          },
+          {
+            "index": 3,
+            "text": "then dissolves"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "one orchestrator",
+          "runs": [
+            {
+              "index": 1,
+              "text": "one orchestrator",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "for one meeting",
+          "runs": [
+            {
+              "index": 1,
+              "text": "for one meeting",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "then dissolves",
+          "runs": [
+            {
+              "index": 1,
+              "text": "then dissolves",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k3q5o7qp",
+      "id": "19",
+      "bbox": [
+        858,
+        344,
+        26,
+        2
+      ],
+      "geometry": "rect",
+      "fillColor": "#EDEDED",
+      "lineWidth": 0
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kb6xkf6d",
+      "id": "20",
+      "bbox": [
+        882,
+        340,
+        14,
+        10
+      ],
+      "geometry": "triangle",
+      "fillColor": "#EDEDED",
+      "lineWidth": 0
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9w3m94fu",
+      "id": "21",
+      "bbox": [
+        898,
+        226,
+        220,
+        242
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EDEDED",
+      "lineWidth": 1
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/25kb6xkf",
+      "id": "22",
+      "bbox": [
+        920,
+        254,
+        160,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Traceable output",
+      "textPreview": "Traceable output",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Inter",
+        "color": "#181818",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Traceable"
+          },
+          {
+            "index": 2,
+            "text": "output"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Traceable output",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Traceable output",
+              "fontSize": 24,
+              "typeface": "Inter",
+              "color": "#181818",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rqd4vmtw",
+      "id": "23",
+      "bbox": [
+        920,
+        304,
+        170,
+        110
+      ],
+      "geometry": "rect",
+      "text": "assumption diff\nprovenance\nhuman-owned brief",
+      "textPreview": "assumption diff | provenance | human-owned brief",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Inter",
+        "color": "#181818",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "assumption diff"
+          },
+          {
+            "index": 2,
+            "text": "provenance"
+          },
+          {
+            "index": 3,
+            "text": "human-owned"
+          },
+          {
+            "index": 4,
+            "text": "brief"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "assumption diff",
+          "runs": [
+            {
+              "index": 1,
+              "text": "assumption diff",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "provenance",
+          "runs": [
+            {
+              "index": 1,
+              "text": "provenance",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "human-owned brief",
+          "runs": [
+            {
+              "index": 1,
+              "text": "human-owned brief",
+              "fontSize": 20,
+              "typeface": "Inter",
+              "color": "#181818"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kzupwb2h",
+      "id": "24",
+      "bbox": [
+        96,
+        520,
+        1020,
+        72
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#17191A",
+      "lineWidth": 0
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9knih4by",
+      "id": "25",
+      "bbox": [
+        124,
+        544,
+        220,
+        18
+      ],
+      "geometry": "rect",
+      "text": "OpenAI Agents SDK",
+      "textPreview": "OpenAI Agents SDK",
+      "resolvedFontSize": 13,
+      "resolvedTextStyle": {
+        "fontSize": 13,
+        "typeface": "Inter",
+        "color": "#BFC5C9",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "OpenAI Agents SDK"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "OpenAI Agents SDK",
+          "runs": [
+            {
+              "index": 1,
+              "text": "OpenAI Agents SDK",
+              "fontSize": 13,
+              "typeface": "Inter",
+              "color": "#BFC5C9",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2t83itgf",
+      "id": "26",
+      "bbox": [
+        360,
+        536,
+        700,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Persistent context + ephemeral orchestration is the product pattern.",
+      "textPreview": "Persistent context + ephemeral orchestration is the product pattern.",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Inter",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 4,
+          "bottom": 4,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Persistent context + ephemeral orchestration is the product"
+          },
+          {
+            "index": 2,
+            "text": "pattern."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Persistent context + ephemeral orchestration is the product pattern.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Persistent context + ephemeral orchestration is the product pattern.",
+              "fontSize": 22,
+              "typeface": "Inter",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}
