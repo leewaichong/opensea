@@ -1,7 +1,12 @@
 # Slack app manifest:
 # Socket Mode ON; bot scopes chat:write, im:write, im:history, commands,
-# app_mentions:read; slash commands /premeeting, /premeeting-compile, /premeeting-scripted;
-# subscribe to message.im.
+# app_mentions:read; slash commands /premeeting, /premeeting-compile, /premeeting-scripted,
+# /clear; subscribe to message.im.
+#
+# KILL SWITCH: typing `clear` / `reset` / `restart` in the DM (or running /clear) wipes the
+# user's flow state and resets the scenario to the seeded baseline — escapes any state.
+# If the user @mentions teammates but no role can be inferred for them (or they can't be
+# DM'd), the bot ASKS to clarify instead of silently self-interviewing the sender.
 #
 # ENTRY POINT: free-form DM. There's no slash command to start — the user just talks to the
 # bot ("help me prep the 11.11 creator-mix meeting; <@U_SHANG> owns the sale-window numbers,
@@ -29,10 +34,13 @@ import os, asyncio, threading
 from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
+from slack_sdk.errors import SlackApiError
 from pmle import manual_flow, meeting as meeting_mod, orchestrator, triage
 from pmle.data.cached_stances import CACHED
 from pmle.data.agenda import AGENDA
+from pmle.data.personas import PERSONAS
 from pmle.participants import build_participant
+from pmle.stance_store import StanceStore
 from pmle.schemas import ClassificationResult, Stance
 from agents import Runner
 from pmle.digest import render_blocks
@@ -49,6 +57,57 @@ _PENDING_MEETINGS: dict[str, "meeting_mod.Meeting"] = {}
 _USER_TO_MEETING: dict[str, str] = {}
 # Serializes the compile trigger so concurrent participant replies can't double-post the brief.
 _COMPILE_LOCK = threading.Lock()
+
+# Kill switch: typing any of these (or running /clear) wipes the user's flow and resets the
+# scenario back to the seeded baseline — "start from the very beginning".
+_RESET_WORDS = {"clear", "reset", "restart"}
+
+
+def _reset_flow_state(user: str) -> list[str]:
+    """Drop all in-flight flow state for `user`. If they own a meeting, tear down its routing
+    for every participant too. Pure in-memory; safe to call any time."""
+    cleared = []
+    if _MANUAL_SESSIONS.pop(user, None) is not None:
+        cleared.append("setup session")
+    owned = _PENDING_MEETINGS.pop(user, None)
+    if owned is not None:
+        for pid in list(owned.participants) + [owned.initiator]:
+            _USER_TO_MEETING.pop(pid, None)
+        cleared.append("pending meeting")
+    elif _USER_TO_MEETING.pop(user, None) is not None:
+        cleared.append("meeting link")
+    return cleared
+
+
+def _reset_scenario() -> None:
+    """Reset shared agent memory to the seeded baseline: clear each persona's persistent
+    session (so grounding starts clean) and re-seed the stance store. Mochi itself is a
+    stateless classifier, so there's nothing to kill there — this is the rest of 'start over'."""
+    store = StanceStore()
+    for s in CACHED:
+        store.set(s.stakeholder, s)
+    for person in PERSONAS:
+        _, session = build_participant(person)
+        try:
+            asyncio.run(session.clear_session())
+        except Exception:
+            pass  # best-effort; a locked/empty session must not break the reset
+
+
+def _full_reset(user: str) -> list[str]:
+    cleared = _reset_flow_state(user)
+    _reset_scenario()
+    return cleared
+
+
+def _cant_place_roles(unresolved: list[str]) -> str:
+    """Shown when the user tagged people but we couldn't infer a role for any of them — so we
+    ask instead of silently self-interviewing the sender through every role."""
+    who = ", ".join(f"<@{u}>" for u in unresolved) or "the people you tagged"
+    return (f"I see you tagged {who}, but I couldn't tell what role each should play. "
+            "Re-send them with a role each — e.g. `<@U…> growth`, `<@U…> commerce`, "
+            "`<@U…> lead` — or describe what each person owns and I'll infer it. "
+            "(Type `clear` to start over.)")
 
 
 async def _demo_ask_stance(person, item_id, item_text):
@@ -156,11 +215,16 @@ def _handle_manual_turn(user, text, say, client):
     session = _MANUAL_SESSIONS[user]
 
     if session.get("step") == "setup":
+        targets = meeting_mod.extract_targets(text, initiator=user)
         roster = _extract_roster(text, user)
-        if roster:
+        if [p for p in roster if p != user]:           # at least one real teammate placed
             session.setdefault("inputs", {})["setup"] = text
-            _start_multihuman(user, session, roster, say, client)
+            _start_multihuman(user, session, roster, say, client,
+                              unplaced=[t for t in targets if t not in roster])
             return
+        if targets:                                    # tagged people but couldn't place them
+            say(text=_cant_place_roles([t for t in targets if t not in roster]))
+            return                                     # stay in setup for a retry, do NOT solo
 
     out = manual_flow.advance_manual_flow(session, text)
 
@@ -208,29 +272,55 @@ def _open_dm(client, user_id):
     return client.conversations_open(users=user_id)["channel"]["id"]
 
 
-def _start_multihuman(initiator, session, roster, say, client):
+def _start_multihuman(initiator, session, roster, say, client, unplaced=None):
+    # Open DMs up front and drop anyone we can't reach, so the meeting never waits on a ghost
+    # participant (which would otherwise block auto-compile forever).
+    reachable, unreachable, dm_channel = {}, [], {}
+    for pid, role in roster.items():
+        if pid == initiator:
+            reachable[pid] = role
+            continue
+        try:
+            dm_channel[pid] = _open_dm(client, pid)
+            reachable[pid] = role
+        except SlackApiError:
+            unreachable.append(pid)
+
+    if not [p for p in reachable if p != initiator]:
+        # Nobody to coordinate with — abort cleanly instead of creating a stuck meeting.
+        who = ", ".join(f"<@{u}>" for u in unreachable) or "the people you tagged"
+        say(f"I couldn't message {who} — they may not be in this workspace or haven't allowed "
+            "DMs from me. Re-tag reachable teammates, or DM me their input yourself. "
+            "(Type `clear` to start over.)")
+        return
+
     meeting = meeting_mod.Meeting(
         initiator=initiator,
         brief=session.get("inputs", {}).get("brief", ""),
         setup=session.get("inputs", {}).get("setup", ""),
-        participants=roster,
+        participants=reachable,
     )
     _PENDING_MEETINGS[initiator] = meeting
     _USER_TO_MEETING[initiator] = initiator  # initiator routes here too (for compile/status)
-    for pid in roster:
+    for pid in reachable:
         _USER_TO_MEETING[pid] = initiator
     _MANUAL_SESSIONS.pop(initiator, None)  # intake done; switch to collecting
 
-    roster_txt = ", ".join(f"<@{pid}> ({role})" for pid, role in roster.items())
-    say(f"Reaching out to {roster_txt} for input. I'll compile the brief once everyone replies "
-        "— or DM me `compile` to force it.")
+    # Surface anyone tagged but left out — couldn't infer a role (unplaced) or couldn't DM
+    # (unreachable) — so they never just vanish. The meeting proceeds with whoever we have.
+    left_out = list(unplaced or []) + unreachable
+    roster_txt = ", ".join(f"<@{pid}> ({role})" for pid, role in reachable.items())
+    miss = (f" Couldn't include {', '.join('<@'+u+'>' for u in left_out)} — re-tag them with a "
+            "role to add them." if left_out else "")
+    say(f"Reaching out to {roster_txt} for input. I'll compile the brief once everyone "
+        f"replies — or DM me `compile` to force it.{miss}")
 
-    for pid, role in roster.items():
+    for pid, role in reachable.items():
         prompt = _review_prompt(role)
         if pid == initiator:
             say(prompt)  # initiator is also a participant: ask them in this same DM
         else:
-            client.chat_postMessage(channel=_open_dm(client, pid), text=prompt)
+            client.chat_postMessage(channel=dm_channel[pid], text=prompt)
 
 
 def _notify_progress(meeting, client):
@@ -324,6 +414,13 @@ def on_dm(event, say, client):
     user = event.get("user", "unknown")
     text = event.get("text", "")
 
+    # Kill switch first — escapes any state, even mid-meeting.
+    if text.strip().lower() in _RESET_WORDS:
+        _full_reset(user)
+        say(text=":broom: Cleared — back to the very beginning. Tell me what meeting to prep "
+                 "and tag who's involved.")
+        return
+
     # Already mid-conversation: continue where they are.
     if user in _MANUAL_SESSIONS:
         _handle_manual_turn(user, text, say, client)
@@ -332,15 +429,22 @@ def on_dm(event, say, client):
         _handle_meeting_dm(user, text, say, client)
         return
 
-    # Fresh DM. A roster of @mentioned teammates is self-evidently a meeting setup, so spin
-    # the multi-participant flow up one-shot (live mode infers each role from the text).
-    # Otherwise deduce intent from the words.
+    # Fresh DM. @mentioned teammates make this self-evidently a meeting setup, so spin the
+    # multi-participant flow up one-shot (live mode infers each role from the text).
+    targets = meeting_mod.extract_targets(text, initiator=user)
     roster = _extract_roster(text, user)
-    if roster:
-        _start_multihuman(user, {"inputs": {"brief": text, "setup": text}}, roster, say, client)
+    if [p for p in roster if p != user]:               # at least one real teammate placed
+        _start_multihuman(user, {"inputs": {"brief": text, "setup": text}}, roster, say, client,
+                          unplaced=[t for t in targets if t not in roster])
+        return
+    if targets:
+        # Tagged people but couldn't place any in a role — ask to clarify; do NOT self-interview
+        # the sender. Open a setup session so the corrected re-tag routes back here.
+        _MANUAL_SESSIONS[user] = {"step": "setup", "inputs": {"brief": text}}
+        say(text=_cant_place_roles([t for t in targets if t not in roster]))
         return
     if _detect_intent(text):
-        # Meeting intent but no roster yet — drop into setup and ask the one question.
+        # Meeting intent but no one tagged — drop into setup and ask the one question.
         _MANUAL_SESSIONS[user] = {"step": "setup", "inputs": {"brief": text}}
         say(text=manual_flow.SETUP_PROMPT)
         return
@@ -379,6 +483,15 @@ def on_premeeting_compile(ack, respond, command, client):
 def on_premeeting_scripted(ack, respond, client):
     ack("Spinning up the scripted pre-meeting orchestrator…")
     _run_scripted_premeeting(respond, client)
+
+
+# --- /clear kill switch: wipe the user's flow + reset the scenario to baseline ---
+@app.command("/clear")
+def on_clear(ack, respond, command):
+    ack()
+    _full_reset(command["user_id"])
+    respond(text=":broom: Cleared — back to the very beginning. DM me what meeting to prep "
+                 "and tag who's involved.")
 
 def main():
     if "SLACK_BOT_TOKEN" not in os.environ or "SLACK_APP_TOKEN" not in os.environ:
