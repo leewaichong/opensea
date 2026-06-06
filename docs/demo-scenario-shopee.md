@@ -93,9 +93,9 @@ Meeting title: Shopee SG 11.11 Creator Mix Planning
 Decision owner: me, John Taylor, 11.11 Campaign Lead.
 
 Participants:
-- Wai Chong, Growth Lead
-- Shang, Commerce Lead
-- John Taylor, Campaign Lead
+- @waichong, Growth Lead
+- @shang, Commerce Lead
+- "@John Taylor (myself), Campaign Lead
 
 Decision to prepare: what creator mix we should use for 11.11, including the hero campaign face and the conversion/livestream role.
 
