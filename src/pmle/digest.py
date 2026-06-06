@@ -5,9 +5,14 @@ _EMOJI = {"agreed": ":white_check_mark:", "crux": ":red_circle:",
           "fake_agreement": ":large_orange_circle:", "needs_clarification": ":large_blue_circle:",
           "open": ":white_circle:"}
 
-# Items that still need the live meeting · items nobody weighed in on · items resolved into
-# the pre-read. "open" (no stance collected) is its OWN bucket — never consensus.
-_DISCUSS = ("crux", "fake_agreement", "needs_clarification")
+# Four item buckets, kept distinct so the header, sections, and footer can't disagree:
+#   _DISCUSS  — genuine conflict to resolve live (this IS the headline "N items" count, and
+#               matches BoardState.meeting_item_count()).
+#   _CLARIFY  — thin/one-sided input: only one side weighed in, can't judge alignment yet.
+#   _NO_INPUT — nobody addressed it at all.
+#   _RESOLVED — already aligned -> pre-read.
+_DISCUSS = ("crux", "fake_agreement")
+_CLARIFY = ("needs_clarification",)
 _NO_INPUT = ("open",)
 _RESOLVED = ("agreed",)
 _AGENDA_TEXT = {a.id: a.text for a in AGENDA}
@@ -20,13 +25,23 @@ def _no_input_lines(board: BoardState, agenda_text: dict | None = None) -> list[
             for i in board.items if i.status in _NO_INPUT]
 
 
+def _clarify_lines(board: BoardState) -> list[str]:
+    """Items only one side spoke to — chase the missing input; show why (the summary)."""
+    return [f":large_blue_circle: *{i.item_id}* — {i.summary}"
+            for i in board.items if i.status in _CLARIFY]
+
+
 def _summary_parts(board: BoardState) -> list[str]:
-    """Footer counts derived from the actual items — not the action-item framing, which is
-    empty (and misleading) in dynamic mode. Action items only appear if there are any."""
+    """Footer counts derived from the actual item buckets — consistent with the header. Not the
+    action-item framing, which is empty (and misleading) in dynamic mode."""
     need = sum(1 for i in board.items if i.status in _DISCUSS)
+    clarify = sum(1 for i in board.items if i.status in _CLARIFY)
     agreed = sum(1 for i in board.items if i.status in _RESOLVED)
     waiting = sum(1 for i in board.items if i.status in _NO_INPUT)
-    parts = [f"{need} for the meeting", f"{agreed} already aligned"]
+    parts = [f"{need} for the meeting"]
+    if clarify:
+        parts.append(f"{clarify} need more input")
+    parts.append(f"{agreed} already aligned")
     if waiting:
         parts.append(f"{waiting} awaiting input")
     cleared = sum(1 for a in board.action_items if a.status == "resolved")
@@ -64,6 +79,12 @@ def render_text(board: BoardState, agenda_text: dict | None = None) -> str:
         if i.status in _DISCUSS:
             lines.append(f"  {_EMOJI[i.status]} {i.item_id}: {i.summary}"
                          + (f"  [{i.divergence}]" if i.divergence else ""))
+
+    clarify = _clarify_lines(board)
+    if clarify:
+        lines.append("")
+        lines.append("Needs more input — only one side weighed in:")
+        lines.extend("  " + c.replace("*", "") for c in clarify)
 
     noinput = _no_input_lines(board, agenda_text)
     if noinput:
@@ -107,6 +128,12 @@ def render_blocks(board: BoardState, agenda_text: dict | None = None) -> list[di
             if i.divergence:
                 txt += f"\n> {i.divergence}"
             blocks.append(_section(txt))
+
+    clarify = _clarify_lines(board)
+    if clarify:
+        blocks.append({"type": "divider"})
+        blocks.append(_section("*:large_blue_circle: Needs more input — only one side weighed in*"))
+        blocks.append(_section("\n".join(clarify)))
 
     noinput = _no_input_lines(board, agenda_text)
     if noinput:

@@ -45,6 +45,28 @@ def test_agreed_items_use_agenda_text_not_generic_summary():
     assert "Confirm deliverables" in blob
 
 
+def test_header_count_matches_footer_and_clarify_is_separate():
+    # needs_clarification must NOT inflate the "needs the meeting" count: header (crux+fake),
+    # the footer's "for the meeting", and the section must all agree, with 🔵 items in their
+    # own "Needs more input" bucket.
+    board = BoardState(
+        decision="d", owner="o",
+        items=[
+            ClassificationResult(item_id="a", status="crux", summary="conflict"),
+            ClassificationResult(item_id="b", status="fake_agreement", summary="fake"),
+            ClassificationResult(item_id="c", status="needs_clarification", summary="one side only"),
+            ClassificationResult(item_id="e", status="needs_clarification", summary="thin"),
+            ClassificationResult(item_id="f", status="agreed", summary="aligned"),
+        ],
+    )
+    assert board.meeting_item_count() == 2                 # header counts crux+fake only
+    blob = str(render_blocks(board))
+    assert "Pre-meeting: 5 → 2 items" in blob
+    assert "2 for the meeting" in blob                     # footer agrees with header
+    assert "2 need more input" in blob                     # 🔵 items broken out separately
+    assert "Needs more input" in blob
+
+
 def test_text_render_includes_consensus_section():
     txt = render_text(_board())
     assert "Needs the live meeting:" in txt
