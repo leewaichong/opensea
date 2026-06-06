@@ -67,6 +67,13 @@ class Meeting:
     participants: dict[str, str] = field(default_factory=dict)  # slack_user_id -> role
     responses: dict[str, str] = field(default_factory=dict)     # slack_user_id -> reply text
     phase: str = "collecting"                                    # collecting | done
+    # Dynamic-mode fields (stay empty in hardcoded mode). The agenda/decision are generated
+    # from the initiator's setup; stances are grounded from each real participant's reply and
+    # keyed by slack id (NOT role) so two people with the same role can't clobber each other.
+    decision: str = ""
+    owner: str = ""
+    agenda: list[dict] = field(default_factory=list)            # [{"id": str, "text": str}]
+    stances: dict[str, dict] = field(default_factory=dict)      # slack_id -> {item_id -> Stance}
 
     def pending(self) -> list[str]:
         return [u for u in self.participants if u not in self.responses]

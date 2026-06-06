@@ -33,7 +33,7 @@ def test_blocks_show_both_discussion_and_resolved():
     # The live-meeting item is present...
     assert "role-mix" in blob and "Needs the live meeting" in blob
     # ...AND the resolved consensus is no longer hidden behind a count.
-    assert "Resolved async" in blob
+    assert "Already aligned" in blob
     assert "deliverables" in blob and "tracking" in blob          # agreed agenda items shown
     assert "At least one Shopee Live slot is required." in blob   # resolved action item shown
     assert "Shang" in blob                                        # who cleared it
@@ -48,5 +48,5 @@ def test_agreed_items_use_agenda_text_not_generic_summary():
 def test_text_render_includes_consensus_section():
     txt = render_text(_board())
     assert "Needs the live meeting:" in txt
-    assert "Resolved async — pre-read consensus:" in txt
+    assert "Already aligned — skip in the meeting:" in txt
     assert "At least one Shopee Live slot is required." in txt

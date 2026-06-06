@@ -77,7 +77,7 @@ def test_extract_roster_demo_uses_keyword(monkeypatch):
 def test_extract_roster_live_infers_roles_via_llm(monkeypatch):
     monkeypatch.setenv("PMLE_LIVE_AGENTS", "1")
 
-    async def fake_roster(text, targets):
+    async def fake_roster(text, targets, open_roles=False):
         # NL with no literal role words — the LLM is what maps it.
         return {"U_WC": "Growth"}
     monkeypatch.setattr(s.triage, "llm_roster", fake_roster)
@@ -89,7 +89,7 @@ def test_extract_roster_live_infers_roles_via_llm(monkeypatch):
 def test_extract_roster_live_no_mentions_skips_llm(monkeypatch):
     monkeypatch.setenv("PMLE_LIVE_AGENTS", "1")
 
-    async def boom(text, targets):
+    async def boom(text, targets, open_roles=False):
         raise AssertionError("llm_roster must not be called when there are no @mentions")
     monkeypatch.setattr(s.triage, "llm_roster", boom)
 
@@ -144,13 +144,15 @@ def test_clear_keyword_resets_and_escapes_state(monkeypatch):
 
 def test_partial_placement_surfaces_unplaced_users(monkeypatch):
     # Live roster places only 1 of 2 tagged users. The meeting starts with the placed one, but
-    # the un-placed teammate must be surfaced, not silently dropped.
+    # the un-placed teammate must be surfaced, not silently dropped. Pin hardcoded so the shared
+    # _start_multihuman path doesn't call the real build_agenda.
     monkeypatch.setenv("PMLE_LIVE_AGENTS", "1")
+    monkeypatch.setenv("PMLE_HARDCODED", "1")
     monkeypatch.setattr(s, "_PENDING_MEETINGS", {})
     monkeypatch.setattr(s, "_USER_TO_MEETING", {})
     monkeypatch.setattr(s, "_MANUAL_SESSIONS", {})
 
-    async def fake_roster(text, targets):
+    async def fake_roster(text, targets, open_roles=False):
         return {"U_SHANG": "Commerce"}            # U_WC tagged but not placed
     monkeypatch.setattr(s.triage, "llm_roster", fake_roster)
 

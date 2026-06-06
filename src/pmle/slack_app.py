@@ -21,15 +21,19 @@
 # (and the initiator) — there is no meeting channel. /premeeting still works as a manual
 # fallback entry; /premeeting-scripted is the fast cached path.
 #
-# Brief generation has two modes, gated on PMLE_LIVE_AGENTS:
-#   default (unset/0): intent is keyword-detected (offline) and the final brief is the
-#                      deterministic cached Shopee digest (same output as /premeeting-scripted)
-#                      — input-independent, safe for stage timing.
-#   PMLE_LIVE_AGENTS=1: intent is classified by the router agent, each stakeholder reply is
-#                      grounded into that participant's Stance via their persistent agent, and
-#                      the brief is classified live from the grounded stances. This is the only
-#                      mode where the brief reflects what the user actually typed. Requires
-#                      OPENAI_API_KEY; ~21 extra agent calls.
+# Brief generation has two gates:
+#   PMLE_LIVE_AGENTS (off by default): off -> deterministic cached Shopee digest (offline,
+#                      input-independent, safe for stage timing). on -> LLM intent/role/grounding
+#                      and a brief classified live from real stances. Requires OPENAI_API_KEY.
+#   PMLE_HARDCODED (only matters when live): =1 -> the canned Shopee scenario (fixed 9-item
+#                      agenda, 3 personas, grounding pinned to objective/role-mix, hardcoded
+#                      action items). unset/0 -> FULL DYNAMIC live flow: the agenda is generated
+#                      from the initiator's setup (triage.build_agenda), roles are free-text
+#                      lenses, each participant's stance is grounded from THEIR real reply onto
+#                      the real agenda (triage.ground_reply, keyed by slack id), and Mochi
+#                      classifies that. No personas, no hardcoded topic.
+# SCOPE: dynamic applies to the multi-participant branch (the user @mentions real teammates).
+# The solo branch (no @mentions) still runs the canned Shopee flow regardless.
 import os, asyncio, threading
 from dotenv import load_dotenv
 from slack_bolt import App
@@ -41,7 +45,8 @@ from pmle.data.agenda import AGENDA
 from pmle.data.personas import PERSONAS
 from pmle.participants import build_participant
 from pmle.stance_store import StanceStore
-from pmle.schemas import ClassificationResult, Stance
+from pmle.crux_engine import classify_item
+from pmle.schemas import BoardState, ClassificationResult, Stance
 from agents import Runner
 from pmle.digest import render_blocks
 
@@ -150,6 +155,12 @@ def _live_agents() -> bool:
     return os.environ.get("PMLE_LIVE_AGENTS") == "1"
 
 
+def _dynamic() -> bool:
+    """Full dynamic live flow: agenda/roles/stances come from the real setup + replies.
+    Only meaningful in live mode (needs the LLM); PMLE_HARDCODED=1 forces the canned scenario."""
+    return _live_agents() and os.environ.get("PMLE_HARDCODED") != "1"
+
+
 def _detect_intent(text: str) -> bool:
     """Deduce whether a free-form DM is a request to prep a meeting. Live mode asks the
     router agent; demo mode uses the offline keyword heuristic."""
@@ -165,7 +176,7 @@ def _extract_roster(text: str, user: str) -> dict:
         targets = meeting_mod.extract_targets(text, initiator=user)
         if not targets:
             return {}
-        return asyncio.run(triage.llm_roster(text, targets))
+        return asyncio.run(triage.llm_roster(text, targets, open_roles=_dynamic()))
     return meeting_mod.parse_participants(text, initiator=user)
 
 
@@ -268,6 +279,18 @@ def _review_prompt(role: str) -> str:
     return head + _REVIEW_BODY.get(role, "What's your take on the agenda?")
 
 
+def _dynamic_review_prompt(role: str, meeting) -> str:
+    """Review prompt built from the *real* generated agenda — no Shopee text."""
+    agenda_txt = "\n".join(f"{n}. {a['text']}" for n, a in enumerate(meeting.agenda, 1)) \
+        or "(no agenda items yet)"
+    decision = meeting.decision or "this decision"
+    return (f"The meeting owner is prepping *{decision}* and listed you as *{role}*.\n\n"
+            f"Draft agenda:\n{agenda_txt}\n\n"
+            "From your lens: which items are the real decisions, where do you push back or "
+            "disagree (and on what assumption), and which are already safe to treat as agreed? "
+            "Be specific.")
+
+
 def _open_dm(client, user_id):
     return client.conversations_open(users=user_id)["channel"]["id"]
 
@@ -300,6 +323,13 @@ def _start_multihuman(initiator, session, roster, say, client, unplaced=None):
         setup=session.get("inputs", {}).get("setup", ""),
         participants=reachable,
     )
+    if _dynamic():
+        # Generate the agenda from the real setup; this is what makes the meeting non-Shopee.
+        plan = asyncio.run(triage.build_agenda(meeting.setup or meeting.brief))
+        meeting.decision = plan["decision"] or (meeting.setup or meeting.brief)[:140]
+        meeting.owner = plan["owner"]
+        meeting.agenda = plan["agenda"] or [{"id": "decision", "text": meeting.decision}]
+
     _PENDING_MEETINGS[initiator] = meeting
     _USER_TO_MEETING[initiator] = initiator  # initiator routes here too (for compile/status)
     for pid in reachable:
@@ -316,7 +346,7 @@ def _start_multihuman(initiator, session, roster, say, client, unplaced=None):
         f"replies — or DM me `compile` to force it.{miss}")
 
     for pid, role in reachable.items():
-        prompt = _review_prompt(role)
+        prompt = _dynamic_review_prompt(role, meeting) if _dynamic() else _review_prompt(role)
         if pid == initiator:
             say(prompt)  # initiator is also a participant: ask them in this same DM
         else:
@@ -329,6 +359,22 @@ def _notify_progress(meeting, client):
     tail = (f" Waiting on {', '.join('<@'+u+'>' for u in pend)}." if pend else " Compiling now…")
     client.chat_postMessage(channel=_open_dm(client, meeting.initiator),
                             text=f":envelope_with_arrow: {done}/{total} responded.{tail}")
+
+
+def _ground_meeting_reply(meeting, user, role, text):
+    """Ground one participant's reply. Dynamic mode maps it onto the meeting's real agenda and
+    stores stances keyed by slack id (so same-role people don't clobber); hardcoded mode maps
+    the role onto a fixed persona's Stance in the global store."""
+    if not _dynamic():
+        return _ground_stance(meeting_mod.ROLE_TO_PERSONA[role], text)
+    raw = asyncio.run(triage.ground_reply(role, text, meeting.agenda))
+    store = meeting.stances.setdefault(user, {})
+    for s in raw:
+        store[s["item_id"]] = Stance(
+            stakeholder=role, item_id=s["item_id"], position=s["position"],
+            rationale=s["rationale"], key_assumptions=s["key_assumptions"])
+    n = len(raw)
+    return f"Got your *{role}* input — captured {n} point{'' if n == 1 else 's'} on the agenda."
 
 
 def _handle_meeting_dm(user, text, say, client):
@@ -344,7 +390,7 @@ def _handle_meeting_dm(user, text, say, client):
 
     if user in meeting.participants and user not in meeting.responses:
         role = meeting.participants[user]
-        ack = _ground_stance(meeting_mod.ROLE_TO_PERSONA[role], text)
+        ack = _ground_meeting_reply(meeting, user, role, text)
         meeting.responses[user] = text
         say(ack or f"Got your {role} input — thanks.")
         _notify_progress(meeting, client)
@@ -360,6 +406,26 @@ def _handle_meeting_dm(user, text, say, client):
         say("All input is in — compiling the brief now.")
 
 
+def _build_dynamic_board(meeting):
+    """Classify the meeting's real agenda from the stances grounded out of real replies.
+    No personas, no hardcoded action items — purely what the participants said."""
+    async def build():
+        results = []
+        for a in meeting.agenda:
+            stances = [meeting.stances[pid][a["id"]]
+                       for pid in meeting.stances if a["id"] in meeting.stances[pid]]
+            if not stances:
+                results.append(ClassificationResult(
+                    item_id=a["id"], status="open",
+                    summary="No stakeholder addressed this item.", cited_stances=[]))
+            else:
+                results.append(await classify_item(stances))
+        return BoardState(decision=meeting.decision or "Pre-meeting brief",
+                          owner=meeting.owner or f"<@{meeting.initiator}>",
+                          items=results, action_items=[])
+    return asyncio.run(build())
+
+
 def _compile_and_post(meeting, client):
     # Claim the compile atomically; the slow board build runs outside the lock.
     with _COMPILE_LOCK:
@@ -369,9 +435,14 @@ def _compile_and_post(meeting, client):
     owner_dm = _open_dm(client, meeting.initiator)
     client.chat_postMessage(channel=owner_dm, text="All input gathered — compiling the pre-meeting brief…")
 
-    board = _build_board()
+    if _dynamic():
+        board = _build_dynamic_board(meeting)
+        agenda_text = {a["id"]: a["text"] for a in meeting.agenda}
+    else:
+        board = _build_board()
+        agenda_text = None
     text = f"Pre-meeting brief ready: {board.meeting_item_count()} items need the live meeting"
-    blocks = render_blocks(board)
+    blocks = render_blocks(board, agenda_text)
 
     # No channel: DM the compiled brief to every participant (and the initiator). Dedupe so
     # an initiator who joined as a participant (`me Growth`) isn't messaged twice.

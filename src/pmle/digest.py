@@ -5,19 +5,47 @@ _EMOJI = {"agreed": ":white_check_mark:", "crux": ":red_circle:",
           "fake_agreement": ":large_orange_circle:", "needs_clarification": ":large_blue_circle:",
           "open": ":white_circle:"}
 
-# Items that still need the live meeting vs. items the bot resolved into the pre-read.
+# Items that still need the live meeting · items nobody weighed in on · items resolved into
+# the pre-read. "open" (no stance collected) is its OWN bucket — never consensus.
 _DISCUSS = ("crux", "fake_agreement", "needs_clarification")
-_RESOLVED = ("agreed", "open")
+_NO_INPUT = ("open",)
+_RESOLVED = ("agreed",)
 _AGENDA_TEXT = {a.id: a.text for a in AGENDA}
 
 
-def _consensus_lines(board: BoardState) -> list[str]:
-    """The async-resolved consensus: agreed agenda items (by their agenda text) + resolved
-    action items (by their resolution, with who cleared them). This is the pre-read."""
+def _no_input_lines(board: BoardState, agenda_text: dict | None = None) -> list[str]:
+    """Agenda items no participant addressed — flagged, not folded into consensus."""
+    text_for = agenda_text or _AGENDA_TEXT
+    return [f":white_circle: *{i.item_id}* — {text_for.get(i.item_id) or i.summary}"
+            for i in board.items if i.status in _NO_INPUT]
+
+
+def _summary_parts(board: BoardState) -> list[str]:
+    """Footer counts derived from the actual items — not the action-item framing, which is
+    empty (and misleading) in dynamic mode. Action items only appear if there are any."""
+    need = sum(1 for i in board.items if i.status in _DISCUSS)
+    agreed = sum(1 for i in board.items if i.status in _RESOLVED)
+    waiting = sum(1 for i in board.items if i.status in _NO_INPUT)
+    parts = [f"{need} for the meeting", f"{agreed} already aligned"]
+    if waiting:
+        parts.append(f"{waiting} awaiting input")
+    cleared = sum(1 for a in board.action_items if a.status == "resolved")
+    needs_owner = sum(1 for a in board.action_items if a.status == "needs_owner")
+    if cleared:
+        parts.append(f"{cleared} action items cleared")
+    if needs_owner:
+        parts.append(f"{needs_owner} action items need an owner")
+    return parts
+
+
+def _consensus_lines(board: BoardState, agenda_text: dict | None = None) -> list[str]:
+    """Items the group is already aligned on: agreed agenda items (by their agenda text) +
+    any resolved action items (by their resolution, with who cleared them). The pre-read."""
+    text_for = agenda_text or _AGENDA_TEXT
     lines = []
     for i in board.items:
         if i.status in _RESOLVED:
-            label = _AGENDA_TEXT.get(i.item_id, i.summary)
+            label = text_for.get(i.item_id) or i.summary
             lines.append(f":white_check_mark: *{i.item_id}* — {label}")
     for a in board.action_items:
         if a.status == "resolved":
@@ -26,7 +54,7 @@ def _consensus_lines(board: BoardState) -> list[str]:
     return lines
 
 
-def render_text(board: BoardState) -> str:
+def render_text(board: BoardState, agenda_text: dict | None = None) -> str:
     n = board.meeting_item_count()
     lines = [f"PerMyLastEmail — {board.decision}",
              f"Agenda compressed: {len(board.items)} → {n} items need a meeting", ""]
@@ -37,19 +65,24 @@ def render_text(board: BoardState) -> str:
             lines.append(f"  {_EMOJI[i.status]} {i.item_id}: {i.summary}"
                          + (f"  [{i.divergence}]" if i.divergence else ""))
 
-    cons = _consensus_lines(board)
+    noinput = _no_input_lines(board, agenda_text)
+    if noinput:
+        lines.append("")
+        lines.append("No input yet:")
+        lines.extend("  " + c.replace("*", "") for c in noinput)
+
+    cons = _consensus_lines(board, agenda_text)
     if cons:
         lines.append("")
-        lines.append("Resolved async — pre-read consensus:")
+        lines.append("Already aligned — skip in the meeting:")
         lines.extend("  " + c.replace("*", "") for c in cons)
 
-    lines.append("")
-    res = sum(1 for a in board.action_items if a.status == "resolved")
     no_owner = [a for a in board.action_items if a.status == "needs_owner"]
-    lines.append(f"Action items: {res} resolved, {len(no_owner)} need an owner")
     for a in no_owner:
-        lines.append(f"  :warning: {a.text}")
-    lines.append(f"\nDecision owner: {board.owner} (owner call with logged dissents)")
+        lines.append(f"  :warning: needs owner — {a.text}")
+    lines.append("")
+    lines.append("Summary: " + ", ".join(_summary_parts(board)))
+    lines.append(f"Decision owner: {board.owner}")
     return "\n".join(lines)
 
 
@@ -57,7 +90,7 @@ def _section(text: str) -> dict:
     return {"type": "section", "text": {"type": "mrkdwn", "text": text}}
 
 
-def render_blocks(board: BoardState) -> list[dict]:
+def render_blocks(board: BoardState, agenda_text: dict | None = None) -> list[dict]:
     n = board.meeting_item_count()
     blocks = [
         {"type": "header", "text": {"type": "plain_text",
@@ -75,17 +108,23 @@ def render_blocks(board: BoardState) -> list[dict]:
                 txt += f"\n> {i.divergence}"
             blocks.append(_section(txt))
 
-    cons = _consensus_lines(board)
+    noinput = _no_input_lines(board, agenda_text)
+    if noinput:
+        blocks.append({"type": "divider"})
+        blocks.append(_section("*:white_circle: No input yet — nobody weighed in*"))
+        blocks.append(_section("\n".join(noinput)))
+
+    cons = _consensus_lines(board, agenda_text)
     if cons:
         blocks.append({"type": "divider"})
-        blocks.append(_section("*:white_check_mark: Resolved async — pre-read consensus*"))
+        blocks.append(_section("*:white_check_mark: Already aligned — skip in the meeting*"))
         blocks.append(_section("\n".join(cons)))
 
-    no_owner = [a for a in board.action_items if a.status == "needs_owner"]
-    for a in no_owner:
-        blocks.append(_section(f":warning: *needs owner* — {a.text}"))
+    for a in board.action_items:
+        if a.status == "needs_owner":
+            blocks.append(_section(f":warning: *needs owner* — {a.text}"))
 
-    res = sum(1 for a in board.action_items if a.status == "resolved")
+    owner = board.owner or "—"
     blocks.append({"type": "context", "elements": [{"type": "mrkdwn",
-        "text": f"Decision owner: *{board.owner}* · {res} resolved · {len(no_owner)} need an owner"}]})
+        "text": f"Owner: *{owner}* · " + " · ".join(_summary_parts(board))}]})
     return blocks

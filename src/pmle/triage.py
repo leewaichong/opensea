@@ -77,18 +77,33 @@ _ROSTER_AGENT = Agent(
 )
 
 
-async def llm_roster(text: str, target_ids: list[str]) -> dict[str, str]:
+_OPEN_ROSTER_AGENT = Agent(
+    name="Roster Reader (open)",
+    instructions=(
+        "You read a meeting-setup message and assign each @mentioned teammate a SHORT role "
+        "label (1-3 words) describing what they own in THIS meeting — e.g. 'Finance', "
+        "'Engineering', 'Design', 'Growth', 'Legal' — inferred from how the message describes "
+        "them, not from a fixed list.\n"
+        "You are given the message and the EXACT Slack user IDs that were mentioned. Return "
+        "STRICT JSON mapping user ID -> short role label, using ONLY those IDs. Omit anyone "
+        'whose role you genuinely cannot tell. Example: {"U_AB": "Finance"}.'
+    ),
+)
+
+
+async def llm_roster(text: str, target_ids: list[str], open_roles: bool = False) -> dict[str, str]:
     """Live-mode role assignment: infer each mentioned user's role from the natural language.
 
     IDs come in pre-extracted (exact); this only decides the role. Anything the model returns
-    outside the given IDs or the three valid roles is dropped, so a hallucinated id/role can't
-    leak into the meeting."""
+    outside the given IDs is dropped, so a hallucinated id can't leak in. With open_roles the
+    label is free text (dynamic mode); otherwise it's filtered to the three fixed roles."""
     from agents import Runner
 
+    agent = _OPEN_ROSTER_AGENT if open_roles else _ROSTER_AGENT
     prompt = (f"Setup message:\n{text}\n\n"
               f"Mentioned Slack user IDs: {target_ids}\n"
               "Assign each of those IDs a role from the message.")
-    result = await Runner.run(_ROSTER_AGENT, prompt)
+    result = await Runner.run(agent, prompt)
     raw = result.final_output.strip()
     if raw.startswith("```"):
         raw = raw.split("```")[1].lstrip("json").strip()
@@ -97,4 +112,93 @@ async def llm_roster(text: str, target_ids: list[str]) -> dict[str, str]:
     except ValueError:
         return {}
     allowed = set(target_ids)
+    if open_roles:
+        return {k: str(v).strip() for k, v in data.items()
+                if k in allowed and isinstance(v, str) and v.strip()}
     return {k: v for k, v in data.items() if k in allowed and v in _VALID_ROLES}
+
+
+# --- Dynamic live flow: generate the agenda from the setup, ground real replies onto it ---
+
+_AGENDA_BUILDER = Agent(
+    name="Agenda Builder",
+    instructions=(
+        "You read a meeting-setup message and extract the structure needed to prepare it.\n"
+        'Return STRICT JSON: {"decision": str, "owner": str, '
+        '"agenda": [{"id": str, "text": str}, ...]}.\n'
+        "- decision: one sentence naming the decision/outcome the meeting must reach.\n"
+        "- owner: who owns the decision (a name or role from the message), or \"\" if unclear.\n"
+        "- agenda: 3-9 concrete discussion items implied by the setup. id = short kebab-case "
+        "slug (e.g. \"budget-split\"); text = the agenda line. Use the user's listed agenda if "
+        "they gave one; otherwise infer items from the decision and context.\n"
+        "Output ONLY the JSON."
+    ),
+)
+
+
+async def build_agenda(setup_text: str) -> dict:
+    """Generate {decision, owner, agenda:[{id,text}]} from the initiator's free-form setup."""
+    from agents import Runner
+
+    result = await Runner.run(_AGENDA_BUILDER, setup_text)
+    raw = result.final_output.strip()
+    if raw.startswith("```"):
+        raw = raw.split("```")[1].lstrip("json").strip()
+    try:
+        data = json.loads(raw)
+    except ValueError:
+        return {"decision": "", "owner": "", "agenda": []}
+    agenda, seen = [], set()
+    for it in data.get("agenda", []) if isinstance(data, dict) else []:
+        if isinstance(it, dict) and it.get("id") and it.get("text"):
+            iid = str(it["id"]).strip()
+            if iid and iid not in seen:
+                seen.add(iid)
+                agenda.append({"id": iid, "text": str(it["text"]).strip()})
+    return {"decision": str(data.get("decision", "")).strip(),
+            "owner": str(data.get("owner", "")).strip(),
+            "agenda": agenda}
+
+
+_POSITIONS = ("support", "agree_with_condition", "neutral", "block")
+
+_GROUNDER = Agent(
+    name="Stance Grounder",
+    instructions=(
+        "You convert one person's free-form meeting input into structured stances on specific "
+        "agenda items. You are given their role, their message, and the agenda (ids + text).\n"
+        "For each agenda item their message actually speaks to, output a stance. Do NOT invent "
+        "stances for items they didn't address.\n"
+        'Return STRICT JSON array: [{"item_id": str, "position": one of '
+        '["support","agree_with_condition","neutral","block"], "rationale": str, '
+        '"key_assumptions": [str, ...]}].\n'
+        "Use ONLY item_ids from the given agenda. Output ONLY the JSON array."
+    ),
+)
+
+
+async def ground_reply(role: str, reply: str, agenda: list[dict]) -> list[dict]:
+    """Map a real person's reply onto stances over the meeting's actual agenda. Stances are
+    filtered to the exact agenda ids and valid positions, so a hallucinated item_id can't
+    scatter input under a phantom topic (which would make Mochi silently see nothing)."""
+    from agents import Runner
+
+    valid = {a["id"] for a in agenda}
+    agenda_txt = "\n".join(f"- {a['id']}: {a['text']}" for a in agenda)
+    prompt = (f"Role: {role}\n\nTheir message:\n{reply}\n\nAgenda items:\n{agenda_txt}\n\n"
+              "Produce their stances as JSON.")
+    result = await Runner.run(_GROUNDER, prompt)
+    raw = result.final_output.strip()
+    if raw.startswith("```"):
+        raw = raw.split("```")[1].lstrip("json").strip()
+    try:
+        data = json.loads(raw)
+    except ValueError:
+        return []
+    out = []
+    for s in data if isinstance(data, list) else []:
+        if isinstance(s, dict) and s.get("item_id") in valid and s.get("position") in _POSITIONS:
+            out.append({"item_id": s["item_id"], "position": s["position"],
+                        "rationale": str(s.get("rationale", "")),
+                        "key_assumptions": [str(x) for x in (s.get("key_assumptions") or [])]})
+    return out
