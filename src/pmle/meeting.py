@@ -19,21 +19,23 @@ _ME = re.compile(r"\b(me|myself)\b", re.IGNORECASE)
 
 
 def parse_participants(text: str, initiator: str | None = None) -> dict[str, str]:
-    """Parse '<@U123> Commerce' / 'me -> Growth' lines into {slack_user_id: role}.
+    """Parse '<@U123> Commerce' / 'me -> Growth' segments into {slack_user_id: role}.
 
-    A line counts only if it has BOTH a recognized role word (growth/commerce/lead) and a
-    target (an @mention, or 'me'/'myself' which resolves to `initiator`). Plain-name setups
-    with no @mentions return {} — that's the signal to stay in the solo flow."""
+    Segments split on newlines AND commas, so a one-line free-form message ("prep the mix,
+    <@U1> commerce, <@U2> lead, me growth") parses as well as a bulleted multi-line setup.
+    A segment counts only if it has BOTH a recognized role word (growth/commerce/lead) and a
+    target (an @mention, or 'me'/'myself' which resolves to `initiator`). Setups with no
+    @mentions/me return {} — that's the signal to stay in the solo flow."""
     roster: dict[str, str] = {}
-    for line in text.splitlines():
-        low = line.lower()
+    for seg in re.split(r"[,\n]", text):
+        low = seg.lower()
         role = next((r for w, r in _ROLE_WORDS.items() if w in low), None)
         if not role:
             continue
-        m = _MENTION.search(line)
+        m = _MENTION.search(seg)
         if m:
             roster[m.group(1)] = role
-        elif initiator and _ME.search(line):
+        elif initiator and _ME.search(seg):
             roster[initiator] = role
     return roster
 

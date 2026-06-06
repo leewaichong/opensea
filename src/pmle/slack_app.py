@@ -3,26 +3,31 @@
 # app_mentions:read; slash commands /premeeting, /premeeting-compile, /premeeting-scripted;
 # subscribe to message.im.
 #
-# /premeeting hosts a DM setup flow. If the initiator @mentions teammates with roles
-# (Growth/Commerce/Lead) in the setup, the bot DMs each of them, grounds their reply into
-# that role's persona Stance, and auto-compiles the brief once all have replied (or the
-# initiator DMs `compile` / runs /premeeting-compile). With no @mentions it stays solo
-# (initiator voices every role). /premeeting-scripted is the fast cached fallback.
+# ENTRY POINT: free-form DM. There's no slash command to start — the user just talks to the
+# bot ("help me prep the 11.11 creator-mix meeting, <@U_SHANG> commerce, <@U_JT> lead, me
+# growth") and the bot deduces the intent (triage.py) and spins the flow up itself:
+#   - roster parseable (@mention + role)  -> one-shot: DM each teammate for input immediately.
+#   - prep intent but no roster           -> ask the one setup question, then fan out.
+#   - not a meeting request               -> the user's persistent agent answers (chat).
+# It grounds each reply into that role's persona Stance and auto-compiles once everyone has
+# replied (or the initiator DMs `compile`). The compiled brief is DM'd to every participant
+# (and the initiator) — there is no meeting channel. /premeeting still works as a manual
+# fallback entry; /premeeting-scripted is the fast cached path.
 #
 # Brief generation has two modes, gated on PMLE_LIVE_AGENTS:
-#   default (unset/0): /premeeting collects the user's answers but the final brief is the
+#   default (unset/0): intent is keyword-detected (offline) and the final brief is the
 #                      deterministic cached Shopee digest (same output as /premeeting-scripted)
 #                      — input-independent, safe for stage timing.
-#   PMLE_LIVE_AGENTS=1: each stakeholder reply is grounded into that participant's Stance via
-#                      their persistent agent, and the brief is classified live from the
-#                      grounded stances. This is the only mode where the brief reflects what
-#                      the user actually typed. Requires OPENAI_API_KEY; ~21 extra agent calls.
+#   PMLE_LIVE_AGENTS=1: intent is classified by the router agent, each stakeholder reply is
+#                      grounded into that participant's Stance via their persistent agent, and
+#                      the brief is classified live from the grounded stances. This is the only
+#                      mode where the brief reflects what the user actually typed. Requires
+#                      OPENAI_API_KEY; ~21 extra agent calls.
 import os, asyncio, threading
 from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
-from slack_sdk.errors import SlackApiError
-from pmle import manual_flow, meeting as meeting_mod, orchestrator
+from pmle import manual_flow, meeting as meeting_mod, orchestrator, triage
 from pmle.data.cached_stances import CACHED
 from pmle.data.agenda import AGENDA
 from pmle.participants import build_participant
@@ -34,7 +39,6 @@ load_dotenv()
 app = App(token=os.environ.get("SLACK_BOT_TOKEN", "xoxb-import-smoke"),
           token_verification_enabled=False)
 HUMAN = os.environ.get("PMLE_HUMAN_USER")
-CHANNEL = os.environ.get("PMLE_MEETING_CHANNEL")
 _CACHE = {(s.stakeholder, s.item_id): s for s in CACHED}
 _MANUAL_SESSIONS: dict[str, dict] = {}
 # Multi-participant meetings, keyed by initiator user id. _USER_TO_MEETING routes any
@@ -85,6 +89,14 @@ def _live_agents() -> bool:
     return os.environ.get("PMLE_LIVE_AGENTS") == "1"
 
 
+def _detect_intent(text: str) -> bool:
+    """Deduce whether a free-form DM is a request to prep a meeting. Live mode asks the
+    router agent; demo mode uses the offline keyword heuristic."""
+    if _live_agents():
+        return asyncio.run(triage.llm_intent(text))
+    return triage.heuristic_intent(text)
+
+
 def _ground_stance(person: str, text: str):
     """Map a stakeholder's free-form reply onto their structured Stance via their
     persistent agent (conversational contract editing). Returns the agent's confirmation
@@ -116,23 +128,11 @@ def _build_board():
 
 
 def _post_board(board, *, say=None, respond=None):
-    """Post the digest to the meeting channel, falling back to the current surface
-    (DM `say` or slash `respond`) when the bot isn't in the channel."""
+    """Deliver the digest on the current surface (DM `say` or slash `respond`). Used by the
+    solo flow, where the initiator voices every role and is the only recipient."""
     text = f"Pre-meeting brief ready: {board.meeting_item_count()} items need the live meeting"
     blocks = render_blocks(board)
-    surface = say or respond
-    if not CHANNEL:
-        surface(text=text, blocks=blocks)
-        return
-    try:
-        client_post = app.client.chat_postMessage
-        client_post(channel=CHANNEL, blocks=blocks, text=text)
-        if say:
-            say("Posted the compressed brief to the meeting channel.")
-    except SlackApiError as exc:
-        if exc.response.get("error") != "not_in_channel":
-            raise
-        surface(text=text, blocks=blocks)
+    (say or respond)(text=text, blocks=blocks)
 
 
 def _handle_manual_turn(user, text, say, client):
@@ -269,18 +269,12 @@ def _compile_and_post(meeting, client):
     board = _build_board()
     text = f"Pre-meeting brief ready: {board.meeting_item_count()} items need the live meeting"
     blocks = render_blocks(board)
-    try:
-        if CHANNEL:
-            app.client.chat_postMessage(channel=CHANNEL, blocks=blocks, text=text)
-            client.chat_postMessage(channel=owner_dm, text="Posted the brief to the meeting channel.")
-        else:
-            client.chat_postMessage(channel=owner_dm, blocks=blocks, text=text)
-    except SlackApiError as exc:
-        if exc.response.get("error") != "not_in_channel":
-            raise
-        client.chat_postMessage(channel=owner_dm, blocks=blocks, text=text)
 
-    for uid in list(meeting.participants) + [meeting.initiator]:
+    # No channel: DM the compiled brief to every participant (and the initiator). Dedupe so
+    # an initiator who joined as a participant (`me Growth`) isn't messaged twice.
+    recipients = set(meeting.participants) | {meeting.initiator}
+    for uid in recipients:
+        client.chat_postMessage(channel=_open_dm(client, uid), blocks=blocks, text=text)
         _USER_TO_MEETING.pop(uid, None)
     _PENDING_MEETINGS.pop(meeting.initiator, None)
 
@@ -306,28 +300,41 @@ def _run_scripted_premeeting(respond, client):
             escalate=escalate, ask_stance=_demo_ask_stance, classify_item=_demo_classify_item))
     text = f"Pre-meeting result: {board.meeting_item_count()} items need a meeting"
     blocks = render_blocks(board)
-    try:
-        client.chat_postMessage(channel=CHANNEL, blocks=blocks, text=text)
-    except SlackApiError as exc:
-        if exc.response.get("error") != "not_in_channel":
-            raise
-        respond(blocks=blocks, text=text)
+    respond(blocks=blocks, text=text)
 
 
-# --- human DM -> hosted flow, multi-participant collection, or their persistent agent ---
+# --- human DM is the only entry point: route an in-flight conversation, else deduce intent ---
 @app.event("message")
 def on_dm(event, say, client):
     if event.get("channel_type") != "im" or event.get("bot_id"):
         return
     user = event.get("user", "unknown")
+    text = event.get("text", "")
+
+    # Already mid-conversation: continue where they are.
     if user in _MANUAL_SESSIONS:
-        _handle_manual_turn(user, event["text"], say, client)
+        _handle_manual_turn(user, text, say, client)
         return
     if user in _USER_TO_MEETING:
-        _handle_meeting_dm(user, event["text"], say, client)
+        _handle_meeting_dm(user, text, say, client)
         return
-    agent, session = build_participant("John Taylor")  # demo: one human drives the meeting.
-    result = asyncio.run(Runner.run(agent, event["text"], session=session))
+
+    # Fresh DM. A parseable roster (@mention + role) is self-evidently a meeting setup, so
+    # spin the multi-participant flow up one-shot. Otherwise deduce intent from the words.
+    roster = meeting_mod.parse_participants(text, initiator=user)
+    if roster:
+        _start_multihuman(user, {"inputs": {"brief": text, "setup": text}}, roster, say, client)
+        return
+    if _detect_intent(text):
+        # Meeting intent but no roster yet — drop into setup and ask the one question.
+        _MANUAL_SESSIONS[user] = {"step": "setup", "inputs": {"brief": text}}
+        say(text=manual_flow.SETUP_PROMPT)
+        return
+
+    # Not a meeting request — the user's persistent agent answers (also grounds the human's
+    # reply into the stance store during /premeeting-scripted escalation).
+    agent, session = build_participant("John Taylor")
+    result = asyncio.run(Runner.run(agent, text, session=session))
     say(result.final_output)
 
 # --- /premeeting starts the manual hosted flow ---

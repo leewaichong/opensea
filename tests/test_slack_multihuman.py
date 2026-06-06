@@ -1,9 +1,9 @@
-"""Offline end-to-end test of the multi-participant /premeeting coordination.
+"""Offline end-to-end test of the multi-participant premeeting coordination.
 
 Uses a fake Slack client + say (no Slack) and the deterministic demo brief path (no LLM),
 so it exercises roster parsing -> fan-out DMs -> reply routing -> auto-compile without any
-external dependency. CHANNEL is forced to None so the brief posts to the owner DM via the
-fake client (never a real API call).
+external dependency. There is no meeting channel: the compiled brief is DM'd to every
+participant via the fake client (never a real API call).
 """
 import pmle.slack_app as s
 
@@ -29,7 +29,6 @@ def _say_collector():
 
 def test_multihuman_fanout_collect_and_compile(monkeypatch):
     monkeypatch.delenv("PMLE_LIVE_AGENTS", raising=False)      # demo path, no LLM
-    monkeypatch.setattr(s, "CHANNEL", None)                    # brief -> owner DM, no real API
     monkeypatch.setattr(s, "_PENDING_MEETINGS", {})
     monkeypatch.setattr(s, "_USER_TO_MEETING", {})
     monkeypatch.setattr(s, "_MANUAL_SESSIONS",
@@ -60,14 +59,15 @@ def test_multihuman_fanout_collect_and_compile(monkeypatch):
     # Final reply (initiator is also the Growth participant) triggers auto-compile.
     s._handle_meeting_dm("U_OWNER", "Acquisition, Mika as hero.", say, client)
     assert meeting.phase == "done"
-    # A Block Kit brief was posted, and meeting state is cleaned up.
-    assert any(p.get("blocks") for p in client.posts)
+    # No channel: the compiled brief is DM'd to every participant (initiator deduped, not twice).
+    brief_dms = [p["channel"] for p in client.posts if p.get("blocks")]
+    assert set(brief_dms) == {"dm_U_SHANG", "dm_U_JT", "dm_U_OWNER"}
+    assert len(brief_dms) == 3
     assert s._PENDING_MEETINGS == {} and s._USER_TO_MEETING == {}
 
 
 def test_owner_can_force_compile_early(monkeypatch):
     monkeypatch.delenv("PMLE_LIVE_AGENTS", raising=False)
-    monkeypatch.setattr(s, "CHANNEL", None)
     monkeypatch.setattr(s, "_PENDING_MEETINGS", {})
     monkeypatch.setattr(s, "_USER_TO_MEETING", {})
     monkeypatch.setattr(s, "_MANUAL_SESSIONS",
