@@ -1,62 +1,62 @@
 ---
 date: 2026-06-06
-tags: [project, hackathon, demo, scenario, shopee]
+tags: [project, hackathon, demo, scenario, seamoney]
 status: active-plan
 ---
 
-# Shopee SG 11.11 Creator Mix Demo Scenario
+# SeaMoney PayLater Dispute Automation Demo Scenario
 
 ## Meeting Setup
 
-**Meeting:** Shopee SG 11.11 Creator Mix Planning
+**Meeting:** SeaMoney PayLater Dispute Automation Planning
 
-**Goal:** Prepare a human meeting to decide the creator role mix for the 11.11 campaign: who should be the hero face, who should drive live commerce, and what criteria should govern that split.
+**Goal:** Prepare a human meeting to decide how far to automate PayLater merchant-dispute handling: which cases can be auto-resolved, which require manual review, and what launch criteria should govern the rollout.
 
-**Participants:** Campaign Lead, Growth, Commerce
+**Participants:** Product, Risk, Support Operations
 
-**Meeting master:** John Taylor, 11.11 Campaign Lead
+**Meeting master:** John Taylor, PayLater Product Lead
 
-**Core hidden issue:** Everyone agrees the campaign should reach "younger shoppers," but each person is optimizing a different campaign objective: acquisition, GMV, or mainstream brand reach.
+**Core hidden issue:** Everyone agrees the team needs "faster resolution," but each person means something different: customer self-serve containment, fraud-safe decisioning, or support SLA/backlog reduction.
 
-The demo ends with a generated agenda and pre-meeting brief. It does not show a final influencer decision.
+The demo ends with a generated agenda and pre-meeting brief. It does not show a final automation policy decision.
 
 ## Mermaid Flow
 
 ```mermaid
 flowchart TD
     A[John Taylor starts Slack bot meeting prep] --> B[Bot asks for missing setup fields]
-    B --> C[John provides title, participants, candidates, agenda, constraints]
+    B --> C[John provides title, participants, policy options, agenda, constraints]
     C --> D[Bot opens async review with Wai Chong]
     C --> E[Bot opens async review with Shang]
 
-    D --> F[Wai Chong: Growth input]
-    F --> F1[Optimizes for acquisition, app installs, first purchases]
-    F --> F2[Prefers Mika as hero face]
+    D --> F[Wai Chong: Risk input]
+    F --> F1[Optimizes for fraud containment and loss exposure]
+    F --> F2[Prefers strict manual review for high-risk disputes]
 
-    E --> G[Shang: Commerce input]
-    G --> G1[Optimizes for GMV, conversion, voucher redemption]
-    G --> G2[Prefers Jayden for Shopee Live conversion]
+    E --> G[Shang: Support Ops input]
+    G --> G1[Optimizes for SLA, backlog, and agent capacity]
+    G --> G2[Prefers broad automation for low-value routine cases]
 
     F1 --> H[Bot compares stakeholder assumptions]
     G1 --> H
     C --> H
 
     H --> I{Potential alignment gap?}
-    I -->|Yes| J[Bot asks John for campaign-lead perspective]
-    J --> K[John: optimize for mainstream-safe youth reach]
+    I -->|Yes| J[Bot asks John for product-lead perspective]
+    J --> K[John: optimize for customer trust and controlled self-serve launch]
 
     K --> L[Bot proposes compressed live agenda]
-    L --> M[Agenda item 1: Align primary objective]
-    L --> N[Agenda item 2: Decide creator role mix]
+    L --> M[Agenda item 1: Align definition of fast resolution]
+    L --> N[Agenda item 2: Decide automation boundary]
 
     L --> O[Bot confirms compressed items with Wai Chong and Shang]
-    O --> P[Wai Chong confirms, preserves paid amplification and new-user metrics]
-    O --> Q[Shang confirms, preserves Shopee Live and conversion tracking]
+    O --> P[Wai Chong confirms, preserves risk thresholds and audit trail]
+    O --> Q[Shang confirms, preserves SLA metrics and fallback queue]
 
     P --> R[Bot generates pre-meeting brief]
     Q --> R
-    R --> S[Consensus: deliverables, tracking, categories, paid amplification, safety review, backups]
-    R --> T[Needs discussion: objective and creator role mix]
+    R --> S[Consensus: channels, pilot segment, metrics, audit logging, rollback, comms]
+    R --> T[Needs discussion: success definition and automation boundary]
 
     T --> U[Human meeting starts with 2 focused agenda items, not 9]
 ```
@@ -70,9 +70,9 @@ Use this section as the turn-by-turn input script for the Slack UI. The bot text
 **John Taylor -> Bot**
 
 ```text
-I need to prep a decision meeting for Shopee SG's 11.11 creator campaign.
+I need to prep a decision meeting for SeaMoney PayLater dispute automation.
 
-We need to decide the creator mix for the sale: who should be the hero face, who should drive Shopee Live conversion, and what criteria we should use to make that split. I want the meeting to be short and focused, so please collect input from the key stakeholders first and generate the final agenda.
+We need to decide which merchant-dispute cases can be handled by automation, which cases still need manual review, and what criteria we should use for the first rollout. I want the meeting to be short and focused, so please collect input from the key stakeholders first and generate the final agenda.
 ```
 
 **Bot should ask John for the missing setup fields:**
@@ -80,7 +80,7 @@ We need to decide the creator mix for the sale: who should be the hero face, who
 - meeting title,
 - participants and roles,
 - initial agenda,
-- known candidates,
+- known policy options,
 - any constraints or context.
 
 ### Turn 2: John Provides Meeting Details
@@ -88,50 +88,50 @@ We need to decide the creator mix for the sale: who should be the hero face, who
 **John Taylor -> Bot**
 
 ```text
-Meeting title: Shopee SG 11.11 Creator Mix Planning
+Meeting title: SeaMoney PayLater Dispute Automation Planning
 
-Decision owner: me, John Taylor, 11.11 Campaign Lead.
+Decision owner: me, John Taylor, PayLater Product Lead.
 
 Participants:
-- @waichong, Growth Lead
-- @shang, Commerce Lead
-- "@John Taylor (myself), Campaign Lead
+- @waichong, Risk Lead
+- @shang, Support Operations Lead
+- @John Taylor (myself), Product Lead
 
-Decision to prepare: what creator mix we should use for 11.11, including the hero campaign face and the conversion/livestream role.
+Decision to prepare: how far we should automate PayLater merchant-dispute handling for the first rollout.
 
-Known candidates:
-- Mika Tan: TikTok-first fashion and lifestyle creator. Strong 18-24 audience, high engagement, strong fit for fashion and beauty.
-- Jayden Cho: Shopee Live commerce creator. Strong sales conversion record, high basket size, reliable livestream host.
-- Nora Lim: mainstream lifestyle creator. Very safe and broad appeal, strong family and young working adult reach.
-- Ari Vega: edgy viral youth creator. Strong buzz and shareability, but higher brand-safety and disclosure risk.
+Known policy options:
+- Auto-credit low-value disputes under a fixed threshold when merchant evidence is missing.
+- Auto-reject disputes that fail basic eligibility checks.
+- Route high-risk merchants, repeat claimants, and large-ticket disputes to manual review.
+- Start with a staff-only pilot before exposing the flow to all customers.
 
 Initial agenda:
-1. Align on the primary campaign objective.
-2. Decide creator role mix: hero face vs Shopee Live conversion partner.
-3. Choose which creator should own each role.
-4. Confirm deliverables: short-form videos, livestream slots, affiliate content.
-5. Confirm tracking: affiliate links, promo codes, voucher redemption, app installs.
-6. Review brand-safety and competitor-sponsorship risks.
-7. Confirm hero product categories.
-8. Confirm budget split between creator fees and paid amplification.
-9. Identify backup creators if contract or review fails.
+1. Align on what "fast resolution" means.
+2. Decide which dispute types can be auto-resolved.
+3. Set value thresholds and risk exclusions.
+4. Confirm evidence requirements from merchants and customers.
+5. Confirm customer communication and appeal messaging.
+6. Review fraud, abuse, and loss-exposure controls.
+7. Confirm operating metrics and SLA targets.
+8. Confirm audit logging and compliance review.
+9. Define pilot scope, rollback criteria, and owner.
 
-Additional context: 11.11 is our biggest campaign window. We need youth relevance, measurable sales, and low brand risk. Budget is tight, so we probably cannot treat every candidate as a full-funnel hero partner.
+Additional context: support volume is rising, customers complain about slow PayLater dispute outcomes, and leadership wants a safer self-serve path. We need speed, trust, and risk control, but we cannot let automation create avoidable loss or compliance gaps.
 ```
 
-**Bot should confirm it will ask Wai Chong for growth input and Shang for commerce input.**
+**Bot should confirm it will ask Wai Chong for risk input and Shang for support operations input.**
 
 ### Turn 3: Wai Chong Reviews The Agenda
 
 **Bot -> Wai Chong**
 
 ```text
-John Taylor is preparing a meeting for Shopee SG 11.11 Creator Mix Planning.
+John Taylor is preparing a meeting for SeaMoney PayLater Dispute Automation Planning.
 
-John listed you as the Growth Lead. I need your acquisition view before I compress the agenda.
+John listed you as the Risk Lead. I need your risk view before I compress the agenda.
 
-Please review the draft agenda with a growth lens:
-1. Which creator best supports new-user growth?
+Please review the draft agenda with a risk lens:
+1. Which cases are safe to automate?
 2. Which agenda item must stay in the live meeting?
 3. Which items are already safe to treat as agreed?
 4. What assumption should I preserve in the brief?
@@ -140,15 +140,13 @@ Please review the draft agenda with a growth lens:
 **Wai Chong -> Bot**
 
 ```text
-My goal is to use 11.11 to bring in younger shoppers and new Shopee app users, not just sell to people who already buy from us.
+My goal is to keep fraud and loss exposure controlled. Faster resolution is good, but only if we do not train bad actors to exploit instant credits.
 
-The agenda looks mostly right. I want the live meeting to force a call on the primary campaign objective. If we say the campaign is for younger shoppers, I need to know whether we mean acquisition or just sales from a younger-looking audience.
+The live meeting needs to decide the automation boundary. I am comfortable with automation for very low-value disputes where merchant evidence is missing and the customer has a clean history.
 
-My preference is Mika Tan as the hero face. She has the strongest 18-24 TikTok audience, and her content feels native to students and young working adults.
+I am not comfortable auto-crediting repeat claimants, high-risk merchants, cross-border disputes, or large-ticket cases. Those need manual review until we have stronger abuse monitoring.
 
-My concern with Jayden is that he may convert well, but mostly with existing Shopee Live shoppers. That is useful, but it does not solve the acquisition goal.
-
-The metrics I care about are new-to-Shopee users, app installs, install-to-first-purchase rate, and CAC after paid amplification.
+The metrics I care about are fraud rate, repeat-claim rate, merchant dispute reversal rate, loss per resolved case, and percentage of automated decisions overturned on appeal.
 ```
 
 ### Turn 4: Shang Reviews The Agenda
@@ -156,12 +154,12 @@ The metrics I care about are new-to-Shopee users, app installs, install-to-first
 **Bot -> Shang**
 
 ```text
-John Taylor is preparing a meeting for Shopee SG 11.11 Creator Mix Planning.
+John Taylor is preparing a meeting for SeaMoney PayLater Dispute Automation Planning.
 
-John listed you as the Commerce Lead. I need your conversion view before I compress the agenda.
+John listed you as the Support Operations Lead. I need your operations view before I compress the agenda.
 
-Please review the draft agenda with a commerce lens:
-1. Which creator best supports 11.11 GMV?
+Please review the draft agenda with a support lens:
+1. Which cases should be automated first?
 2. Which agenda item must stay in the live meeting?
 3. Which items are already safe to treat as agreed?
 4. What assumption should I preserve in the brief?
@@ -170,15 +168,13 @@ Please review the draft agenda with a commerce lens:
 **Shang -> Bot**
 
 ```text
-My goal is GMV during the 11.11 sale window. Reach is useful, but only if the audience actually buys.
+My goal is to reduce the dispute backlog and hit a predictable customer SLA. Fast resolution means customers get a clear outcome without waiting days for an agent.
 
-The agenda should keep the creator role mix as a real discussion point. I do not want us to choose one viral hero and then discover we have no strong conversion engine.
+The live meeting should keep the question of which cases can be auto-resolved, because if the scope is too narrow we will not reduce volume enough to matter.
 
-My preference is Jayden Cho for the Shopee Live conversion role. He has the strongest livestream sales record, reliable basket size, and category demo discipline.
+My preference is to automate low-value missing-evidence cases, basic eligibility rejects, and simple customer-upload follow-ups. Anything that still needs an agent should enter a dedicated fallback queue with a clear SLA.
 
-My concern with Mika is that she may create awareness but not enough purchases. My concern with Ari is brand risk and unpredictable conversion.
-
-The metrics I care about are GMV, conversion rate, average order value, livestream attendance, affiliate sales, and voucher redemption.
+The metrics I care about are first-response time, time to resolution, agent touches per dispute, backlog size, reopen rate, and customer satisfaction after resolution.
 ```
 
 ### Turn 5: Bot Detects A Possible Fake Agreement
@@ -188,22 +184,22 @@ The metrics I care about are GMV, conversion rate, average order value, livestre
 ```text
 Based only on the stakeholder input collected so far, I found a likely alignment gap.
 
-Both Wai Chong and Shang are comfortable with a younger-shopper campaign, but they are optimizing different outcomes.
+Both Wai Chong and Shang are comfortable with faster dispute resolution, but they are optimizing different outcomes.
 
-Wai Chong is optimizing acquisition: new users, installs, and first purchases.
-Shang is optimizing commerce: GMV, conversion rate, and voucher redemption.
+Wai Chong is optimizing risk control: fraud rate, repeat claims, loss exposure, and appeal overturns.
+Shang is optimizing operations: SLA, backlog reduction, agent capacity, and customer satisfaction.
 
-From the campaign-lead side, should the creator mix be optimized for acquisition, GMV, or mainstream brand reach? Or should the agenda explicitly decide the split between those objectives?
+From the product-lead side, should the automation plan optimize for customer self-serve trust, loss containment, or support efficiency? Or should the agenda explicitly decide the split between those objectives?
 ```
 
 **John Taylor -> Bot**
 
 ```text
-For me, the creator mix needs to make Shopee feel youth-relevant without becoming too niche or risky.
+For me, the first rollout needs to prove customers can trust the self-serve path without making the risk team feel bypassed.
 
-The hero face should feel current and social-first, but still mainstream enough for a national 11.11 campaign. I do not want someone who creates buzz but distracts from the sale or creates brand-safety issues.
+I want fast resolution for clear, low-risk cases, but I do not want the product story to be "instant refunds for everyone." The launch should feel controlled: clear eligibility rules, visible appeal paths, and enough auditability that Risk and Compliance can review decisions.
 
-That is why I am comfortable with Mika or Nora as the hero face, cautious about Ari, and not fully convinced Jayden should be the hero face even if he is strong for conversion.
+So I am comfortable with automation as the default for a narrow pilot segment, but not for repeat claimants, high-risk merchants, large-ticket disputes, or anything with inconsistent evidence.
 ```
 
 ### Turn 6: Bot Asks For Agenda Additions Or Objections
@@ -214,10 +210,10 @@ That is why I am comfortable with Mika or Nora as the hero face, cautious about 
 I am moving resolved items out of the live meeting and into the pre-read.
 
 Proposed live agenda:
-1. Align on the primary campaign objective: acquisition, GMV, or brand reach.
-2. Decide the creator role mix: hero face vs Shopee Live conversion partner.
+1. Align on what "fast resolution" means: customer trust, loss containment, or support efficiency.
+2. Decide the automation boundary: which cases auto-resolve, auto-reject, or require manual review.
 
-Growth check: are you comfortable moving deliverables, tracking, hero categories, and backup creator into consensus?
+Risk check: are you comfortable moving evidence requirements, customer messaging, audit logging, pilot scope, and rollback criteria into consensus?
 ```
 
 **Wai Chong -> Bot**
@@ -225,7 +221,7 @@ Growth check: are you comfortable moving deliverables, tracking, hero categories
 ```text
 No objection. I agree those can go into the consensus brief.
 
-Please preserve that paid amplification is needed, because TikTok reach alone may not produce installs without media support. Also preserve that creator performance should be judged on new users, not only total sales.
+Please preserve that every automated decision needs an audit trail, and the pilot must exclude high-risk merchants, repeat claimants, large-ticket disputes, and cases with inconsistent evidence. Also preserve that appeal overturn rate should be reviewed weekly.
 ```
 
 **Bot -> Shang**
@@ -234,18 +230,18 @@ Please preserve that paid amplification is needed, because TikTok reach alone ma
 I am moving resolved items out of the live meeting and into the pre-read.
 
 Proposed live agenda:
-1. Align on the primary campaign objective: acquisition, GMV, or brand reach.
-2. Decide the creator role mix: hero face vs Shopee Live conversion partner.
+1. Align on what "fast resolution" means: customer trust, loss containment, or support efficiency.
+2. Decide the automation boundary: which cases auto-resolve, auto-reject, or require manual review.
 
-Commerce check: are you comfortable moving deliverables, hero categories, and backup creator into consensus?
+Support check: are you comfortable moving communication, operating metrics, fallback queue, pilot scope, and rollback criteria into consensus?
 ```
 
 **Shang -> Bot**
 
 ```text
-No objection, as long as the brief states that at least one Shopee Live slot is required and tracking must include affiliate links, promo codes, voucher redemption, and live GMV.
+No objection, as long as the brief states that cases excluded from automation must route to a dedicated fallback queue with a target SLA.
 
-I also want the final agenda to make clear that conversion is not a secondary detail. If we choose a separate hero face, we still need a clear commerce owner for the live-selling role.
+I also want the final agenda to make clear that automation scope cannot be so narrow that it has no operational impact. We need a measurable backlog reduction target for the pilot.
 ```
 
 ### Turn 7: Bot Sends Final Pre-Meeting Brief To John
@@ -253,133 +249,135 @@ I also want the final agenda to make clear that conversion is not a secondary de
 **Bot -> John Taylor**
 
 ```text
-Pre-meeting prep complete for Shopee SG 11.11 Creator Mix Planning.
+Pre-meeting prep complete for SeaMoney PayLater Dispute Automation Planning.
 
 Based only on the input collected from John, Wai Chong, and Shang, I reduced the original 9 agenda items to 2 live discussion items.
 
 Pre-meeting brief:
-- Agreed: use short-form video plus Shopee Live.
-  Source: John proposed this in the draft agenda; Shang confirmed at least one Shopee Live slot is required.
-- Agreed: track performance with creator-specific affiliate links, promo codes, voucher redemption, live GMV, and app-install events.
-  Source: Wai Chong asked to preserve new-user metrics; Shang asked to preserve conversion and voucher metrics.
-- Agreed: focus hero categories on fashion, beauty, and gadgets.
-  Source: John proposed these categories; Wai Chong and Shang did not object.
-- Likely agreed: reserve paid amplification because organic creator reach alone may not deliver installs.
-  Source: Wai Chong explicitly requested this; Shang did not object.
-- Agreed: prepare backup creators if contract or review fails.
-  Source: John proposed this; Wai Chong and Shang did not object.
-- Agreed: require brand-safety, disclosure, and competitor-sponsorship review before contracting.
-  Source: John raised brand risk; Shang raised Ari risk; no objections.
+- Agreed: start with a controlled pilot rather than full rollout.
+  Source: John proposed a staff-only or narrow pilot; Wai Chong and Shang did not object.
+- Agreed: automate clear low-value disputes only when eligibility is clean and evidence is missing or basic checks fail.
+  Source: Wai Chong accepted low-risk missing-evidence automation; Shang requested low-value missing-evidence and eligibility automation.
+- Agreed: high-risk merchants, repeat claimants, large-ticket disputes, and inconsistent-evidence cases require manual review.
+  Source: Wai Chong explicitly excluded these cases; John confirmed the same boundary.
+- Agreed: excluded cases route to a dedicated fallback queue with a clear SLA.
+  Source: Shang requested this; no objections.
+- Agreed: customer communication must explain the outcome and preserve an appeal path.
+  Source: John asked for trust and appealability; Shang asked for clear customer outcomes.
+- Agreed: audit logging and weekly review are required for automated decisions.
+  Source: Wai Chong requested audit trail and appeal-overturn review.
+- Agreed: pilot metrics should include resolution time, backlog, agent touches, fraud rate, loss per resolved case, appeal overturns, and customer satisfaction.
+  Source: Wai Chong and Shang each supplied their metric sets.
 
 Potential alignment gap:
-Everyone is comfortable with reaching younger shoppers, but the success criteria differ:
-- Wai Chong optimizes for acquisition: new users, app installs, and first purchases.
-- Shang optimizes for commerce: GMV, conversion rate, voucher redemption, and live sales.
-- John optimizes for brand reach: youth relevance without losing mainstream trust or brand safety.
+Everyone is comfortable with "fast resolution," but the success criteria differ:
+- Wai Chong optimizes for risk control: fraud rate, repeat claims, loss exposure, and appeal overturns.
+- Shang optimizes for support operations: SLA, backlog reduction, agent capacity, and customer satisfaction.
+- John optimizes for product trust: a controlled self-serve path that customers understand and internal teams can audit.
 
 Recommended meeting agenda:
-1. Align on the primary campaign objective: acquisition, GMV, or brand reach.
-2. Decide the creator role mix: hero face vs Shopee Live conversion partner.
+1. Align on what "fast resolution" means: customer trust, loss containment, or support efficiency.
+2. Decide the automation boundary: which cases auto-resolve, auto-reject, or require manual review.
 
-Candidate tradeoffs:
-- Mika Tan: strongest youth reach and campaign energy; less proven at direct conversion.
-- Jayden Cho: strongest Shopee Live conversion and basket size; less exciting as the hero face.
-- Nora Lim: safest mainstream fit; weaker youth signal.
-- Ari Vega: strongest buzz; highest brand-safety and disclosure risk.
+Policy tradeoffs:
+- Broad automation: largest SLA and backlog impact, but higher fraud and loss exposure.
+- Narrow pilot: safer launch and easier audit, but may not reduce volume enough.
+- Manual-first review: lowest risk, but does not solve the customer wait-time problem.
+- Auto-reject eligibility failures: quick operational win, but needs careful customer messaging and appeal handling.
 ```
 
 ## Participants
 
-### Wai Chong, Growth Lead
+### Wai Chong, Risk Lead
 
-- Goal: drive new Shopee app installs, first purchases, and youth acquisition.
-- Preference: Mika Tan.
-- Says: "We should use this campaign to bring in younger shoppers."
-- Actually means: 18-24 TikTok audience that can drive app installs and first purchases.
-- Concern: commerce creators may sell well but mostly to existing Shopee users.
+- Goal: control fraud, abuse, and loss exposure from automated dispute decisions.
+- Preference: narrow automation boundary with strict exclusions.
+- Says: "Faster resolution is fine for clean, low-risk disputes."
+- Actually means: speed is acceptable only when repeat-claim, merchant-risk, value, and evidence checks are safe.
+- Concern: instant credits could train abuse and create avoidable losses.
 
-### Shang, Commerce Lead
+### Shang, Support Operations Lead
 
-- Goal: maximize GMV, conversion rate, and live-commerce performance during 11.11.
-- Preference: Jayden Cho.
-- Says: "Younger shoppers are useful only if they actually buy."
-- Actually means: young shoppers who convert through Shopee Live, affiliate links, promo codes, and voucher redemption.
-- Concern: viral creators may create views without sales.
+- Goal: reduce dispute backlog, hit SLA, and lower agent touches per case.
+- Preference: automate low-value routine cases and basic eligibility outcomes.
+- Says: "Customers need a clear outcome without waiting days."
+- Actually means: automation must cover enough cases to move operational metrics.
+- Concern: a pilot that is too narrow will not reduce volume enough to matter.
 
-### John Taylor, 11.11 Campaign Lead
+### John Taylor, PayLater Product Lead
 
 - Meeting-master role: owns the generated pre-meeting brief and decides what goes into the human agenda.
-- Goal: pick a creator role mix that balances youth relevance, brand safety, acquisition, and commercial impact.
-- Preference: Mika Tan or Nora Lim as hero face, with a separate conversion partner if needed.
-- Says: "The influencer should feel young and current, but still mainstream."
-- Actually means: culturally relevant without brand-safety risk.
-- Concern: an edgy creator could distract from the 11.11 sale.
+- Goal: launch a trustworthy self-serve path that balances customer speed, risk control, and operational relief.
+- Preference: controlled pilot with clear eligibility, appeal path, and auditability.
+- Says: "We need fast resolution customers can trust."
+- Actually means: fast for clean cases, explainable and reviewable for everyone else.
+- Concern: the product could look unfair if automation is opaque or too aggressive.
 
-## Candidate Influencers
+## Policy Options
 
-### Mika Tan
+### Broad Automation
 
-TikTok-first fashion and lifestyle creator. Strongest youth reach and campaign energy, but less proven at direct sales conversion.
+Auto-resolve most low-value disputes and auto-reject clear eligibility failures. Highest operational impact, but highest risk if abuse monitoring is weak.
 
-### Jayden Cho
+### Narrow Pilot
 
-Shopee Live commerce creator. Strongest conversion record and basket size, but less exciting as the youth-facing hero.
+Automate only clean, low-value, missing-evidence cases and basic eligibility outcomes. Safer launch, but may not reduce backlog enough.
 
-### Nora Lim
+### Manual-First Review
 
-Mainstream lifestyle creator. Safest brand fit, but weaker youth signal.
+Keep all payment-impacting decisions with agents, using automation only for triage and customer-upload prompts. Lowest risk, weakest SLA impact.
 
-### Ari Vega
+### Auto-Reject Eligibility Failures
 
-Edgy viral creator. Strong buzz, but higher brand-safety, disclosure, and competitor-sponsorship risk.
+Automatically reject disputes that fail basic rules while preserving an appeal path. Useful for volume, but messaging must be clear.
 
 ## Starting Agenda
 
-1. Align on the primary campaign objective.
-2. Decide creator role mix: hero face vs Shopee Live conversion partner.
-3. Choose which creator should own each role.
-4. Confirm deliverables: short-form videos, livestream slots, affiliate content.
-5. Confirm tracking: affiliate links, promo codes, voucher redemption, app installs.
-6. Review brand-safety and competitor-sponsorship risks.
-7. Confirm hero product categories.
-8. Confirm budget split between creator fees and paid amplification.
-9. Identify backup creators if contract or review fails.
+1. Align on what "fast resolution" means.
+2. Decide which dispute types can be auto-resolved.
+3. Set value thresholds and risk exclusions.
+4. Confirm evidence requirements from merchants and customers.
+5. Confirm customer communication and appeal messaging.
+6. Review fraud, abuse, and loss-exposure controls.
+7. Confirm operating metrics and SLA targets.
+8. Confirm audit logging and compliance review.
+9. Define pilot scope, rollback criteria, and owner.
 
 ## Async Pre-Meeting Brief
 
 These items are compressible based only on the collected stakeholder input:
 
-- `agreed`: creator plan must include short-form video and affiliate content.
-- `agreed`: at least one Shopee Live slot is required.
-- `agreed`: tracking should use creator-specific affiliate links, promo codes, voucher redemption, live GMV, and app-install events.
-- `agreed`: hero categories should include fashion, beauty, and gadgets.
-- `likely_agreed`: budget should reserve paid amplification instead of spending all funds on creator fees.
-- `agreed`: brand-safety, disclosure, and competitor-sponsorship review is required.
-- `agreed`: backup creators should be prepared.
+- `agreed`: first rollout should be a controlled pilot, not full rollout.
+- `agreed`: low-value missing-evidence cases are candidates for automation.
+- `agreed`: basic eligibility failures can be automated if messaging and appeals are clear.
+- `agreed`: repeat claimants, high-risk merchants, large-ticket disputes, and inconsistent-evidence cases require manual review.
+- `agreed`: manual-review cases need a dedicated fallback queue and SLA.
+- `agreed`: automated decisions need audit logging and weekly review.
+- `agreed`: pilot metrics must include both risk and operations outcomes.
 
 No item is finalized by the agent. The meeting owner can pull any compressed item back into the live agenda.
 
 ## Generated Meeting Agenda
 
-1. **Align on the primary campaign objective**
-   Growth means acquisition and first purchases. Commerce means GMV and live conversion. Campaign Lead means mainstream youth reach without brand risk.
+1. **Align on what "fast resolution" means**
+   Risk means fraud-safe and loss-controlled. Support Operations means lower SLA and backlog. Product means customer trust in a controlled self-serve path.
 
-2. **Decide the creator role mix**
-   Decide whether one creator can cover the hero-face and conversion roles, or whether the campaign needs a hero creator plus a separate Shopee Live conversion partner.
+2. **Decide the automation boundary**
+   Decide which disputes auto-resolve, which auto-reject, and which require manual review for the first rollout.
 
 ## Alignment-Gap Reveal
 
 Naive summary:
 
-> "All participants agree the campaign should target younger shoppers."
+> "All participants agree the dispute flow needs faster resolution."
 
 Assumption-aware output:
 
-> "Potential alignment gap: participants agree on the audience label but optimize different campaign outcomes."
+> "Potential alignment gap: participants agree on speed, but optimize different outcomes and risk tolerance."
 
 Narration line:
 
-> "This looked like agreement. Everyone wanted younger shoppers. But Growth meant new users, Commerce meant live sales, and the Campaign Lead meant a mainstream-safe hero campaign. The system caught that before the meeting, so the agenda starts with the real disagreement."
+> "This looked like agreement. Everyone wanted faster resolution. But Risk meant loss-safe decisioning, Support Ops meant backlog reduction, and Product meant a trustworthy self-serve launch. The system caught that before the meeting, so the agenda starts with the real disagreement."
 
 ## Demo Ending
 
@@ -387,16 +385,16 @@ Show the generated pre-meeting brief:
 
 **Compressed from live agenda**
 
-- `agreed`: use short-form video plus Shopee Live.
-- `agreed`: track with affiliate links, promo codes, voucher redemption, live GMV, and app installs.
-- `agreed`: focus hero categories on fashion, beauty, and gadgets.
-- `likely_agreed`: reserve paid amplification.
-- `agreed`: complete brand-safety, disclosure, and competitor-sponsorship review.
-- `agreed`: prepare backup creators.
+- `agreed`: launch as a controlled pilot.
+- `agreed`: automate clean low-value missing-evidence cases and basic eligibility outcomes.
+- `agreed`: keep high-risk, repeat-claim, large-ticket, and inconsistent-evidence cases in manual review.
+- `agreed`: route manual cases to a dedicated fallback queue with SLA.
+- `agreed`: preserve customer appeal messaging.
+- `agreed`: require audit logging, weekly review, and rollback criteria.
 
 **Needs discussion**
 
-- What is the primary campaign objective: acquisition, GMV, or brand reach?
-- What creator role mix should we use: one hero partner or hero plus conversion partner?
+- What does "fast resolution" optimize for: trust, loss containment, or support efficiency?
+- Where is the automation boundary for the first rollout?
 
-Stop here. Do not show the final influencer decision.
+Stop here. Do not show the final automation policy decision.
