@@ -6,123 +6,207 @@ status: active-plan
 
 # Pitch Script — 6-Minute Demo
 
-PerMyLastEmail is a **Slack-native pre-meeting crux finder**. Every person has a
-persistent personal agent in Slack. When a meeting is called, a transient orchestrator
-agent reaches out to each person's agent, compares the assumptions under their stances,
-clears what it can before anyone sits down, and hands humans only the disagreements that
-actually need a meeting.
+PerMyLastEmail is a **Slack-native pre-meeting crux finder**. The Slack bot is named
+**Mochi**. Every participant has a persistent personal agent. When someone asks Mochi to
+prep a meeting, a transient orchestrator agent collects stakeholder stances, compares the
+assumptions underneath them, clears what can be resolved asynchronously, and sends each
+participant a compressed brief containing only the items that actually need humans live.
+
+This pitch follows the current Shopee SG 11.11 creator-mix demo. Stop at the generated
+pre-meeting brief; do not show a final influencer decision.
 
 ## Cold Open
 
-> "Four people said: make checkout secure. A summarizer would mark that as agreement. But
-> PM and Backend meant a server-side session, while Security meant no client-side token at
-> all. Same words, different assumptions — that is how a team accidentally ships the wrong
-> design into 11.11."
+> "Everyone says: we need to reach younger shoppers for 11.11. A summarizer would mark
+> that as alignment. But Growth means new users and app installs. Commerce means GMV and
+> voucher redemption. The Campaign Lead means mainstream-safe youth reach. Same phrase,
+> different assumptions — and that is how a team burns a meeting on fake agreement."
 
-> "PerMyLastEmail lives in Slack. Everyone already has a personal agent there. When a
-> meeting is called, an orchestrator agent quietly talks to everyone's agent, resolves what
-> it can, and gives the humans only the fights that matter."
+> "Mochi lives in Slack. Before the meeting starts, it DMs the right stakeholders, asks
+> what they actually mean, compares the assumptions, clears the easy items, and gives the
+> team a two-item agenda instead of a nine-item status walk."
 
 ## What's Actually Running
 
-> "Each person has a **persistent managed agent session** — enterprise style: everyone has
-> a standing agent that knows their context. The **orchestrator is a transient session**
-> spun up for one meeting; it reaches every participant agent, runs the assumption-diff
-> classifier, and then dissolves. The agent-to-agent call graph is right there in the
-> OpenAI trace viewer."
+> "The primary entry point is now just a Slack DM. If John writes 'prep the 11.11 mix' and
+> includes @mentions with Growth, Commerce, and Lead roles, Mochi parses the roster and
+> fans out immediately. If the roster is missing, it asks one setup question. The slash
+> command is still there as a hosted fallback."
+
+> "Each stakeholder has a **persistent managed agent session** with structured stance tools:
+> position, rationale, assumptions, and confidence. The **orchestrator is transient**. It
+> spins up for this Shopee planning meeting, asks Wai Chong, Shang, and John Taylor for
+> their stances on each agenda item, runs the assumption-aware classifier, pre-clears the
+> action items, DMs the Block Kit digest to the participants, and then dissolves."
+
+> "The important distinction is that we compare assumptions, not just positions. The naive
+> baseline sees 'support reaching younger shoppers' and says agreed. The crux finder sees
+> acquisition, GMV, and brand reach pulling in different directions."
 
 ## Demo Storyboard
 
 | Beat | Time | On Screen | Narration |
 |---|---:|---|---|
-| 1. Set your stance | 50s | Slack DM with your own agent | "I tell my agent, in plain Slack: 'I'm fine shipping, but only if no checkout token is ever stored client-side.' My agent maps that onto a structured stance. Stances are grounded in what people actually said — not made up." |
-| 2. Call the meeting | 35s | `/premeeting` posts the decision + 9-item agenda + action items | "The organizer calls the pre-meeting in Slack. A transient orchestrator spins up." |
-| 3. Agents reach out | 60s | OpenAI trace viewer: orchestrator → each participant agent | "The orchestrator queries every participant's persistent agent, item by item. This is real agent-to-agent reasoning — you can watch the call graph live in the trace." |
-| 4. The easy 7 dissolve | 35s | Digest: 7 items agreed | "Seven items are genuine agreement. They never reach the meeting." |
-| 5. Action items pre-cleared | 35s | Digest: action items resolved / needs-owner | "Resolvable action items get closed before the meeting too — rollback owner assigned, one load-test item flagged because no agent could own it without a human." |
-| 6. The real crux | 30s | Load-readiness stays red | "One real disagreement: SRE is not comfortable with 11.11 traffic readiness." |
-| 7. Fake agreement caught | 75s | Security item amber → assumption diff | "Here's the important one. Everyone said 'secure checkout,' so a naive baseline says agreed. But the assumption-aware classifier catches the mismatch: PM/Backend assume a server-side session; Security means no client-side token. The orchestrator wasn't sure, so it DM'd the human, the human confirmed, and it locked as a crux." |
-| 8. The result | 30s | Digest: 9 → 2 + decision record | "The meeting is now 2 items, not 9 — with provenance and dissents preserved. The human owner still decides." |
-| 9. Codex close | 30s | Commit trail, evals, trace | "We used OpenAI Agents SDK for the persistent and transient agents, Slack as the human membrane, and Codex to build, test, and red-team the crux engine." |
+| 1. Start the prep | 40s | John sends one free-form DM with the Shopee brief and teammate @mentions | "John Taylor starts a pre-meeting for Shopee SG's 11.11 creator campaign without leaving Slack. The decision is not 'who wins' yet; it is how to structure the meeting so the team can decide the creator mix quickly." |
+| 2. Fan out to stakeholders | 40s | Mochi parses `<@...> Commerce`, `<@...> Lead`, `me Growth` and opens DMs | "Mochi detects this is a meeting-prep request, maps Slack users to the existing Growth, Commerce, and Lead personas, and asks each person for the exact input needed to compress the agenda." |
+| 3. Collect Growth input | 45s | Wai Chong / Growth DM | "Growth wants younger shoppers to mean acquisition: new Shopee users, app installs, first purchases, and CAC after amplification. Mika is the strongest hero candidate from that lens." |
+| 4. Collect Commerce input | 45s | Shang / Commerce DM | "Commerce wants 11.11 GMV. Reach matters only if the audience buys, so Shang needs Jayden for Shopee Live conversion, voucher redemption, and live sales discipline." |
+| 5. Collect owner input | 40s | John / Lead DM or owner review | "John wants youth relevance without making the national 11.11 campaign too niche or risky. He may split the hero face from the conversion partner." |
+| 6. Auto-compile or force compile | 35s | Progress DM; optional `compile` or `/premeeting-compile` | "Mochi tracks who has responded and compiles automatically when all input is in. The owner can force compilation early if the stage clock is tight." |
+| 7. Show the 9 to 2 digest | 60s | Slack Block Kit digest in participant DMs, or `scripts/run_demo.py` output | "The final brief compresses nine agenda items down to two: align the primary objective, then decide the creator role mix: one hero partner or hero plus Shopee Live conversion partner." |
+| 8. Show the contrast | 35s | Naive baseline or narration | "A position-only baseline says the objective is agreed. The assumption-aware classifier marks it fake agreement because Growth, Commerce, and the owner are using the same words for different success criteria." |
+| 9. Codex close | 40s | Tests, code, trace if available | "This is built with OpenAI Agents SDK, Slack Bolt Socket Mode, pydantic contracts, SQLite-backed persistent stances, free-form DM routing, deterministic tests, and a cached fallback for stage timing." |
 
 ## The Main Line
 
-> "We are not summarizing the meeting after it happens. We are preventing the wrong meeting
-> from happening — inside the tool the team already lives in."
+> "We are not summarizing the meeting after it happens. We are preventing the wrong
+> meeting from happening. The owner still makes the business decision, but the room starts
+> with the actual crux instead of rediscovering it live."
+
+## What The Final Brief Should Say
+
+Show this shape, whether it comes from Slack or the offline scripted demo:
+
+```text
+Mochi — Prepare Shopee SG 11.11 creator mix decision: hero face, Shopee Live conversion role, and criteria for the split.
+Agenda compressed: 9 → 2 items need a meeting
+
+  :large_orange_circle: objective: Everyone says younger shoppers, but success criteria differ.
+  [Growth: acquisition and app installs; Commerce: GMV and voucher redemption; Campaign Lead: mainstream-safe youth reach]
+  :red_circle: role-mix: The creator role split is unresolved.
+  [Wai Chong prefers Mika as hero face; Shang requires Jayden for Shopee Live conversion; John may split hero and conversion roles.]
+
+Action items: 3 resolved, 0 need an owner
+Decision owner: John Taylor (owner call with logged dissents)
+```
+
+Then name the pre-read items that no longer need live debate:
+
+- short-form video plus Shopee Live
+- affiliate links, promo codes, voucher redemption, live GMV, and app-install tracking
+- fashion, beauty, and gadgets as hero categories
+- paid amplification reserved for install growth
+- brand-safety, disclosure, and competitor-sponsorship review
+- backup creators if contract or review fails
 
 ## Judging Criteria Beats
 
-Make these explicit during the 6 minutes:
-
-- **Problem & Solution Fit:** the 11.11 launch go/no-go is a real cross-functional meeting; most of the hour is spent re-discovering agreement.
-- **Build Quality:** persistent + transient managed agents, conversational stance editing, assumption-aware classifier, naive baseline, action-item clearing, Slack digest, evals, cached fallback — all working.
-- **Insight & Originality:** fake-agreement detection is the wedge; the baseline proves it's not summarization.
-- **Real-World Value:** shorter meetings, fewer false-consensus launch decisions, action items closed before anyone meets — all in Slack, no new tool to adopt.
-- **Build Direction (AI-native operations):** the operating pattern changes — people send agents into a pre-meeting reasoning loop; humans receive only unresolved cruxes with provenance.
-- **Use of Codex:** Codex scoped the pivot, built the engine and orchestrator, wrote the evals, and red-teamed the classifier.
+- **Problem & Solution Fit:** cross-functional campaign planning looks aligned until
+  stakeholders define success differently. PMLE finds that before the meeting.
+- **Build Quality:** persistent participant agents, transient orchestrator, structured
+  pydantic stance contract, SQLite persistence, free-form Slack DM routing, roster
+  parsing, participant fan-out, Block Kit digest, deterministic fallback, and offline
+  tests.
+- **Insight & Originality:** fake-agreement detection is the wedge. The baseline proves
+  this is not just summarization.
+- **Real-World Value:** fewer live agenda items, less false consensus, action items closed
+  before the meeting, and no new tool for the team to adopt.
+- **Build Direction:** people send agents into the pre-meeting loop; humans receive only
+  unresolved cruxes with provenance.
+- **Use of Codex:** Codex helped pivot the scenario, align docs with code, build the
+  orchestrator and Slack path, write tests, and harden the demo fallback.
 
 ## Why Slack, Why Persistent vs Transient
 
-> "Slack is where the team already is, so adoption cost is zero. The persistent agents are
-> the enterprise reality — everyone gets a standing agent. The orchestrator is transient on
-> purpose: it exists only for the meeting, holds no standing authority, and dissolves when
-> it's done. It compresses *what to discuss*; it never makes the business decision."
+> "Slack is where the team already is, so the adoption cost is low. Persistent agents are
+> useful because each person keeps their working context and stance history across
+> meetings. The orchestrator is transient on purpose: it has no standing authority. It
+> exists only to prepare this meeting, compress the agenda, and hand control back to the
+> human owner."
+
+> "The multi-human flow matters because Mochi is not asking John to impersonate the whole
+> room. John can mention the actual stakeholders, Mochi DMs them, tracks responses, and
+> sends the compiled brief back to everyone involved."
 
 ## What Is Live vs Cached
 
-> "Stances can be cached for stage timing, but the assumption-diff classification runs live
-> on those structured stances, and we keep a deterministic fallback so stage timing never
-> decides the demo. The core claim isn't about API speed — it's that position-only
-> classification misses fake agreement while assumption-aware classification catches it.
-> That's what the baseline and evals show."
+> "For stage safety, the default Slack path uses offline intent detection and a
+> deterministic cached Shopee digest. `/premeeting-scripted` hits the same reliable path.
+> That means the final brief is input-independent unless `PMLE_LIVE_AGENTS=1` is set. In
+> live mode, the router agent classifies the DM intent, stakeholder replies are grounded
+> into persistent stances, and the brief is classified from those stances with real OpenAI
+> calls. The script runner has a separate gate: it goes live only when `OPENAI_API_KEY` is
+> exported in the shell."
+
+> "The demo claim does not depend on API speed. The claim is that position-only agreement
+> misses the real issue, while assumption-aware classification catches it and compresses
+> the meeting from nine agenda items to two."
 
 ## Judge Q&A
 
 ### "Isn't this just a meeting summarizer?"
 
-No. Summarizers act after the meeting. PerMyLastEmail acts before it, in Slack, and catches
-hidden disagreement a transcript summary would flatten.
+No. Summarizers act after the meeting. Mochi acts before the meeting and changes what
+reaches the room.
 
-### "How do you know the agents aren't just making the stances up?"
+### "What is the crux in this demo?"
 
-Stances are set by the humans, conversationally, through their own agents. Every stance
-traces back to something a person actually told their agent — and the human can revise it
-any time. That's why we can trust the compression.
+The surface phrase is "younger shoppers." Growth means acquisition and app installs.
+Commerce means sale-window GMV and conversion. The Campaign Lead means youth relevance
+without losing mainstream brand safety. The first live agenda item is to decide which
+objective governs the creator mix.
+
+### "What is the second live agenda item?"
+
+Whether one creator can cover both roles, or whether the campaign needs a hero face plus a
+separate Shopee Live conversion partner. Mika is stronger for youth reach; Jayden is
+stronger for live conversion; Nora is safer but less youth-coded; Ari has buzz but higher
+brand risk.
+
+### "How do you know the agents aren't making up the stances?"
+
+The structured stances come from stakeholder replies in live mode or from the seeded
+Shopee scenario in the deterministic demo path. The contract stores position, rationale,
+assumptions, and confidence, and the Slack live path persists those via each participant's
+agent.
 
 ### "How do you know it isn't staged?"
 
-Three things: the naive baseline fails on the security item; the assumption diff explains
-exactly why; and the eval suite includes a false-positive trap where different wording with
-the same assumption still classifies as agreed.
+There are two paths by design. The cached path is deterministic for a reliable stage demo,
+including the free-form DM and `/premeeting-scripted` surfaces. The live path is enabled
+explicitly with `PMLE_LIVE_AGENTS=1` and real OpenAI calls. The tests lock down that the
+default cached path cannot silently leak into the live path.
 
 ### "Do agents decide for humans?"
 
-No. The orchestrator compresses the agenda. The human owner decides, with provenance, and
-can pull any compressed item back into the meeting.
+No. The system compresses the agenda and preserves the disagreement. John Taylor remains
+the decision owner and can pull any compressed item back into the live meeting.
 
 ### "Do agents leak private context?"
 
-No raw private context is shared between agents. They emit structured stances: position,
-rationale, assumptions, confidence, evidence references.
+The orchestrator operates on structured stances, not raw private history: position,
+rationale, assumptions, confidence, and citations to stakeholders.
 
-### "Why managed agents / OpenAI?"
+### "Why OpenAI Agents SDK?"
 
-We need persistent per-person sessions, transient orchestration, agent-to-agent tool calls,
-and built-in tracing — the Agents SDK gives all four out of the box, so we spent our day on
-the product logic: comparing assumptions and extracting cruxes.
+The demo needs persistent per-person sessions, transient orchestration, function tools for
+stance updates, and tracing. The Agents SDK gives those primitives, so the product logic can
+focus on assumption comparison.
 
 ## Backup Lines
 
 If Slack is slow or flaky:
 
-> "I'll switch to the cached path — same orchestrator, same digest, no network dependency."
+> "I'll switch to `/premeeting-scripted` or the local demo runner. Same Shopee scenario,
+> same nine-to-two digest, no Slack timing dependency."
+
+If a stakeholder has not replied:
+
+> "The owner can DM `compile` or use `/premeeting-compile` to force the brief with the
+> input gathered so far."
+
+If live agent grounding is not enabled:
+
+> "This run is using the deterministic cached Shopee stances for stage timing. The live
+> path is gated explicitly by `PMLE_LIVE_AGENTS=1` so we do not accidentally confuse a
+> reliable demo with a live-input demo."
 
 If the trace is the only thing live:
 
-> "The trace viewer is the durable proof: that's the real orchestrator-to-agent call graph
-> from this run."
+> "The trace shows the actual orchestrator and participant-agent calls from this run; the
+> Slack digest is the product surface."
 
 ## Closing
 
-> "Meetings don't fail because people disagree. They fail because people think they agree.
-> PerMyLastEmail catches that before the hour is gone — right inside Slack."
+> "Meetings do not fail only because people disagree. They fail because people think they
+> agree. Mochi catches that before the hour is gone — right inside Slack."
