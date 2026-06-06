@@ -88,6 +88,46 @@ That workflow matters to the build: Codex acted as an engineering collaborator t
 move between product framing, architecture, implementation, test design, debugging, and
 documentation while keeping the repository state visible.
 
+## Entry Submission
+
+PerMyLastEmail is a Slack-native agent coordination product for teams that waste meeting
+time rediscovering agreement. Instead of summarizing a meeting after it happens, it sends
+participant agents into a pre-meeting reasoning loop: each person can update their
+stance conversationally in Slack, the orchestrator compares the assumptions underneath
+those stances, and the final digest shows only the decisions that still need humans.
+
+**Problem & Solution Fit:** The problem is real in product, ops, compliance, and launch
+meetings: teams often appear aligned because they use the same words, while actually
+optimizing for different outcomes. PerMyLastEmail is the right answer because it catches
+that fake agreement before the meeting and preserves provenance for every remaining
+crux.
+
+**Build Quality:** The repository contains a working Slack Socket Mode app, persistent
+participant agents, a transient orchestrator loop, structured stance persistence,
+assumption-aware classification, Block Kit digest rendering, cached fallback paths, and
+tests for the core schema, store, classifier, orchestrator, meeting flow, and digest.
+
+**Insight & Originality:** The key insight is that meeting prep is not a summarization
+problem; it is an agent-coordination problem. The novel move is giving every stakeholder
+a persistent agent that owns their stance contract, then letting a short-lived
+orchestrator reason across those contracts before the human meeting starts.
+
+**Real-World Value:** The working demo compresses broad meeting prep into a focused
+decision brief. The direct beneficiaries are meeting owners, product teams, operations
+teams, risk/compliance partners, and support leads who need fewer status meetings and
+clearer escalation of real disagreements.
+
+**Alignment with Build Direction:** The project is primarily **AI-Native Products &
+Operations**: agents change the operating pattern by doing pre-meeting coordination
+work that previously required humans in a room. It also reflects **Deep Domain AI** by
+reasoning over role-specific assumptions in launch, campaign, PayLater, support, and
+compliance workflows.
+
+**Use of Codex:** Codex was used deeply as a coding agent across the build, not just for
+code snippets. It helped scope the Slack pivot, pressure-test product framing, design
+the managed-agent architecture, implement core modules, write and run tests, review
+scripts, debug setup issues, red-team scenarios, and refine the submission narrative.
+
 ## Docs
 
 - [Design Spec — Slack-native](./docs/design-spec-slack.md)
