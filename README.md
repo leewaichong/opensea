@@ -92,4 +92,6 @@ documentation while keeping the repository state visible.
 
 - [Design Spec — Slack-native](./docs/design-spec-slack.md)
 - [Build Plan — implementation tasks](./docs/build-plan-slack.md)
+- [Demo Scenario — 11.11 Creator Mix](./docs/demo-scenario-11-11.md)
+- [Demo Scenario — PayLater Dispute Automation](./docs/demo-scenario-paylater.md)
 - [Pitch Script](./docs/pitch-script.md)
